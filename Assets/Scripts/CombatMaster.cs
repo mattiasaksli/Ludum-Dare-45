@@ -1,60 +1,76 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class CombatMaster : MonoBehaviour
 {
     public EnemyController EC;
     public AllyController AC;
     public int roundCount;
-    public float roundTime = 20f;
-
-    private float timer;
-    private float roundEndTime;
-    private float turnEndTime;
-    private bool turningLeft = false;
-    private bool turningRight = false;
+    public int roundTime = 20;
+    public int currentTime;
+    public bool turningLeft = false;
+    public bool turningRight = false;
     private float yEulerAngle;
-
+    public bool skip;
+    public bool inputDisable;
     void Start()
     {
+        inputDisable = false;
+        turningLeft = false;
+        turningRight = false;
         roundCount = 1;
-        timer = Time.time;
-        roundEndTime = timer + roundTime;
+        EC = GameObject.FindGameObjectWithTag("EnemyController").GetComponent<EnemyController>();
+        AC = GameObject.FindGameObjectWithTag("AllyController").GetComponent<AllyController>();
+        StartCoroutine(Timer());
     }
-
+    public void RoundStart()
+    {
+        skip = false;
+        inputDisable = false;
+        roundCount += 1;
+        AC.RoundStart();
+        EC.RoundStart();
+        StartCoroutine(Timer());
+    }
+    IEnumerator Timer()
+    {
+        for (int i = 0; i < roundTime; i++)
+        {
+            currentTime = i;
+            if (skip)
+            {
+                currentTime = 20;
+                break;
+            }
+            yield return new WaitForSeconds(1f);
+        }
+        inputDisable = true;
+        AC.Combat();
+    }
+    IEnumerator Rotating()
+    {
+        yield return new WaitForSeconds(.4f);
+        inputDisable = false;
+        turningLeft = false;
+        turningRight = false;
+    }
     // Update is called once per frame
     void Update()
     {
-        timer = Time.time;
-
-        if (timer < roundEndTime)
+        if (!turningLeft && !turningRight)
         {
-
-            if (turningLeft || turningRight)
-            {
-                if (timer >= turnEndTime)
-                {
-                    turningRight = false;
-                    turningLeft = false;
-                }
-            }
-
-            if (!turningLeft && !turningRight)
+            if (!inputDisable)
             {
 
                 if (Input.GetKeyDown(KeyCode.LeftShift))
                 {
-                    AC.Combat();
-                    EC.Combat();
-                    AC.RoundStart();
-                    EC.RoundStart();
-
-                    roundCount += 1;
-                    roundEndTime = Time.time + roundTime;
+                    skip = true;
                 }
 
                 if (Input.GetKeyDown(KeyCode.A))
                 {
                     turningLeft = true;
+                    inputDisable = true;
                     foreach (Ally ally in AC.allies)
                     {
                         ally.sectorIndex = (ally.sectorIndex - 1) % 6;
@@ -63,42 +79,34 @@ public class CombatMaster : MonoBehaviour
                             ally.sectorIndex = 5;
                         }
                     }
-                    turnEndTime = Time.time + 0.5f;
                     yEulerAngle = AC.transform.eulerAngles.y;
+                    StartCoroutine(Rotating());
                 }
 
                 if (Input.GetKeyDown(KeyCode.D))
                 {
                     turningRight = true;
+                    inputDisable = true;
                     foreach (Ally ally in AC.allies)
                     {
                         ally.sectorIndex = (ally.sectorIndex + 1) % 6;
                     }
-                    turnEndTime = Time.time + 0.5f;
                     yEulerAngle = AC.transform.eulerAngles.y;
+                    StartCoroutine(Rotating());
                 }
             }
-            else if (turningLeft)
-            {
-                AC.transform.rotation = Quaternion.Lerp
-                    (AC.transform.rotation, Quaternion.Euler(0, yEulerAngle - 60f, 0), 0.25f);
-            }
-            else if (turningRight)
-            {
-                AC.transform.rotation = Quaternion.Lerp
-                    (AC.transform.rotation, Quaternion.Euler(0, yEulerAngle + 60f, 0), 0.25f);
-            }
-
         }
-        else
+        else if (turningLeft)
         {
-            AC.Combat();
-            EC.Combat();
-            AC.RoundStart();
-            EC.RoundStart();
-
-            roundCount += 1;
-            roundEndTime = Time.time + roundTime;
+            AC.transform.rotation = Quaternion.Lerp
+                (AC.transform.rotation, Quaternion.Euler(0, yEulerAngle - 60f, 0), 0.25f);
         }
+        else if (turningRight)
+        {
+            AC.transform.rotation = Quaternion.Lerp
+                (AC.transform.rotation, Quaternion.Euler(0, yEulerAngle + 60f, 0), 0.25f);
+        }
+
+
     }
 }
