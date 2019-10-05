@@ -339,7 +339,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 95277574}
-  m_LocalRotation: {x: 0.4585958, y: -0.00000005621245, z: 0.000000029009106, w: 0.888645}
+  m_LocalRotation: {x: 0.4585958, y: -0.000000032316557, z: 0.000000016677344, w: 0.888645}
   m_LocalPosition: {x: 0, y: 7.2293596, z: -3.772008}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -359,7 +359,7 @@ GameObject:
   - component: {fileID: 150335690}
   - component: {fileID: 150335691}
   m_Layer: 0
-  m_Name: AllyMaster
+  m_Name: AllyController
   m_TagString: AllyController
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -792,7 +792,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 676835353}
-  m_LocalRotation: {x: 0.4400758, y: -0.000000021850594, z: 0.000000010708726, w: 0.89796066}
+  m_LocalRotation: {x: 0.4400758, y: 0.000000021850452, z: -0.00000001070844, w: 0.89796066}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1129,7 +1129,7 @@ GameObject:
   - component: {fileID: 908821433}
   - component: {fileID: 908821432}
   m_Layer: 0
-  m_Name: EnemyMaster
+  m_Name: EnemyController
   m_TagString: EnemyController
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
