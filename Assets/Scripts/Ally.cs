@@ -1,5 +1,4 @@
 ﻿using Doozy.Engine.Progress;
-using System.Collections;
 using UnityEngine;
 
 public class Ally : MonoBehaviour
@@ -15,8 +14,8 @@ public class Ally : MonoBehaviour
     public GameObject spell1Button;
     public GameObject spell2Button;
     public CombatMaster combatMaster;
-    public float spell1Cd;
-    public float spell2Cd;
+    public int spell1Cd;
+    public int spell2Cd;
 
     public bool isShielded;
     public enum allyClass
@@ -103,6 +102,29 @@ public class Ally : MonoBehaviour
             }
         }
     }
+
+    void Poison(float dmg)
+    {
+        foreach (Enemy e in enemyController.enemies)
+        {
+            if (e.sectorIndex == sectorIndex)
+            {
+                e.Poisoned(dmg);
+            }
+        }
+    }
+
+    void Debuff()
+    {
+        foreach (Enemy e in enemyController.enemies)
+        {
+            if (e.sectorIndex == sectorIndex)
+            {
+                e.Debuffed();
+            }
+        }
+    }
+
     void Attack()
     {
         switch (unitType)
@@ -115,11 +137,11 @@ public class Ally : MonoBehaviour
                         break;
                     case allyAttack.Spell1:
                         isShielded = true;
-                        spell1Cd = combatMaster.roundCount + 2;
+                        spell1Cd = combatMaster.roundCount + 1;
                         break;
                     case allyAttack.Spell2:
                         BasicAttack(30f);
-                        spell2Cd = combatMaster.roundCount + 3;
+                        spell2Cd = combatMaster.roundCount + 2;
                         break;
                 }
                 break;
@@ -132,6 +154,7 @@ public class Ally : MonoBehaviour
                     case allyAttack.Spell1:
                         break;
                     case allyAttack.Spell2:
+                        Poison(10f);
                         break;
                 }
                 break;
@@ -144,6 +167,7 @@ public class Ally : MonoBehaviour
                     case allyAttack.Spell1:
                         break;
                     case allyAttack.Spell2:
+                        Debuff();
                         break;
                 }
                 break;

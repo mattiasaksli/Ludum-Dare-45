@@ -106,7 +106,5 @@ public class CombatMaster : MonoBehaviour
             AC.transform.rotation = Quaternion.Lerp
                 (AC.transform.rotation, Quaternion.Euler(0, yEulerAngle + 60f, 0), 0.25f);
         }
-
-
     }
 }
