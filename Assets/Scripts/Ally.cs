@@ -25,7 +25,7 @@ public class Ally : MonoBehaviour
     }
     void Start()
     {
-        anim = this.GetComponentInChildren<Animation>();
+        anim = this.GetComponent<Animation>();
         controller = this.GetComponentInParent<AllyController>();
     }
     public void RoundStart()
@@ -34,13 +34,29 @@ public class Ally : MonoBehaviour
     }
     public void Combat()
     {
-
+        Attack();
     }
     public void Damage(float hp)
     {
 
     }
-    void Attack(int unit,int attack)
+    public void Select(int spell)
+    {
+        if ((this.attackType==allyAttack.Spell1 && spell == 1)||(this.attackType == allyAttack.Spell2 && spell == 2))
+        {
+            this.attackType = allyAttack.Basic;
+            return;
+        }
+        if (spell == 1){
+            this.attackType = allyAttack.Spell1;
+        }
+        else if(spell == 2)
+        {
+            this.attackType = allyAttack.Spell2;
+        }
+    }
+
+    void Attack()
     {
         switch (unitType)
         {
@@ -48,6 +64,32 @@ public class Ally : MonoBehaviour
                 switch (attackType)
                 {
                     case allyAttack.Basic:
+                        break;
+                    case allyAttack.Spell1:
+                        break;
+                    case allyAttack.Spell2:
+                        break;
+                }
+                break;
+            case allyClass.Mage:
+                switch (attackType)
+                {
+                    case allyAttack.Basic:
+                        break;
+                    case allyAttack.Spell1:
+                        break;
+                    case allyAttack.Spell2:
+                        break;
+                }
+                break;
+            case allyClass.Priest:
+                switch (attackType)
+                {
+                    case allyAttack.Basic:
+                        break;
+                    case allyAttack.Spell1:
+                        break;
+                    case allyAttack.Spell2:
                         break;
                 }
                 break;

@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class AllyController : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public float maxMasterHealth;
+    public float masterHealth;
+    GameObject[] allyPrefabs;
+    Ally[] allies;
     void Start()
     {
         
