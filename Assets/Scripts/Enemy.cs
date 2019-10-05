@@ -23,9 +23,9 @@ public class Enemy : MonoBehaviour
         controller = this.GetComponentInParent<EnemyController>();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Damage(float hp)
     {
-        
+        this.health -= hp;
+        anim.Play("Damage");
     }
 }

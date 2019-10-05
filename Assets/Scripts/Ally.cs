@@ -10,7 +10,12 @@ public class Ally : MonoBehaviour
     public allyClass unitType=0;
     public allyAttack attackType=0;
     public AllyController controller;
+    public EnemyController enemyController;
+    public GameObject spell1Button;
+    public GameObject spell2Button;
     Animation anim;
+
+    public bool isShielded;
     public enum allyClass
     {
         Knight,
@@ -30,7 +35,14 @@ public class Ally : MonoBehaviour
     }
     public void RoundStart()
     {
-
+        isShielded = false;
+        if (health <= 0)
+        {
+            anim.Play("Death");
+            spell1Button.SetActive(false);
+            spell2Button.SetActive(false);
+            this.gameObject.SetActive(false);
+        }
     }
     public void Combat()
     {
@@ -38,7 +50,8 @@ public class Ally : MonoBehaviour
     }
     public void Damage(float hp)
     {
-
+        this.health -= hp;
+        anim.Play("Damage");
     }
     public void Select(int spell)
     {
@@ -55,7 +68,16 @@ public class Ally : MonoBehaviour
             this.attackType = allyAttack.Spell2;
         }
     }
-
+    void BasicAttack(float dmg)
+    {
+        foreach (Enemy e in enemyController.enemies){
+            if(e.sectorIndex == sectorIndex)
+            {
+                anim.Play("Attack");
+                e.Damage(dmg);
+            }
+        }
+    }
     void Attack()
     {
         switch (unitType)
@@ -64,8 +86,11 @@ public class Ally : MonoBehaviour
                 switch (attackType)
                 {
                     case allyAttack.Basic:
+                        BasicAttack(20f);
                         break;
                     case allyAttack.Spell1:
+                        anim.Play("Cast");
+                        isShielded = true;
                         break;
                     case allyAttack.Spell2:
                         break;
@@ -75,6 +100,7 @@ public class Ally : MonoBehaviour
                 switch (attackType)
                 {
                     case allyAttack.Basic:
+                        BasicAttack(10f);
                         break;
                     case allyAttack.Spell1:
                         break;
@@ -86,6 +112,7 @@ public class Ally : MonoBehaviour
                 switch (attackType)
                 {
                     case allyAttack.Basic:
+                        BasicAttack(15f);
                         break;
                     case allyAttack.Spell1:
                         break;
