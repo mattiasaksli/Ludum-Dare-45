@@ -339,7 +339,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 95277574}
-  m_LocalRotation: {x: 0.4585958, y: -0.000000032316557, z: 0.000000016677344, w: 0.888645}
+  m_LocalRotation: {x: 0.4585958, y: 0.00000005621245, z: -0.000000029009106, w: 0.888645}
   m_LocalPosition: {x: 0, y: 7.2293596, z: -3.772008}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -382,8 +382,8 @@ MonoBehaviour:
   allyRadius: 4
   allyPrefabs:
   - {fileID: 4914385688523200082, guid: d95f7d555f705654e83d74710c5e1acb, type: 3}
-  - {fileID: 4914385688523200082, guid: 38d29a41b38f71741b8e372a59aace12, type: 3}
-  - {fileID: 4914385688523200082, guid: a124c597d88627844871ac812f09544f, type: 3}
+  - {fileID: 4914385688523200082, guid: 6cd9151acb8a30440808297a6c2e92f7, type: 3}
+  - {fileID: 4914385688523200082, guid: 41fef577a9a5aea43a3bf5c4a1a0fce6, type: 3}
   allies: []
   camRig: {fileID: 0}
   CM: {fileID: 0}
@@ -1845,7 +1845,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1414491010}
-  m_LocalRotation: {x: 0.4656138, y: -0.000000030458015, z: 0.00000001602901, w: 0.88498807}
+  m_LocalRotation: {x: 0.4656138, y: 0.00000003045175, z: -0.000000016017104, w: 0.88498807}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:

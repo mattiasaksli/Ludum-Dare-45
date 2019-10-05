@@ -1,5 +1,6 @@
 ﻿using Doozy.Engine.Progress;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Ally : MonoBehaviour
 {
@@ -11,12 +12,13 @@ public class Ally : MonoBehaviour
     public AllyController controller;
     public EnemyController enemyController;
     public Progressor healthbar;
-    public GameObject spell1Button;
-    public GameObject spell2Button;
+    public Image spell1;
+    public Image spell2;
+    public Image spell1Background;
+    public Image spell2Background;
     public CombatMaster combatMaster;
     public int spell1Cd;
     public int spell2Cd;
-
     public bool isShielded;
     public enum allyClass
     {
@@ -33,6 +35,8 @@ public class Ally : MonoBehaviour
     void Start()
     {
         controller = this.GetComponentInParent<AllyController>();
+        spell1.color = Color.black;
+        spell2.color = Color.black;
         enemyController = GameObject.FindGameObjectWithTag("EnemyController").GetComponentInChildren<EnemyController>();
         combatMaster = GameObject.FindGameObjectWithTag("CombatMaster").GetComponent<CombatMaster>();
         controller = this.GetComponentInParent<AllyController>();
@@ -43,12 +47,23 @@ public class Ally : MonoBehaviour
     }
     public void RoundStart()
     {
+        spell1.color = Color.black;
+        spell1Background.color = Color.gray;
+        spell2.color = Color.black;
+        spell2Background.color = Color.gray;
+
+        if (spell1Cd > combatMaster.roundCount)
+        {
+            spell1Background.color = Color.black;
+        }
+        if (spell2Cd > combatMaster.roundCount)
+        {
+            spell2Background.color = Color.black;
+        }
         isShielded = false;
         attackType = allyAttack.Basic;
         if (health <= 0)
         {
-            spell1Button.SetActive(false);
-            spell2Button.SetActive(false);
             this.gameObject.SetActive(false);
         }
     }
@@ -73,6 +88,8 @@ public class Ally : MonoBehaviour
         if ((this.attackType == allyAttack.Spell1 && spell == 1) || (this.attackType == allyAttack.Spell2 && spell == 2))
         {
             this.attackType = allyAttack.Basic;
+            spell1.color = Color.black;
+            spell2.color = Color.black;
             return;
         }
 
@@ -81,14 +98,17 @@ public class Ally : MonoBehaviour
             if (spell1Cd < combatMaster.roundCount)
             {
                 this.attackType = allyAttack.Spell1;
+                spell1.color = Color.white;
+                spell2.color = Color.black;
             }
-
         }
         else if (spell == 2)
         {
             if (spell2Cd < combatMaster.roundCount)
             {
                 this.attackType = allyAttack.Spell2;
+                spell2.color = Color.white;
+                spell1.color = Color.black;
             }
         }
     }
@@ -156,6 +176,7 @@ public class Ally : MonoBehaviour
                         spell1Cd = combatMaster.roundCount + 2;
                         break;
                     case allyAttack.Spell2:
+                        spell1Cd = combatMaster.roundCount + 2;
                         Poison(10f);
                         break;
                 }
@@ -168,10 +189,11 @@ public class Ally : MonoBehaviour
                         break;
                     case allyAttack.Spell1:
                         Heal();
-                        spell1Cd = 1;
+                        spell1Cd = combatMaster.roundCount + 1;
                         break;
                     case allyAttack.Spell2:
                         Debuff();
+                        spell2Cd = combatMaster.roundCount + 2;
                         break;
                 }
                 break;
