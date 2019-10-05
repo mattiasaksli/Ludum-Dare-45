@@ -1,10 +1,10 @@
-using Doozy.Engine.Progress;
+﻿using Doozy.Engine.Progress;
 using UnityEngine;
 
 public class Ally : MonoBehaviour
 {
-    public float maxHealth;
-    public float health;
+    public float maxHealth = 50f;
+    public float health = 50f;
     public int sectorIndex;
     public allyClass unitType = 0;
     public allyAttack attackType = 0;

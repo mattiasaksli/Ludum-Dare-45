@@ -43,6 +43,7 @@ public class AllyController : MonoBehaviour
             ally.transform.localPosition = new Vector3(x, 0, z);
             ally.transform.localRotation = Quaternion.Euler(0, allyAngle * (180f / Mathf.PI), 0);
             ally.sectorIndex = allyIndex;
+            ally.unitType = (Ally.allyClass)allyClass;
             allies.Add(ally);
         }
     }
@@ -67,7 +68,6 @@ public class AllyController : MonoBehaviour
         {
             a.Combat();
         }
-        enemies.Combat();
     }
     public void RoundStart()
     {
@@ -75,6 +75,5 @@ public class AllyController : MonoBehaviour
         {
             a.RoundStart();
         }
-        enemies.RoundStart();
     }
 }

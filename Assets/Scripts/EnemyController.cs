@@ -54,6 +54,7 @@ public class EnemyController : MonoBehaviour
             enemy.transform.localPosition = new Vector3(x, 0, z);
             enemy.transform.localRotation = Quaternion.Euler(0, enemyAngle * (180f / Mathf.PI) + 180f, 0);
             enemy.sectorIndex = enemyIndex;
+            enemy.unitType = (Enemy.enemyClass)enemyClass;
             enemies.Add(enemy);
         }
     }

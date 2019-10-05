@@ -400,8 +400,8 @@ MonoBehaviour:
   controller: {fileID: 0}
   enemyController: {fileID: 0}
   healthbar: {fileID: 0}
-  spell1Button: {fileID: 0}
-  spell2Button: {fileID: 0}
+  spell1Button: {fileID: 4914385689265056274}
+  spell2Button: {fileID: 4914385690559094924}
   combatMaster: {fileID: 0}
   spell1Cd: 0
   spell2Cd: 0
