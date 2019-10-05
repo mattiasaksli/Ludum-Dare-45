@@ -1,4 +1,5 @@
 ﻿using Cinemachine;
+using Doozy.Engine.Progress;
 using Doozy.Engine.UI;
 using System.Collections;
 using System.Collections.Generic;
@@ -16,9 +17,13 @@ public class AllyController : MonoBehaviour
     public Animator camAnim;
     private float angle = Mathf.PI / 3;
     public EnemyController enemies;
+    public Progressor masterHealthBar;
     void Start()
     {
         PositionAllies();
+        masterHealthBar = GetComponent<Progressor>();
+        masterHealthBar.SetMax(maxMasterHealth);
+        masterHealthBar.SetValue(masterHealth);
         CM = GameObject.FindGameObjectWithTag("CombatMaster").GetComponent<CombatMaster>();
         camAnim = GetComponent<Animator>();
         camAnim.SetInteger("sweep", -1);
@@ -63,11 +68,11 @@ public class AllyController : MonoBehaviour
         Dictionary<int, Ally.allyClass> allyAndIndex = new Dictionary<int, Ally.allyClass>
         {
             { 0, Ally.allyClass.Knight },
-            { 1, Ally.allyClass.Knight },
-            { 2, Ally.allyClass.Knight },
+            { 1, Ally.allyClass.Mage},
+            { 2, Ally.allyClass.Priest },
             { 3, Ally.allyClass.Knight },
-            { 4, Ally.allyClass.Knight },
-            { 5, Ally.allyClass.Knight },
+            { 4, Ally.allyClass.Mage },
+            { 5, Ally.allyClass.Priest },
         };
 
         return allyAndIndex;
@@ -85,10 +90,12 @@ public class AllyController : MonoBehaviour
             indexes.Add(a.sectorIndex);
         }
         yield return new WaitForSeconds(1f);
+        camAnim.SetInteger("sweep", 0);
         for (int i = 0; i < 6; i++)
         {
             if (indexes.Contains(i))
             {
+                Debug.Log(i);
                 camAnim.SetInteger("sweep", i);
                 yield return new WaitForSeconds(1f);
                 foreach (Ally a in allies)
@@ -109,8 +116,17 @@ public class AllyController : MonoBehaviour
         yield return new WaitForSeconds(1f);
         CM.RoundStart();
     }
+    public void DamageMaster(float dmg)
+    {
+        masterHealth -= dmg;
+        masterHealthBar.SetValue(masterHealth);
+    }
     public void RoundStart()
     {
+        if (masterHealth <= 0)
+        {
+            Application.Quit();
+        }
         foreach (Ally a in allies)
         {
             a.RoundStart();

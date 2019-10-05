@@ -75,6 +75,8 @@ public class Enemy : MonoBehaviour
             gameObject.SetActive(false);
         }
 
+        bool hasOpponent = false;
+
         switch (unitType)
         {
             case enemyClass.Basic:
@@ -83,7 +85,28 @@ public class Enemy : MonoBehaviour
                     if (a.sectorIndex == sectorIndex)
                     {
                         a.Damage(15f);
+                        hasOpponent = true;
+                        break;
                     }
+                }
+                if (!hasOpponent)
+                {
+                    allies.DamageMaster(15f);
+                }
+                break;
+            case enemyClass.Thicc:
+                foreach (Ally a in allies.allies)
+                {
+                    if (a.sectorIndex == sectorIndex)
+                    {
+                        a.Damage(30f);
+                        hasOpponent = true;
+                        break;
+                    }
+                }
+                if (!hasOpponent)
+                {
+                    allies.DamageMaster(30f);
                 }
                 break;
 

@@ -31,6 +31,7 @@ public class CombatMaster : MonoBehaviour
     public void RoundStart()
     {
         timeBar.SetValue(0);
+        timeBar.AnimationDuration = 0.5f;
         skip = false;
         inputDisable = false;
         roundCount += 1;
@@ -46,12 +47,13 @@ public class CombatMaster : MonoBehaviour
             timeBar.SetValue(i);
             if (skip)
             {
-                currentTime = 20;
-                timeBar.SetValue(0);
                 break;
             }
             yield return new WaitForSeconds(1f);
         }
+        currentTime = 20;
+        timeBar.AnimationDuration = 2f;
+        timeBar.SetValue(0);
         inputDisable = true;
         AC.Combat();
     }
