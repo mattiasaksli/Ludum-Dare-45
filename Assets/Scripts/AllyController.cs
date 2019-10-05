@@ -1,8 +1,8 @@
-﻿using Doozy.Engine.UI;
+﻿using Cinemachine;
+using Doozy.Engine.UI;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Cinemachine;
 
 public class AllyController : MonoBehaviour
 {
@@ -85,13 +85,13 @@ public class AllyController : MonoBehaviour
             indexes.Add(a.sectorIndex);
         }
         yield return new WaitForSeconds(1f);
-        for (int i=0;i<6;i++)
+        for (int i = 0; i < 6; i++)
         {
             if (indexes.Contains(i))
             {
                 camAnim.SetInteger("sweep", i);
                 yield return new WaitForSeconds(1f);
-                foreach(Ally a in allies)
+                foreach (Ally a in allies)
                 {
                     if (a.sectorIndex == i)
                     {

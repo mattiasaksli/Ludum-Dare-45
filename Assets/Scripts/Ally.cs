@@ -14,8 +14,8 @@ public class Ally : MonoBehaviour
     public GameObject spell1Button;
     public GameObject spell2Button;
     public CombatMaster combatMaster;
-    public float spell1Cd;
-    public float spell2Cd;
+    public int spell1Cd;
+    public int spell2Cd;
 
     public bool isShielded;
     public enum allyClass
@@ -92,6 +92,38 @@ public class Ally : MonoBehaviour
             }
         }
     }
+    void BasicAttack(float dmg)
+    {
+        foreach (Enemy e in enemyController.enemies)
+        {
+            if (e.sectorIndex == sectorIndex)
+            {
+                e.Damage(dmg);
+            }
+        }
+    }
+
+    void Poison(float dmg)
+    {
+        foreach (Enemy e in enemyController.enemies)
+        {
+            if (e.sectorIndex == sectorIndex)
+            {
+                e.Poisoned(dmg);
+            }
+        }
+    }
+
+    void Debuff()
+    {
+        foreach (Enemy e in enemyController.enemies)
+        {
+            if (e.sectorIndex == sectorIndex)
+            {
+                e.Debuffed();
+            }
+        }
+    }
 
     void Attack()
     {
@@ -124,6 +156,7 @@ public class Ally : MonoBehaviour
                         spell1Cd = combatMaster.roundCount + 2;
                         break;
                     case allyAttack.Spell2:
+                        Poison(10f);
                         break;
                 }
                 break;
@@ -138,6 +171,7 @@ public class Ally : MonoBehaviour
                         spell1Cd = 1;
                         break;
                     case allyAttack.Spell2:
+                        Debuff();
                         break;
                 }
                 break;
