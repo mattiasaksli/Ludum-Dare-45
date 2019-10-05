@@ -8,7 +8,7 @@ public class AllyController : MonoBehaviour
     public float masterHealth;
     public float allyRadius = 6f;
     public Ally[] allyPrefabs;
-    List<Ally> allies = new List<Ally>();
+    public List<Ally> allies = new List<Ally>();
 
     private float angle = Mathf.PI / 3;
     public EnemyController enemies;

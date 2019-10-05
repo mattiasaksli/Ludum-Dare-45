@@ -8,7 +8,7 @@ public class Ally : MonoBehaviour
     public int sectorIndex;
     public allyClass unitType = 0;
     public allyAttack attackType = 0;
-    public AllyController allyController;
+    public AllyController controller;
     public EnemyController enemyController;
     public Progressor healthbar;
     public GameObject spell1Button;
@@ -32,18 +32,14 @@ public class Ally : MonoBehaviour
     }
     void Start()
     {
-<<<<<<< HEAD
-        anim = this.GetComponent<Animation>();
-        allyController = this.GetComponentInParent<AllyController>();
-        enemyController = this.GetComponentInParent<EnemyController>();
-=======
+        controller = this.GetComponentInParent<AllyController>();
+        enemyController = GameObject.FindGameObjectWithTag("EnemyController").GetComponentInChildren<EnemyController>();
         combatMaster = GameObject.FindGameObjectWithTag("CombatMaster").GetComponent<CombatMaster>();
         controller = this.GetComponentInParent<AllyController>();
         healthbar = GetComponentInChildren<Progressor>();
         healthbar.SetMax(maxHealth);
         health = maxHealth;
         healthbar.SetValue(health);
->>>>>>> 0260497004a01f8b15cbae50ad638f978bee6b9e
     }
     public void RoundStart()
     {

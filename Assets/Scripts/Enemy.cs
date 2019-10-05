@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-
+using Doozy.Engine.Progress;
 public class Enemy : MonoBehaviour
 {
     public float maxHealth;
@@ -8,6 +8,7 @@ public class Enemy : MonoBehaviour
     public enemyClass unitType = 0;
     public EnemyController controller;
     public AllyController allies;
+    public Progressor healthbar;
 
     public enum enemyClass
     {
@@ -17,7 +18,12 @@ public class Enemy : MonoBehaviour
     }
     void Start()
     {
+        allies = GameObject.FindGameObjectWithTag("AllyController").GetComponentInChildren<AllyController>();
         controller = this.GetComponentInParent<EnemyController>();
+        healthbar = GetComponentInChildren<Progressor>();
+        healthbar.SetMax(maxHealth);
+        health = maxHealth;
+        healthbar.SetValue(health);
     }
     public void RoundStart()
     {
@@ -26,6 +32,7 @@ public class Enemy : MonoBehaviour
     public void Damage(float hp)
     {
         this.health -= hp;
+        healthbar.SetValue(health);
     }
     public void Combat()
     {
