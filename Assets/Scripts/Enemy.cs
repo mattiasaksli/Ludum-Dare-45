@@ -1,9 +1,9 @@
-﻿using UnityEngine;
-using Doozy.Engine.Progress;
+﻿using Doozy.Engine.Progress;
+using UnityEngine;
 public class Enemy : MonoBehaviour
 {
-    public float maxHealth;
-    public float health;
+    public float maxHealth = 40f;
+    public float health = 40f;
     public int sectorIndex;
     public enemyClass unitType = 0;
     public EnemyController controller;

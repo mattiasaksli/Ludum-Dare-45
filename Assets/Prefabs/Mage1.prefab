@@ -5928,15 +5928,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0432fd97e6672b4c8c7344b5a7b73d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 0
-  health: 0
+  maxHealth: 100
+  health: 100
   sectorIndex: 0
   unitType: 1
   attackType: 0
-  allyController: {fileID: 0}
+  controller: {fileID: 0}
   enemyController: {fileID: 0}
-  spell1Button: {fileID: 0}
-  spell2Button: {fileID: 0}
+  healthbar: {fileID: 0}
+  spell1Button: {fileID: 582637812302131757}
+  spell2Button: {fileID: 582637811113081011}
+  combatMaster: {fileID: 0}
+  spell1Cd: 0
+  spell2Cd: 0
   isShielded: 0
 --- !u!1 &582637812639022002
 GameObject:
