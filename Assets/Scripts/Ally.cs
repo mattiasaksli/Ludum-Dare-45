@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+using Doozy.Engine.Progress;
+using UnityEngine;
 
 public class Ally : MonoBehaviour
 {
@@ -9,9 +10,12 @@ public class Ally : MonoBehaviour
     public allyAttack attackType = 0;
     public AllyController allyController;
     public EnemyController enemyController;
+    public Progressor healthbar;
     public GameObject spell1Button;
     public GameObject spell2Button;
-    Animation anim;
+    public CombatMaster combatMaster;
+    public float spell1Cd;
+    public float spell2Cd;
 
     public bool isShielded;
     public enum allyClass
@@ -28,16 +32,25 @@ public class Ally : MonoBehaviour
     }
     void Start()
     {
+<<<<<<< HEAD
         anim = this.GetComponent<Animation>();
         allyController = this.GetComponentInParent<AllyController>();
         enemyController = this.GetComponentInParent<EnemyController>();
+=======
+        combatMaster = GameObject.FindGameObjectWithTag("CombatMaster").GetComponent<CombatMaster>();
+        controller = this.GetComponentInParent<AllyController>();
+        healthbar = GetComponentInChildren<Progressor>();
+        healthbar.SetMax(maxHealth);
+        health = maxHealth;
+        healthbar.SetValue(health);
+>>>>>>> 0260497004a01f8b15cbae50ad638f978bee6b9e
     }
     public void RoundStart()
     {
         isShielded = false;
+        attackType = allyAttack.Basic;
         if (health <= 0)
         {
-            anim.Play("Death");
             spell1Button.SetActive(false);
             spell2Button.SetActive(false);
             this.gameObject.SetActive(false);
@@ -49,8 +62,15 @@ public class Ally : MonoBehaviour
     }
     public void Damage(float hp)
     {
-        this.health -= hp;
-        anim.Play("Damage");
+        if (isShielded)
+        {
+            return;
+        }
+        else
+        {
+            this.health -= hp;
+            healthbar.SetValue(health);
+        }
     }
     public void Select(int spell)
     {
@@ -59,13 +79,21 @@ public class Ally : MonoBehaviour
             this.attackType = allyAttack.Basic;
             return;
         }
+
         if (spell == 1)
         {
-            this.attackType = allyAttack.Spell1;
+            if (spell1Cd < combatMaster.roundCount)
+            {
+                this.attackType = allyAttack.Spell1;
+            }
+
         }
         else if (spell == 2)
         {
-            this.attackType = allyAttack.Spell2;
+            if (spell2Cd < combatMaster.roundCount)
+            {
+                this.attackType = allyAttack.Spell2;
+            }
         }
     }
     void BasicAttack(float dmg)
@@ -74,7 +102,6 @@ public class Ally : MonoBehaviour
         {
             if (e.sectorIndex == sectorIndex)
             {
-                anim.Play("Attack");
                 e.Damage(dmg);
             }
         }
@@ -90,10 +117,12 @@ public class Ally : MonoBehaviour
                         BasicAttack(20f);
                         break;
                     case allyAttack.Spell1:
-                        anim.Play("Cast");
                         isShielded = true;
+                        spell1Cd = combatMaster.roundCount + 2;
                         break;
                     case allyAttack.Spell2:
+                        BasicAttack(30f);
+                        spell2Cd = combatMaster.roundCount + 3;
                         break;
                 }
                 break;

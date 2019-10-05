@@ -11,11 +11,10 @@ public class AllyController : MonoBehaviour
     List<Ally> allies = new List<Ally>();
 
     private float angle = Mathf.PI / 3;
+    public EnemyController enemies;
     void Start()
     {
-        Debug.Log("ALLYCONTROLLER START");
         PositionAllies();
-        Debug.Log("ALLIES IN PLACE");
     }
 
 
@@ -29,7 +28,6 @@ public class AllyController : MonoBehaviour
         Dictionary<int, Ally.allyClass> allyAndIndex = loadAllyPosition();
         foreach (KeyValuePair<int, Ally.allyClass> pair in allyAndIndex)
         {
-            Debug.Log(pair);
             int allyIndex = pair.Key;
             int allyClass = (int)pair.Value;
 
@@ -39,7 +37,6 @@ public class AllyController : MonoBehaviour
 
             Ally ally = Instantiate(allyPrefabs[allyClass], transform, this);
             UICanvas canvas = ally.GetComponentInChildren<UICanvas>();
-            Debug.Log(canvas);
             canvas.CanvasName = "Ally" + allyIndex * 100;
             canvas.name = canvas.CanvasName;
 
@@ -52,7 +49,6 @@ public class AllyController : MonoBehaviour
 
     public Dictionary<int, Ally.allyClass> loadAllyPosition()
     {
-        Debug.Log("IN LOADPOSITIONS");
         Dictionary<int, Ally.allyClass> allyAndIndex = new Dictionary<int, Ally.allyClass>
         {
             { 1, Ally.allyClass.Knight },
@@ -63,11 +59,22 @@ public class AllyController : MonoBehaviour
             { 4, Ally.allyClass.Knight}
         };
 
-        foreach (var a in allyAndIndex)
-        {
-            Debug.Log(a);
-        }
-        Debug.Log("------------------------------------------------------------------------");
         return allyAndIndex;
+    }
+    public void Combat()
+    {
+        foreach (Ally a in allies)
+        {
+            a.Combat();
+        }
+        enemies.Combat();
+    }
+    public void RoundStart()
+    {
+        foreach (Ally a in allies)
+        {
+            a.RoundStart();
+        }
+        enemies.RoundStart();
     }
 }
