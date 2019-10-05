@@ -357,7 +357,7 @@ GameObject:
   - component: {fileID: 4914385688496505751}
   - component: {fileID: 4914385688523200082}
   m_Layer: 0
-  m_Name: Knight
+  m_Name: Mage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -392,10 +392,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0432fd97e6672b4c8c7344b5a7b73d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
-  health: 100
+  maxHealth: 50
+  health: 50
   sectorIndex: 0
-  unitType: 0
+  unitType: 1
   attackType: 0
   controller: {fileID: 0}
   enemyController: {fileID: 0}
@@ -999,7 +999,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 40a431448c590b24f9838af0593216c8, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 98546d1fd1e0b0646ba513cc8a2e7efd, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3984,7 +3984,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 5dcfb9d0c90e2d34183fcb71e606aca5, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 81634f7baab39554eb233f91dc06da89, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

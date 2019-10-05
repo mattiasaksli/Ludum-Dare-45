@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Doozy.Engine.Progress;
+using System.Collections;
 using UnityEngine;
 
 public class CombatMaster : MonoBehaviour
@@ -13,18 +14,23 @@ public class CombatMaster : MonoBehaviour
     private float yEulerAngle;
     public bool skip;
     public bool inputDisable;
+    public Progressor timeBar;
     void Start()
     {
         inputDisable = false;
         turningLeft = false;
         turningRight = false;
         roundCount = 1;
+        timeBar = GetComponent<Progressor>();
+        timeBar.SetMax(roundTime);
+        timeBar.SetValue(0);
         EC = GameObject.FindGameObjectWithTag("EnemyController").GetComponent<EnemyController>();
         AC = GameObject.FindGameObjectWithTag("AllyController").GetComponent<AllyController>();
         StartCoroutine(Timer());
     }
     public void RoundStart()
     {
+        timeBar.SetValue(0);
         skip = false;
         inputDisable = false;
         roundCount += 1;
@@ -37,9 +43,11 @@ public class CombatMaster : MonoBehaviour
         for (int i = 0; i < roundTime; i++)
         {
             currentTime = i;
+            timeBar.SetValue(i);
             if (skip)
             {
                 currentTime = 20;
+                timeBar.SetValue(0);
                 break;
             }
             yield return new WaitForSeconds(1f);

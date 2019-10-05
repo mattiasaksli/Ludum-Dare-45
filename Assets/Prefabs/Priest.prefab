@@ -357,7 +357,7 @@ GameObject:
   - component: {fileID: 4914385688496505751}
   - component: {fileID: 4914385688523200082}
   m_Layer: 0
-  m_Name: Knight
+  m_Name: Priest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -392,10 +392,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0432fd97e6672b4c8c7344b5a7b73d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
-  health: 100
+  maxHealth: 75
+  health: 75
   sectorIndex: 0
-  unitType: 0
+  unitType: 2
   attackType: 0
   controller: {fileID: 0}
   enemyController: {fileID: 0}
@@ -999,7 +999,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 40a431448c590b24f9838af0593216c8, type: 3}
+  m_Sprite: {fileID: 21300000, guid: edd04440ef1618c408de7b34b97e0f51, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3984,7 +3984,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 5dcfb9d0c90e2d34183fcb71e606aca5, type: 3}
+  m_Sprite: {fileID: 21300000, guid: de0cfaf264ba4094c8cf4a29004b3b34, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

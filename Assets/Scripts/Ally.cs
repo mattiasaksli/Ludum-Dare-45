@@ -1,5 +1,4 @@
 ﻿using Doozy.Engine.Progress;
-using System.Collections;
 using UnityEngine;
 
 public class Ally : MonoBehaviour
@@ -93,16 +92,7 @@ public class Ally : MonoBehaviour
             }
         }
     }
-    void BasicAttack(float dmg)
-    {
-        foreach (Enemy e in enemyController.enemies)
-        {
-            if (e.sectorIndex == sectorIndex)
-            {
-                e.Damage(dmg);
-            }
-        }
-    }
+
     void Attack()
     {
         switch (unitType)
@@ -115,11 +105,11 @@ public class Ally : MonoBehaviour
                         break;
                     case allyAttack.Spell1:
                         isShielded = true;
-                        spell1Cd = combatMaster.roundCount + 2;
+                        spell1Cd = combatMaster.roundCount + 1;
                         break;
                     case allyAttack.Spell2:
                         BasicAttack(30f);
-                        spell2Cd = combatMaster.roundCount + 3;
+                        spell2Cd = combatMaster.roundCount + 2;
                         break;
                 }
                 break;
@@ -130,6 +120,8 @@ public class Ally : MonoBehaviour
                         BasicAttack(10f);
                         break;
                     case allyAttack.Spell1:
+                        FireBall();
+                        spell1Cd = combatMaster.roundCount + 2;
                         break;
                     case allyAttack.Spell2:
                         break;
@@ -142,11 +134,54 @@ public class Ally : MonoBehaviour
                         BasicAttack(15f);
                         break;
                     case allyAttack.Spell1:
+                        Heal();
+                        spell1Cd = 1;
                         break;
                     case allyAttack.Spell2:
                         break;
                 }
                 break;
+        }
+        void BasicAttack(float dmg)
+        {
+            foreach (Enemy e in enemyController.enemies)
+            {
+                if (e.sectorIndex == sectorIndex)
+                {
+                    e.Damage(dmg);
+                }
+            }
+        }
+        void FireBall()
+        {
+            foreach (Enemy e in enemyController.enemies)
+            {
+                for (int i = -1; i < 2; i++)
+                {
+                    int index = (sectorIndex + i) % 6;
+                    if (index == -1)
+                    {
+                        index = 5;
+                    }
+                    if (index == e.sectorIndex)
+                    {
+                        e.Damage(15f);
+                    }
+                }
+            }
+
+        }
+
+        void Heal()
+        {
+            foreach (Ally a in controller.allies)
+            {
+                a.health += a.maxHealth * 0.25f;
+                if (a.health > a.maxHealth)
+                {
+                    a.health = a.maxHealth;
+                }
+            }
         }
     }
 }
