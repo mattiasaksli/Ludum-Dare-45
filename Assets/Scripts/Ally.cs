@@ -1,15 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Ally : MonoBehaviour
 {
     public float maxHealth;
     public float health;
     public int sectorIndex;
-    public allyClass unitType=0;
-    public allyAttack attackType=0;
-    public AllyController controller;
+    public allyClass unitType = 0;
+    public allyAttack attackType = 0;
+    public AllyController allyController;
     public EnemyController enemyController;
     public GameObject spell1Button;
     public GameObject spell2Button;
@@ -18,20 +16,21 @@ public class Ally : MonoBehaviour
     public bool isShielded;
     public enum allyClass
     {
-        Knight,
-        Mage,
-        Priest
+        Knight = 0,
+        Mage = 1,
+        Priest = 2
     }
     public enum allyAttack
     {
-        Basic,
-        Spell1,
-        Spell2
+        Basic = 0,
+        Spell1 = 1,
+        Spell2 = 2
     }
     void Start()
     {
         anim = this.GetComponent<Animation>();
-        controller = this.GetComponentInParent<AllyController>();
+        allyController = this.GetComponentInParent<AllyController>();
+        enemyController = this.GetComponentInParent<EnemyController>();
     }
     public void RoundStart()
     {
@@ -55,23 +54,25 @@ public class Ally : MonoBehaviour
     }
     public void Select(int spell)
     {
-        if ((this.attackType==allyAttack.Spell1 && spell == 1)||(this.attackType == allyAttack.Spell2 && spell == 2))
+        if ((this.attackType == allyAttack.Spell1 && spell == 1) || (this.attackType == allyAttack.Spell2 && spell == 2))
         {
             this.attackType = allyAttack.Basic;
             return;
         }
-        if (spell == 1){
+        if (spell == 1)
+        {
             this.attackType = allyAttack.Spell1;
         }
-        else if(spell == 2)
+        else if (spell == 2)
         {
             this.attackType = allyAttack.Spell2;
         }
     }
     void BasicAttack(float dmg)
     {
-        foreach (Enemy e in enemyController.enemies){
-            if(e.sectorIndex == sectorIndex)
+        foreach (Enemy e in enemyController.enemies)
+        {
+            if (e.sectorIndex == sectorIndex)
             {
                 anim.Play("Attack");
                 e.Damage(dmg);

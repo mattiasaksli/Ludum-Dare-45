@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
@@ -13,9 +11,9 @@ public class Enemy : MonoBehaviour
 
     public enum enemyClass
     {
-        Basic,
-        Thicc,
-        Assassin
+        Basic = 0,
+        Thicc = 1,
+        Assassin = 2
     }
     void Start()
     {
