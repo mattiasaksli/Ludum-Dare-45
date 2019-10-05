@@ -372,7 +372,7 @@ GameObject:
   - component: {fileID: 150335688}
   m_Layer: 0
   m_Name: AllyMaster
-  m_TagString: Untagged
+  m_TagString: AllyController
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -391,6 +391,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxMasterHealth: 0
   masterHealth: 0
+  allyPrefabs: []
+  allies:
+  - {fileID: 1246340008}
+  enemies: {fileID: 908821432}
 --- !u!4 &150335689
 Transform:
   m_ObjectHideFlags: 0
@@ -1009,6 +1013,7 @@ GameObject:
   - component: {fileID: 655178993}
   - component: {fileID: 655178996}
   - component: {fileID: 655178995}
+  - component: {fileID: 655178997}
   - component: {fileID: 655178994}
   m_Layer: 0
   m_Name: Healthbar
@@ -1045,10 +1050,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 655178992}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 30fd49aca8b4ce64dac1218871841b94, type: 3}
+  m_Script: {fileID: 11500000, guid: 779d2338e8d61bc4f9e65969cd74fb0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Image: {fileID: 655178995}
+  Animator: {fileID: 655178997}
+  ParameterName: Progress
   TargetProgress: 0
 --- !u!114 &655178995
 MonoBehaviour:
@@ -1086,6 +1092,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 655178992}
   m_CullTransparentMesh: 0
+--- !u!95 &655178997
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 655178992}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 75f5c0b4c3496334689c37b16cf5ae71, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -1224,10 +1249,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DebugMode: 0
   ProgressTargets:
-  - {fileID: 0}
-  AnimateValue: 0
-  AnimationDuration: 0.5
-  AnimationEase: 1
+  - {fileID: 655178994}
+  AnimateValue: 1
+  AnimationDuration: 1
+  AnimationEase: 13
   AnimationIgnoresUnityTimescale: 1
   OnEnableResetValue: 1
   OnDisableResetValue: 0
@@ -1242,7 +1267,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_minValue: 0
-  m_maxValue: 1
+  m_maxValue: 100
   m_wholeNumbers: 0
   m_currentValue: 0
 --- !u!1001 &807689244
@@ -1262,7 +1287,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 403496, guid: 9f4313a771e05c64d8da7ae6bd19a19f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.0000000038743053
+      value: -0.000000006258489
       objectReference: {fileID: 0}
     - target: {fileID: 403496, guid: 9f4313a771e05c64d8da7ae6bd19a19f, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1270,7 +1295,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 403496, guid: 9f4313a771e05c64d8da7ae6bd19a19f, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 12
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 403496, guid: 9f4313a771e05c64d8da7ae6bd19a19f, type: 3}
       propertyPath: m_LocalRotation.x
@@ -1290,7 +1315,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 403496, guid: 9f4313a771e05c64d8da7ae6bd19a19f, type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 403496, guid: 9f4313a771e05c64d8da7ae6bd19a19f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1304,7 +1329,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 9542308, guid: 9f4313a771e05c64d8da7ae6bd19a19f, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 9f4313a771e05c64d8da7ae6bd19a19f, type: 3}
 --- !u!1 &821056886
 GameObject:
@@ -3740,7 +3766,7 @@ GameObject:
   - component: {fileID: 908821432}
   m_Layer: 0
   m_Name: EnemyMaster
-  m_TagString: Untagged
+  m_TagString: EnemyController
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -3754,11 +3780,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 908821431}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 389005e19bb5ebb4a8f24e01fa85e672, type: 3}
+  m_Script: {fileID: 11500000, guid: a8cad109c7f41af4fbb54f062768579e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxMasterHealth: 0
-  masterHealth: 0
+  enemyPrefabs: []
+  enemies:
+  - {fileID: 1289987938}
 --- !u!4 &908821433
 Transform:
   m_ObjectHideFlags: 0
@@ -4104,31 +4131,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0432fd97e6672b4c8c7344b5a7b73d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 0
-  health: 0
+  maxHealth: 100
+  health: 100
   sectorIndex: 0
   unitType: 0
   attackType: 0
-  controller: {fileID: 0}
-  enemyController: {fileID: 0}
+  controller: {fileID: 150335688}
+  enemyController: {fileID: 908821432}
+  healthbar: {fileID: 0}
   spell1Button: {fileID: 0}
   spell2Button: {fileID: 0}
+  combatMaster: {fileID: 0}
+  spell1Cd: 0
+  spell2Cd: 0
   isShielded: 0
---- !u!111 &1246340009
-Animation:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1246340006}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Animation: {fileID: 0}
-  m_Animations: []
-  m_WrapMode: 0
-  m_PlayAutomatically: 1
-  m_AnimatePhysics: 0
-  m_CullingType: 0
 --- !u!1 &1247820761
 GameObject:
   m_ObjectHideFlags: 0
@@ -4208,9 +4224,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: Knight1
       objectReference: {fileID: 0}
+    - target: {fileID: 165424, guid: 9f4313a771e05c64d8da7ae6bd19a19f, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 403496, guid: 9f4313a771e05c64d8da7ae6bd19a19f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.000000009238718
+      value: -0.0000001788139
       objectReference: {fileID: 0}
     - target: {fileID: 403496, guid: 9f4313a771e05c64d8da7ae6bd19a19f, type: 3}
       propertyPath: m_LocalPosition.y
@@ -4218,7 +4238,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 403496, guid: 9f4313a771e05c64d8da7ae6bd19a19f, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 8
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 403496, guid: 9f4313a771e05c64d8da7ae6bd19a19f, type: 3}
       propertyPath: m_LocalRotation.x
@@ -4238,7 +4258,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 403496, guid: 9f4313a771e05c64d8da7ae6bd19a19f, type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 403496, guid: 9f4313a771e05c64d8da7ae6bd19a19f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -4252,7 +4272,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 9542308, guid: 9f4313a771e05c64d8da7ae6bd19a19f, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 9f4313a771e05c64d8da7ae6bd19a19f, type: 3}
 --- !u!1 &1289987936 stripped
 GameObject:
@@ -4278,26 +4299,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91921be8a2d07684c81151070735a7a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 0
-  health: 0
+  maxHealth: 100
+  health: 100
   sectorIndex: 0
   unitType: 0
-  controller: {fileID: 0}
---- !u!111 &1289987939
-Animation:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1289987936}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Animation: {fileID: 0}
-  m_Animations: []
-  m_WrapMode: 0
-  m_PlayAutomatically: 1
-  m_AnimatePhysics: 0
-  m_CullingType: 0
+  controller: {fileID: 908821432}
+  allies: {fileID: 150335688}
 --- !u!1 &1314763331
 GameObject:
   m_ObjectHideFlags: 3
@@ -4507,9 +4514,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1763779272}
+  - component: {fileID: 1763779273}
   m_Layer: 0
   m_Name: CombatMaster
-  m_TagString: Untagged
+  m_TagString: CombatMaster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4528,6 +4536,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1763779273
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1763779271}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b1401a41f13d8343b7e64944c559dfd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemies: {fileID: 908821432}
+  allies: {fileID: 150335688}
+  roundCount: 0
 --- !u!1 &1772209764
 GameObject:
   m_ObjectHideFlags: 0

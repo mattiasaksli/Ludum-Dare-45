@@ -16,4 +16,18 @@ public class EnemyController : MonoBehaviour
     {
         
     }
+    public void Combat()
+    {
+        foreach (Enemy e in enemies)
+        {
+            e.Combat();
+        }
+    }
+    public void RoundStart()
+    {
+        foreach (Enemy e in enemies)
+        {
+            e.RoundStart();
+        }
+    }
 }
