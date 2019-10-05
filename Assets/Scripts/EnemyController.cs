@@ -11,6 +11,7 @@ public class EnemyController : MonoBehaviour
     private float angle = Mathf.PI / 3;
     void Start()
     {
+        allyController = GameObject.FindGameObjectWithTag("AllyController").GetComponent<AllyController>();
         enemyRadius = allyController.allyRadius + 2.5f;
         PositionEnemies();
     }
@@ -62,9 +63,12 @@ public class EnemyController : MonoBehaviour
     {
         Dictionary<int, Enemy.enemyClass> enemyAndIndex = new Dictionary<int, Enemy.enemyClass>
         {
+            { 0, Enemy.enemyClass.Basic },
             { 1, Enemy.enemyClass.Basic },
+            { 2, Enemy.enemyClass.Basic },
             { 3, Enemy.enemyClass.Basic },
-            { 5, Enemy.enemyClass.Basic }
+            { 4, Enemy.enemyClass.Basic },
+            { 5, Enemy.enemyClass.Basic },
         };
 
         return enemyAndIndex;

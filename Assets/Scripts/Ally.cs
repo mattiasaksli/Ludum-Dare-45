@@ -1,4 +1,5 @@
 using Doozy.Engine.Progress;
+using System.Collections;
 using UnityEngine;
 
 public class Ally : MonoBehaviour
