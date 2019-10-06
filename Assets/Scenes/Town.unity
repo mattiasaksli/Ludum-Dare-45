@@ -2499,7 +2499,6 @@ MonoBehaviour:
     PresetName: 
   TargetLabel: 2
   TextLabel: {fileID: 0}
-  TextMeshProLabel: {fileID: 0}
 --- !u!114 &145037232
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2572,7 +2571,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 042448b8dcfa86844be7b8d3e77f1da6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 69c49e82214c61c489e031a790e38094, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -6814,7 +6813,6 @@ MonoBehaviour:
     PresetName: 
   TargetLabel: 2
   TextLabel: {fileID: 0}
-  TextMeshProLabel: {fileID: 0}
 --- !u!114 &378569625
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9225,7 +9223,6 @@ MonoBehaviour:
     PresetName: 
   TargetLabel: 2
   TextLabel: {fileID: 0}
-  TextMeshProLabel: {fileID: 0}
 --- !u!114 &379093235
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11637,7 +11634,6 @@ MonoBehaviour:
     PresetName: 
   TargetLabel: 2
   TextLabel: {fileID: 0}
-  TextMeshProLabel: {fileID: 0}
 --- !u!114 &416873113
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11699,7 +11695,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 042448b8dcfa86844be7b8d3e77f1da6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 69c49e82214c61c489e031a790e38094, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -14253,7 +14249,6 @@ MonoBehaviour:
     PresetName: 
   TargetLabel: 2
   TextLabel: {fileID: 0}
-  TextMeshProLabel: {fileID: 0}
 --- !u!114 &689217799
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14315,7 +14310,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 042448b8dcfa86844be7b8d3e77f1da6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 69c49e82214c61c489e031a790e38094, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -15203,14 +15198,14 @@ RectTransform:
   m_GameObject: {fileID: 953707683}
   m_LocalRotation: {x: 0, y: 0, z: 0.008726637, w: -0.9999619}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.8, y: 3, z: 1}
+  m_LocalScale: {x: 0.7, y: 3.26, z: 1.02}
   m_Children: []
   m_Father: {fileID: 875898938}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -1.4330001}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -608, y: 235}
+  m_AnchoredPosition: {x: -604, y: 236}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &953707685
@@ -17506,7 +17501,6 @@ MonoBehaviour:
     PresetName: 
   TargetLabel: 2
   TextLabel: {fileID: 0}
-  TextMeshProLabel: {fileID: 0}
 --- !u!114 &953707686
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20024,7 +20018,6 @@ MonoBehaviour:
     PresetName: 
   TargetLabel: 2
   TextLabel: {fileID: 0}
-  TextMeshProLabel: {fileID: 0}
 --- !u!114 &1074579313
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20086,7 +20079,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 042448b8dcfa86844be7b8d3e77f1da6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 69c49e82214c61c489e031a790e38094, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -22436,7 +22429,6 @@ MonoBehaviour:
     PresetName: 
   TargetLabel: 2
   TextLabel: {fileID: 0}
-  TextMeshProLabel: {fileID: 0}
 --- !u!114 &1231559710
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25130,7 +25122,6 @@ MonoBehaviour:
     PresetName: 
   TargetLabel: 2
   TextLabel: {fileID: 0}
-  TextMeshProLabel: {fileID: 0}
 --- !u!114 &1341553574
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25192,7 +25183,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 042448b8dcfa86844be7b8d3e77f1da6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 69c49e82214c61c489e031a790e38094, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -27668,7 +27659,6 @@ MonoBehaviour:
     PresetName: 
   TargetLabel: 2
   TextLabel: {fileID: 0}
-  TextMeshProLabel: {fileID: 0}
 --- !u!114 &1418006455
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27730,7 +27720,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 042448b8dcfa86844be7b8d3e77f1da6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 69c49e82214c61c489e031a790e38094, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -30207,7 +30197,6 @@ MonoBehaviour:
     PresetName: 
   TargetLabel: 2
   TextLabel: {fileID: 0}
-  TextMeshProLabel: {fileID: 0}
 --- !u!114 &1456115263
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32642,7 +32631,6 @@ MonoBehaviour:
     PresetName: 
   TargetLabel: 2
   TextLabel: {fileID: 0}
-  TextMeshProLabel: {fileID: 0}
 --- !u!114 &1538580712
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32704,7 +32692,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 042448b8dcfa86844be7b8d3e77f1da6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 69c49e82214c61c489e031a790e38094, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -35325,7 +35313,6 @@ MonoBehaviour:
     PresetName: 
   TargetLabel: 2
   TextLabel: {fileID: 0}
-  TextMeshProLabel: {fileID: 0}
 --- !u!114 &1838441122
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -38198,7 +38185,6 @@ MonoBehaviour:
     PresetName: 
   TargetLabel: 2
   TextLabel: {fileID: 0}
-  TextMeshProLabel: {fileID: 0}
 --- !u!114 &2052757158
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -38271,7 +38257,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 042448b8dcfa86844be7b8d3e77f1da6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 69c49e82214c61c489e031a790e38094, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -40620,7 +40606,6 @@ MonoBehaviour:
     PresetName: 
   TargetLabel: 2
   TextLabel: {fileID: 0}
-  TextMeshProLabel: {fileID: 0}
 --- !u!114 &2088485473
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -40736,7 +40721,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1031, y: -92}
+  m_AnchoredPosition: {x: -1306, y: -105}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2125880125
@@ -40757,7 +40742,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 042448b8dcfa86844be7b8d3e77f1da6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 69c49e82214c61c489e031a790e38094, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -40794,6 +40779,7 @@ MonoBehaviour:
   settingspopup: {fileID: 2038154979}
   formationpopup: {fileID: 175802588}
   townview: {fileID: 300665975}
+  RM: {fileID: 0}
 --- !u!95 &2125880128
 Animator:
   serializedVersion: 3
