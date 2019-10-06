@@ -16,3 +16,15 @@ MonoBehaviour:
   DatabaseType: 1
   Names:
   - MasterCanvas
+  - Ally1
+  - Ally2
+  - Ally3
+  - Ally4
+  - Ally5
+  - Ally6
+  - Enemy1
+  - Enemy2
+  - Enemy3
+  - Enemy4
+  - Enemy5
+  - Enemy6
