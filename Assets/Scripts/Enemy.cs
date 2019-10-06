@@ -6,8 +6,8 @@ public class Enemy : MonoBehaviour
     public float health = 40f;
     public int sectorIndex;
     public enemyClass unitType = 0;
-    public EnemyController controller;
-    public AllyController allies;
+    public EnemyController EC;
+    public AllyController AC;
     public CombatMaster CM;
     public Progressor healthbar;
     public int debuffActive;
@@ -23,8 +23,8 @@ public class Enemy : MonoBehaviour
     }
     void Start()
     {
-        allies = GameObject.FindGameObjectWithTag("AllyController").GetComponentInChildren<AllyController>();
-        controller = this.GetComponentInParent<EnemyController>();
+        AC = GameObject.FindGameObjectWithTag("AllyController").GetComponentInChildren<AllyController>();
+        EC = this.GetComponentInParent<EnemyController>();
         CM = GameObject.FindGameObjectWithTag("CombatMaster").GetComponentInChildren<CombatMaster>();
         healthbar = GetComponentInChildren<Progressor>();
         healthbar.SetMax(maxHealth);
@@ -45,6 +45,11 @@ public class Enemy : MonoBehaviour
             this.health -= hp;
         }
         healthbar.SetValue(health);
+
+        if (health <= 0)
+        {
+            Death();
+        }
     }
 
     public void Poisoned(float hp)
@@ -70,9 +75,9 @@ public class Enemy : MonoBehaviour
             isDebuffed = false;
         }
 
-        if (this.health <= 0)   //TODO: Add death animation.
+        if (this.health <= 0)
         {
-            gameObject.SetActive(false);
+            Death();
         }
 
         bool hasOpponent = false;
@@ -80,7 +85,7 @@ public class Enemy : MonoBehaviour
         switch (unitType)
         {
             case enemyClass.Basic:
-                foreach (Ally a in allies.allies)
+                foreach (Ally a in AC.allies)
                 {
                     if (a.sectorIndex == sectorIndex)
                     {
@@ -89,13 +94,15 @@ public class Enemy : MonoBehaviour
                         break;
                     }
                 }
+
                 if (!hasOpponent)
                 {
-                    allies.DamageMaster(15f);
+                    AC.DamageMaster(15f);
                 }
                 break;
+
             case enemyClass.Thicc:
-                foreach (Ally a in allies.allies)
+                foreach (Ally a in AC.allies)
                 {
                     if (a.sectorIndex == sectorIndex)
                     {
@@ -104,12 +111,22 @@ public class Enemy : MonoBehaviour
                         break;
                     }
                 }
+
                 if (!hasOpponent)
                 {
-                    allies.DamageMaster(30f);
+                    AC.DamageMaster(30f);
                 }
                 break;
-
         }
+    }
+
+    void Death()
+    {
+        // TODO: Death animation here
+        isDebuffed = false;
+        isPoisoned = false;
+        EC.enemiesToRemove.Push(this);
+        this.enabled = false;
+        //Destroy(gameObject);
     }
 }

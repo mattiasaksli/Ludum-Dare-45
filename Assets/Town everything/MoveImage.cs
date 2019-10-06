@@ -119,6 +119,8 @@ public class MoveImage : MonoBehaviour
 		{
 			isCenter = false;
 			townview.Hide();
+
+
 			if(gameObject.transform.localPosition.x <  w + 50)
 			{
 

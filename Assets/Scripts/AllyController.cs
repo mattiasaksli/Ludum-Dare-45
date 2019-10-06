@@ -13,10 +13,11 @@ public class AllyController : MonoBehaviour
     public Ally[] allyPrefabs;
     public List<Ally> allies = new List<Ally>();
     public CinemachineStateDrivenCamera camRig;
+    public EnemyController EC;
     public CombatMaster CM;
+    public Stack<Ally> alliesToRemove = new Stack<Ally>();
     public Animator camAnim;
     private float angle = Mathf.PI / 3;
-    public EnemyController enemies;
     public Progressor masterHealthBar;
     void Start()
     {
@@ -28,7 +29,7 @@ public class AllyController : MonoBehaviour
         camAnim = GetComponent<Animator>();
         camAnim.SetInteger("sweep", -1);
         camAnim.SetBool("roundEnd", false);
-        enemies = GameObject.FindGameObjectWithTag("EnemyController").GetComponent<EnemyController>();
+        EC = GameObject.FindGameObjectWithTag("EnemyController").GetComponent<EnemyController>();
         camRig = GameObject.FindGameObjectWithTag("CamRig").GetComponent<CinemachineStateDrivenCamera>();
     }
 
@@ -52,7 +53,7 @@ public class AllyController : MonoBehaviour
 
             Ally ally = Instantiate(allyPrefabs[allyClass], transform, this);
             UICanvas canvas = ally.GetComponentInChildren<UICanvas>();
-            canvas.CanvasName = "Ally" + allyIndex * 100;
+            canvas.CanvasName = "Ally--" + allyIndex * 100;
             canvas.name = canvas.CanvasName;
 
             ally.transform.localPosition = new Vector3(x, 0, z);
@@ -83,6 +84,7 @@ public class AllyController : MonoBehaviour
     }
     IEnumerator StartCombat()
     {
+
         camAnim.SetBool("roundEnd", true);
         List<int> indexes = new List<int>();
         foreach (Ally a in allies)
@@ -91,26 +93,46 @@ public class AllyController : MonoBehaviour
         }
         yield return new WaitForSeconds(1f);
         camAnim.SetInteger("sweep", 0);
+
+        bool firstWait = true;
         for (int i = 0; i < 6; i++)
         {
             if (indexes.Contains(i))
             {
-                Debug.Log(i);
-                camAnim.SetInteger("sweep", i);
-                yield return new WaitForSeconds(1f);
-                foreach (Ally a in allies)
+                if (CM.skip)
                 {
-                    if (a.sectorIndex == i)
+                    if (firstWait)
                     {
-                        a.Combat();
+                        camAnim.SetInteger("sweep", -1);
+                        yield return new WaitForSeconds(1f);
+                        firstWait = false;
+                    }
+                    foreach (Ally a in allies)
+                    {
+                        if (a.sectorIndex == i)
+                        {
+                            a.Combat();
+                        }
                     }
                 }
-                yield return new WaitForSeconds(1.5f);
+                else
+                {
+                    camAnim.SetInteger("sweep", i);
+                    yield return new WaitForSeconds(1f);
+                    foreach (Ally a in allies)
+                    {
+                        if (a.sectorIndex == i)
+                        {
+                            a.Combat();
+                        }
+                    }
+                    yield return new WaitForSeconds(1.5f);
+                }
             }
         }
         camAnim.SetInteger("sweep", -1);
         yield return new WaitForSeconds(2f);
-        enemies.Combat();
+        EC.Combat();
         yield return new WaitForSeconds(1f);
         camAnim.SetBool("roundEnd", false);
         yield return new WaitForSeconds(1f);
@@ -131,6 +153,6 @@ public class AllyController : MonoBehaviour
         {
             a.RoundStart();
         }
-        enemies.RoundStart();
+        EC.RoundStart();
     }
 }
