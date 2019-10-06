@@ -56,22 +56,18 @@ public class Ally : MonoBehaviour
         spell1Background.fillAmount = 1f;
         spell2Background.fillAmount = 1f;
 
-        if (spell1Cd > combatMaster.roundCount)
+        if (spell1Cd > CM.roundCount)
         {
             spell1Background.color = Color.gray;
             spell1Background.fillAmount = 0.5f;
         }
-        if (spell2Cd > combatMaster.roundCount)
+        if (spell2Cd > CM.roundCount)
         {
             spell2Background.color = Color.gray;
-            spell2Background.fillAmount = (spell2Cd - combatMaster.roundCount) / 3f;
+            spell2Background.fillAmount = (spell2Cd - CM.roundCount) / 3f;
         }
         isShielded = false;
         attackType = allyAttack.Basic;
-        if (health <= 0)
-        {
-            this.gameObject.SetActive(false);
-        }
     }
     public void Combat()
     {
@@ -102,7 +98,7 @@ public class Ally : MonoBehaviour
     }
     public void Select(int spell)
     {
-        if (!controller.CM.inputDisable)
+        if (!CM.inputDisable)
         {
             if ((this.attackType == allyAttack.Spell1 && spell == 1) || (this.attackType == allyAttack.Spell2 && spell == 2))
             {
@@ -114,7 +110,7 @@ public class Ally : MonoBehaviour
 
             if (spell == 1)
             {
-                if (spell1Cd < combatMaster.roundCount)
+                if (spell1Cd < CM.roundCount)
                 {
                     this.attackType = allyAttack.Spell1;
                     spell1.color = Color.white;
@@ -123,7 +119,7 @@ public class Ally : MonoBehaviour
             }
             else if (spell == 2)
             {
-                if (spell2Cd < combatMaster.roundCount)
+                if (spell2Cd < CM.roundCount)
                 {
                     this.attackType = allyAttack.Spell2;
                     spell2.color = Color.white;
@@ -223,11 +219,11 @@ public class Ally : MonoBehaviour
                         break;
                     case allyAttack.Spell1:
                         isShielded = true;
-                        spell1Cd = combatMaster.roundCount + 2;
+                        spell1Cd = CM.roundCount + 2;
                         break;
                     case allyAttack.Spell2:
                         BasicAttack(30f);
-                        spell2Cd = combatMaster.roundCount + 3;
+                        spell2Cd = CM.roundCount + 3;
                         break;
                 }
                 break;
@@ -242,7 +238,7 @@ public class Ally : MonoBehaviour
                         spell1Cd = CM.roundCount + 2;
                         break;
                     case allyAttack.Spell2:
-                        spell1Cd = combatMaster.roundCount + 3;
+                        spell1Cd = CM.roundCount + 3;
                         Poison(10f);
                         break;
                 }
@@ -255,11 +251,11 @@ public class Ally : MonoBehaviour
                         break;
                     case allyAttack.Spell1:
                         Heal();
-                        spell1Cd = combatMaster.roundCount + 2;
+                        spell1Cd = CM.roundCount + 2;
                         break;
                     case allyAttack.Spell2:
                         Debuff();
-                        spell2Cd = combatMaster.roundCount + 3;
+                        spell2Cd = CM.roundCount + 3;
                         break;
                 }
                 break;

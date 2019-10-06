@@ -13,7 +13,7 @@ public class EnemyController : MonoBehaviour
     void Start()
     {
         AC = GameObject.FindGameObjectWithTag("AllyController").GetComponent<AllyController>();
-        enemyRadius = AC.allyRadius + 2.5f;
+        enemyRadius += AC.allyRadius;
         PositionEnemies();
     }
 

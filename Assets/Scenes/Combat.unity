@@ -193,7 +193,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_Sprite: {fileID: 21300000, guid: b998709f99199f54eb075c9752449ec8, type: 3}
-  m_Type: 1
+  m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -227,7 +227,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 110, y: 110}
+  m_SizeDelta: {x: 115, y: 115}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &95277574
 GameObject:
@@ -339,7 +339,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 95277574}
-  m_LocalRotation: {x: 0.4585958, y: 0.000000032316557, z: -0.000000016677344, w: 0.888645}
+  m_LocalRotation: {x: 0.4585958, y: -0.00000005621245, z: 0.000000029009106, w: 0.888645}
   m_LocalPosition: {x: 0, y: 7.2293596, z: -3.772008}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -440,9 +440,9 @@ MonoBehaviour:
   ProgressTargets:
   - {fileID: 1270681934}
   - {fileID: 85062389}
-  AnimateValue: 0
-  AnimationDuration: 0.5
-  AnimationEase: 1
+  AnimateValue: 1
+  AnimationDuration: 1
+  AnimationEase: 13
   AnimationIgnoresUnityTimescale: 1
   OnEnableResetValue: 1
   OnDisableResetValue: 0
@@ -1153,7 +1153,7 @@ MonoBehaviour:
   - {fileID: 8933262866944784464, guid: f5552b9396ca9e64c90b4f09a8c06bb1, type: 3}
   enemies: []
   AC: {fileID: 0}
-  enemyRadius: 0
+  enemyRadius: 3
 --- !u!4 &908821433
 Transform:
   m_ObjectHideFlags: 0
@@ -2287,7 +2287,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1467801449}
-  m_LocalRotation: {x: 0.4909358, y: -0.000000052283358, z: 0.000000029462615, w: 0.8711958}
+  m_LocalRotation: {x: 0.49093577, y: 0.000000006091875, z: -0.0000000034329657, w: 0.8711958}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:

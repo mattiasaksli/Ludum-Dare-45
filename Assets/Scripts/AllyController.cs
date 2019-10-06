@@ -108,8 +108,6 @@ public class AllyController : MonoBehaviour
                 yield return new WaitForSeconds(1.5f);
             }
         }
-        camAnim.SetInteger("sweep", 6);
-        yield return new WaitForSeconds(0.2f);
         camAnim.SetInteger("sweep", -1);
         yield return new WaitForSeconds(2f);
         EC.Combat();

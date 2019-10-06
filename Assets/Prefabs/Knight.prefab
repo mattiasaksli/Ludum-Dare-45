@@ -617,17 +617,18 @@ MonoBehaviour:
   sectorIndex: 0
   unitType: 0
   attackType: 0
-  controller: {fileID: 0}
-  enemyController: {fileID: 0}
+  AC: {fileID: 0}
+  EC: {fileID: 0}
   healthbar: {fileID: 0}
   spell1: {fileID: 4914385689265056278}
   spell2: {fileID: 4914385690559094912}
   spell1Background: {fileID: 4870818158090396834}
   spell2Background: {fileID: 8411369601951757692}
-  combatMaster: {fileID: 0}
+  CM: {fileID: 0}
   spell1Cd: 0
   spell2Cd: 0
   isShielded: 0
+  isDead: 0
 --- !u!82 &469238484469405904
 AudioSource:
   m_ObjectHideFlags: 0
@@ -4194,14 +4195,14 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 9f32374cdae819e4a9f0496642f15dd2, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2b62cc33d9739f54aa72164d22c3cb35, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
+  m_FillClockwise: 0
+  m_FillOrigin: 2
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
 --- !u!95 &4914385690188630287
@@ -6694,7 +6695,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -31.1}
+  m_AnchoredPosition: {x: 0, y: -40.1}
   m_SizeDelta: {x: 200, y: 270}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7208643646887649784
@@ -6767,7 +6768,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -73.100044}
+  m_AnchoredPosition: {x: 0, y: -82.10006}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &7640482768016543379
@@ -6804,6 +6805,6 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 29.9}
+  m_AnchoredPosition: {x: 0, y: 20.899984}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
