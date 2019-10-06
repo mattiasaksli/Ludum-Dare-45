@@ -35,8 +35,19 @@ public class CombatMaster : MonoBehaviour
         skip = false;
         inputDisable = false;
         roundCount += 1;
+
         AC.RoundStart();
         EC.RoundStart();
+
+        while (AC.alliesToRemove.Count > 0)
+        {
+            AC.allies.Remove(AC.alliesToRemove.Pop());
+        }
+        while (EC.enemiesToRemove.Count > 0)
+        {
+            EC.enemies.Remove(EC.enemiesToRemove.Pop());
+        }
+
         StartCoroutine(Timer());
     }
     IEnumerator Timer()

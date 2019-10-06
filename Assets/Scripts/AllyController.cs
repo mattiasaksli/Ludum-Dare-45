@@ -13,10 +13,11 @@ public class AllyController : MonoBehaviour
     public Ally[] allyPrefabs;
     public List<Ally> allies = new List<Ally>();
     public CinemachineStateDrivenCamera camRig;
+    public EnemyController EC;
     public CombatMaster CM;
+    public Stack<Ally> alliesToRemove = new Stack<Ally>();
     public Animator camAnim;
     private float angle = Mathf.PI / 3;
-    public EnemyController enemies;
     public Progressor masterHealthBar;
     void Start()
     {
@@ -28,7 +29,7 @@ public class AllyController : MonoBehaviour
         camAnim = GetComponent<Animator>();
         camAnim.SetInteger("sweep", -1);
         camAnim.SetBool("roundEnd", false);
-        enemies = GameObject.FindGameObjectWithTag("EnemyController").GetComponent<EnemyController>();
+        EC = GameObject.FindGameObjectWithTag("EnemyController").GetComponent<EnemyController>();
         camRig = GameObject.FindGameObjectWithTag("CamRig").GetComponent<CinemachineStateDrivenCamera>();
     }
 
@@ -95,7 +96,6 @@ public class AllyController : MonoBehaviour
         {
             if (indexes.Contains(i))
             {
-                Debug.Log(i);
                 camAnim.SetInteger("sweep", i);
                 yield return new WaitForSeconds(1f);
                 foreach (Ally a in allies)
@@ -108,9 +108,11 @@ public class AllyController : MonoBehaviour
                 yield return new WaitForSeconds(1.5f);
             }
         }
+        camAnim.SetInteger("sweep", 6);
+        yield return new WaitForSeconds(0.2f);
         camAnim.SetInteger("sweep", -1);
         yield return new WaitForSeconds(2f);
-        enemies.Combat();
+        EC.Combat();
         yield return new WaitForSeconds(1f);
         camAnim.SetBool("roundEnd", false);
         yield return new WaitForSeconds(1f);
@@ -131,6 +133,6 @@ public class AllyController : MonoBehaviour
         {
             a.RoundStart();
         }
-        enemies.RoundStart();
+        EC.RoundStart();
     }
 }

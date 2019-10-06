@@ -6,11 +6,12 @@ public class Enemy : MonoBehaviour
     public float health = 40f;
     public int sectorIndex;
     public enemyClass unitType = 0;
-    public EnemyController controller;
-    public AllyController allies;
+    public EnemyController EC;
+    public AllyController AC;
     public CombatMaster CM;
     public Progressor healthbar;
     public int debuffActive;
+    public bool isDead = false;
 
     private bool isPoisoned;
     private bool isDebuffed;
@@ -23,8 +24,8 @@ public class Enemy : MonoBehaviour
     }
     void Start()
     {
-        allies = GameObject.FindGameObjectWithTag("AllyController").GetComponentInChildren<AllyController>();
-        controller = this.GetComponentInParent<EnemyController>();
+        AC = GameObject.FindGameObjectWithTag("AllyController").GetComponentInChildren<AllyController>();
+        EC = this.GetComponentInParent<EnemyController>();
         CM = GameObject.FindGameObjectWithTag("CombatMaster").GetComponentInChildren<CombatMaster>();
         healthbar = GetComponentInChildren<Progressor>();
         healthbar.SetMax(maxHealth);
@@ -32,6 +33,7 @@ public class Enemy : MonoBehaviour
         healthbar.SetValue(health);
         isPoisoned = false;
         isDebuffed = false;
+        isDead = false;
     }
     public void RoundStart()
     {
@@ -45,6 +47,11 @@ public class Enemy : MonoBehaviour
             this.health -= hp;
         }
         healthbar.SetValue(health);
+
+        if (health <= 0)
+        {
+            Death();
+        }
     }
 
     public void Poisoned(float hp)
@@ -60,56 +67,76 @@ public class Enemy : MonoBehaviour
     }
     public void Combat()
     {
-        if (isPoisoned)
+        if (!isDead)
         {
-            Damage(10f);
-        }
 
-        if (isDebuffed && debuffActive == CM.roundCount)
-        {
-            isDebuffed = false;
-        }
+            if (isPoisoned)
+            {
+                Damage(10f);
+            }
 
-        if (this.health <= 0)   //TODO: Add death animation.
-        {
-            gameObject.SetActive(false);
-        }
+            if (isDebuffed && debuffActive == CM.roundCount)
+            {
+                isDebuffed = false;
+            }
 
-        bool hasOpponent = false;
+            if (this.health <= 0)
+            {
+                Death();
+            }
 
-        switch (unitType)
-        {
-            case enemyClass.Basic:
-                foreach (Ally a in allies.allies)
-                {
-                    if (a.sectorIndex == sectorIndex)
+            bool hasOpponent = false;
+
+            switch (unitType)
+            {
+                case enemyClass.Basic:
+                    foreach (Ally a in AC.allies)
                     {
-                        a.Damage(15f);
-                        hasOpponent = true;
-                        break;
+                        if (a.sectorIndex == sectorIndex)
+                        {
+                            a.Damage(15f);
+                            hasOpponent = true;
+                            break;
+                        }
                     }
-                }
-                if (!hasOpponent)
-                {
-                    allies.DamageMaster(15f);
-                }
-                break;
-            case enemyClass.Thicc:
-                foreach (Ally a in allies.allies)
-                {
-                    if (a.sectorIndex == sectorIndex)
-                    {
-                        a.Damage(30f);
-                        hasOpponent = true;
-                        break;
-                    }
-                }
-                if (!hasOpponent)
-                {
-                    allies.DamageMaster(30f);
-                }
-                break;
 
+                    if (!hasOpponent)
+                    {
+                        AC.DamageMaster(15f);
+                    }
+                    break;
+
+                case enemyClass.Thicc:
+                    foreach (Ally a in AC.allies)
+                    {
+                        if (a.sectorIndex == sectorIndex)
+                        {
+                            if (!a.isDead)
+                            {
+                                a.Damage(30f);
+                            }
+                            hasOpponent = true;
+                            break;
+                        }
+                    }
+
+                    if (!hasOpponent)
+                    {
+                        AC.DamageMaster(30f);
+                    }
+                    break;
+            }
         }
+    }
+
+    void Death()
+    {
+        isDead = true;
+        // TODO: Death animation here
+        isDebuffed = false;
+        isPoisoned = false;
+        EC.enemiesToRemove.Push(this);
+        this.enabled = false;
+        //Destroy(gameObject);
     }
 }
