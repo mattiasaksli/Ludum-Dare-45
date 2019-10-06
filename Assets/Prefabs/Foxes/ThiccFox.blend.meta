@@ -1,29 +1,29 @@
 fileFormatVersion: 2
-guid: 80e7f1250283c9e489ac378ab738299f
+guid: 437de53bb4cac2f4ab752a93b206055f
 ModelImporter:
   serializedVersion: 26
   internalIDToNameTable:
   - first:
-      74: 4959586177179867782
-    second: Arm.r|Death
+      74: 1744808817222538142
+    second: BigFox|_TPose
   - first:
-      74: 4361553877233214652
-    second: Fox|_TPose
+      74: -7111666709044579178
+    second: BigFox|Attack
   - first:
-      74: 7456785141944843094
-    second: Fox|Death
+      74: -770125631134924946
+    second: BigFox|Death
   - first:
-      74: -601709987669469885
-    second: Fox|GetDamaged
+      74: 2055040355924052804
+    second: BigFox|GetDamaged
   - first:
-      74: 2753209273758380425
-    second: Fox|GUN
+      74: 3829791807774812836
+    second: BigFox|Idle
   - first:
-      74: 3840334483403123207
-    second: Fox|Idle
+      74: 8898674642782551369
+    second: Tail|Idle
   - first:
-      74: 2131864205095655572
-    second: Cube|Idle
+      74: -2813367350042600225
+    second: Foot.r|Idle
   externalObjects: {}
   materials:
     importMaterials: 1
