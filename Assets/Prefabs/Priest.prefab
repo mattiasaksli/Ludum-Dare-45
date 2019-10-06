@@ -541,16 +541,16 @@ MonoBehaviour:
   maxHealth: 75
   health: 75
   sectorIndex: 0
-  unitType: 0
+  unitType: 2
   attackType: 0
-  controller: {fileID: 0}
-  enemyController: {fileID: 0}
+  AC: {fileID: 0}
+  EC: {fileID: 0}
   healthbar: {fileID: 0}
   spell1: {fileID: 4914385689265056278}
   spell2: {fileID: 4914385690559094912}
   spell1Background: {fileID: 4870818158090396834}
   spell2Background: {fileID: 8411369601951757692}
-  combatMaster: {fileID: 0}
+  CM: {fileID: 0}
   spell1Cd: 0
   spell2Cd: 0
   isShielded: 0
@@ -3503,6 +3503,7 @@ MonoBehaviour:
     PresetName: 
   TargetLabel: 1
   TextLabel: {fileID: 4914385689290823172}
+  TextMeshProLabel: {fileID: 0}
 --- !u!1 &4914385689290823174
 GameObject:
   m_ObjectHideFlags: 0
@@ -6488,6 +6489,7 @@ MonoBehaviour:
     PresetName: 
   TargetLabel: 1
   TextLabel: {fileID: 4914385689722902483}
+  TextMeshProLabel: {fileID: 0}
 --- !u!1 &6242040761681082787
 GameObject:
   m_ObjectHideFlags: 0

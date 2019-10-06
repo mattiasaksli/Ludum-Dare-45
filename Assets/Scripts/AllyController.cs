@@ -41,11 +41,11 @@ public class AllyController : MonoBehaviour
 
     public void PositionAllies()
     {
-        Dictionary<int, Ally.allyClass> allyAndIndex = loadAllyPosition();
-        foreach (KeyValuePair<int, Ally.allyClass> pair in allyAndIndex)
+        allies = loadAllyPosition();
+        foreach (Ally a in allies)
         {
-            int allyIndex = pair.Key;
-            int allyClass = (int)pair.Value;
+            int allyIndex = a.sectorIndex;
+            int allyClass = (int)a.unitType;
 
             float allyAngle = angle * allyIndex;
             float x = Mathf.Sin(allyAngle) * allyRadius;
@@ -58,25 +58,15 @@ public class AllyController : MonoBehaviour
 
             ally.transform.localPosition = new Vector3(x, 0, z);
             ally.transform.localRotation = Quaternion.Euler(0, allyAngle * (180f / Mathf.PI), 0);
-            ally.sectorIndex = allyIndex;
-            ally.unitType = (Ally.allyClass)allyClass;
             allies.Add(ally);
         }
     }
 
-    public Dictionary<int, Ally.allyClass> loadAllyPosition()
+    public List<Ally> loadAllyPosition()
     {
-        Dictionary<int, Ally.allyClass> allyAndIndex = new Dictionary<int, Ally.allyClass>
-        {
-            { 0, Ally.allyClass.Knight },
-            { 1, Ally.allyClass.Mage},
-            { 2, Ally.allyClass.Priest },
-            { 3, Ally.allyClass.Knight },
-            { 4, Ally.allyClass.Mage },
-            { 5, Ally.allyClass.Priest },
-        };
+        List<Ally> allyList = new List<Ally>(6);
 
-        return allyAndIndex;
+        return JsonUtility.FromJson<List<Ally>>(PlayerPrefs.GetString("EncounterAllies"));
     }
     public void Combat()
     {
@@ -132,11 +122,17 @@ public class AllyController : MonoBehaviour
         }
         camAnim.SetInteger("sweep", -1);
         yield return new WaitForSeconds(2f);
+        if (masterHealth <= 0 || EC.enemies.Count == 0)
+        {
+            CM.EndEncounter();
+            StopCoroutine("StartCombat");
+        }
         EC.Combat();
         yield return new WaitForSeconds(1f);
         camAnim.SetBool("roundEnd", false);
         yield return new WaitForSeconds(1f);
         CM.RoundStart();
+
     }
     public void DamageMaster(float dmg)
     {
