@@ -6,13 +6,14 @@ public class EnemyController : MonoBehaviour
 {
     public Enemy[] enemyPrefabs;
     public List<Enemy> enemies = new List<Enemy>();
-    public AllyController allyController;
+    public AllyController AC;
     public float enemyRadius;
+    public Stack<Enemy> enemiesToRemove = new Stack<Enemy>();
     private float angle = Mathf.PI / 3;
     void Start()
     {
-        allyController = GameObject.FindGameObjectWithTag("AllyController").GetComponent<AllyController>();
-        enemyRadius = allyController.allyRadius + 2.5f;
+        AC = GameObject.FindGameObjectWithTag("AllyController").GetComponent<AllyController>();
+        enemyRadius = AC.allyRadius + 2.5f;
         PositionEnemies();
     }
 

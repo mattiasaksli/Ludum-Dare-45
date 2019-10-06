@@ -9,17 +9,18 @@ public class Ally : MonoBehaviour
     public int sectorIndex;
     public allyClass unitType = 0;
     public allyAttack attackType = 0;
-    public AllyController controller;
-    public EnemyController enemyController;
+    public AllyController AC;
+    public EnemyController EC;
     public Progressor healthbar;
     public Image spell1;
     public Image spell2;
     public Image spell1Background;
     public Image spell2Background;
-    public CombatMaster combatMaster;
+    public CombatMaster CM;
     public int spell1Cd;
     public int spell2Cd;
     public bool isShielded;
+    public bool isDead = false;
     public enum allyClass
     {
         Knight = 0,
@@ -34,16 +35,17 @@ public class Ally : MonoBehaviour
     }
     void Start()
     {
-        controller = this.GetComponentInParent<AllyController>();
+        AC = this.GetComponentInParent<AllyController>();
         spell1.color = Color.black;
         spell2.color = Color.black;
-        enemyController = GameObject.FindGameObjectWithTag("EnemyController").GetComponentInChildren<EnemyController>();
-        combatMaster = GameObject.FindGameObjectWithTag("CombatMaster").GetComponent<CombatMaster>();
-        controller = this.GetComponentInParent<AllyController>();
+        EC = GameObject.FindGameObjectWithTag("EnemyController").GetComponentInChildren<EnemyController>();
+        CM = GameObject.FindGameObjectWithTag("CombatMaster").GetComponent<CombatMaster>();
+        AC = this.GetComponentInParent<AllyController>();
         healthbar = GetComponentInChildren<Progressor>();
         healthbar.SetMax(maxHealth);
         health = maxHealth;
         healthbar.SetValue(health);
+        isDead = false;
     }
     public void RoundStart()
     {
@@ -73,18 +75,29 @@ public class Ally : MonoBehaviour
     }
     public void Combat()
     {
-        Attack();
+        if (!isDead)
+        {
+            Attack();
+        }
     }
     public void Damage(float hp)
     {
-        if (isShielded)
+        if (!isDead)
         {
-            return;
-        }
-        else
-        {
-            this.health -= hp;
-            healthbar.SetValue(health);
+            if (isShielded)
+            {
+                return;
+            }
+            else
+            {
+                this.health -= hp;
+                healthbar.SetValue(health);
+
+                if (health <= 0)
+                {
+                    Death();
+                }
+            }
         }
     }
     public void Select(int spell)
@@ -121,33 +134,79 @@ public class Ally : MonoBehaviour
     }
     void BasicAttack(float dmg)
     {
-        foreach (Enemy e in enemyController.enemies)
+        foreach (Enemy e in EC.enemies)
         {
-            if (e.sectorIndex == sectorIndex)
+            if (!e.isDead)
             {
-                e.Damage(dmg);
+                if (e.sectorIndex == sectorIndex)
+                {
+                    e.Damage(dmg);
+                }
             }
         }
     }
 
     void Poison(float dmg)
     {
-        foreach (Enemy e in enemyController.enemies)
+        foreach (Enemy e in EC.enemies)
         {
-            if (e.sectorIndex == sectorIndex)
+            if (e.isDead)
             {
-                e.Poisoned(dmg);
+                if (e.sectorIndex == sectorIndex)
+                {
+                    e.Poisoned(dmg);
+                }
             }
         }
     }
 
     void Debuff()
     {
-        foreach (Enemy e in enemyController.enemies)
+        foreach (Enemy e in EC.enemies)
         {
-            if (e.sectorIndex == sectorIndex)
+            if (!e.isDead)
             {
-                e.Debuffed();
+                if (e.sectorIndex == sectorIndex)
+                {
+                    e.Debuffed();
+                }
+            }
+        }
+    }
+
+    void FireBall()
+    {
+        foreach (Enemy e in EC.enemies)
+        {
+            if (!e.isDead)
+            {
+                for (int i = -1; i < 2; i++)
+                {
+                    int index = (sectorIndex + i) % 6;
+                    if (index == -1)
+                    {
+                        index = 5;
+                    }
+                    if (index == e.sectorIndex)
+                    {
+                        e.Damage(15f);
+                    }
+                }
+            }
+        }
+    }
+
+    void Heal()
+    {
+        foreach (Ally a in AC.allies)
+        {
+            if (!a.isDead)
+            {
+                a.health += a.maxHealth * 0.25f;
+                if (a.health > a.maxHealth)
+                {
+                    a.health = a.maxHealth;
+                }
             }
         }
     }
@@ -180,7 +239,7 @@ public class Ally : MonoBehaviour
                         break;
                     case allyAttack.Spell1:
                         FireBall();
-                        spell1Cd = combatMaster.roundCount + 2;
+                        spell1Cd = CM.roundCount + 2;
                         break;
                     case allyAttack.Spell2:
                         spell1Cd = combatMaster.roundCount + 3;
@@ -205,46 +264,14 @@ public class Ally : MonoBehaviour
                 }
                 break;
         }
-        void BasicAttack(float dmg)
-        {
-            foreach (Enemy e in enemyController.enemies)
-            {
-                if (e.sectorIndex == sectorIndex)
-                {
-                    e.Damage(dmg);
-                }
-            }
-        }
-        void FireBall()
-        {
-            foreach (Enemy e in enemyController.enemies)
-            {
-                for (int i = -1; i < 2; i++)
-                {
-                    int index = (sectorIndex + i) % 6;
-                    if (index == -1)
-                    {
-                        index = 5;
-                    }
-                    if (index == e.sectorIndex)
-                    {
-                        e.Damage(15f);
-                    }
-                }
-            }
+    }
 
-        }
-
-        void Heal()
-        {
-            foreach (Ally a in controller.allies)
-            {
-                a.health += a.maxHealth * 0.25f;
-                if (a.health > a.maxHealth)
-                {
-                    a.health = a.maxHealth;
-                }
-            }
-        }
+    void Death()
+    {
+        isDead = true;
+        AC.alliesToRemove.Push(this);
+        this.enabled = false;
+        // TODO: Death animation here
+        //Destroy(gameObject);
     }
 }
