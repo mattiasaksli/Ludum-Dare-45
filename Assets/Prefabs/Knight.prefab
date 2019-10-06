@@ -3031,7 +3031,7 @@ MonoBehaviour:
   StartScale: {x: 1, y: 1, z: 1}
   StartAlpha: 1
   CanvasName: Ally1
-  CustomCanvasName: 0
+  CustomCanvasName: 1
   DontDestroyCanvasOnLoad: 1
 --- !u!1 &4914385689722902493
 GameObject:
