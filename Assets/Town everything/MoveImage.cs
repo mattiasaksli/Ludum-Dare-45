@@ -8,7 +8,6 @@ public class MoveImage : MonoBehaviour
     public Animator animator;
     public float speed;
     private float w;
-	Vector3 startingpos;
     bool isCenter;
 	bool HeroChosen = false;
 	bool wantsToExit = false;
@@ -21,7 +20,7 @@ public class MoveImage : MonoBehaviour
 	public UIPopup settingspopup;
 	public UIPopup formationpopup;
 	public UIView townview;
-
+    
 
 
     // Start is called before the first frame update
@@ -30,7 +29,7 @@ public class MoveImage : MonoBehaviour
         canvas = GameObject.Find("View - MainTownView");
         w = canvas.GetComponent<RectTransform>().rect.width;
 		
-		startingpos = gameObject.transform.localPosition;
+		
 
 		
     }
