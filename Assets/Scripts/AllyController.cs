@@ -92,20 +92,41 @@ public class AllyController : MonoBehaviour
         }
         yield return new WaitForSeconds(1f);
         camAnim.SetInteger("sweep", 0);
+
+        bool firstWait = true;
         for (int i = 0; i < 6; i++)
         {
             if (indexes.Contains(i))
             {
-                camAnim.SetInteger("sweep", i);
-                yield return new WaitForSeconds(1f);
-                foreach (Ally a in allies)
+                if (CM.skip)
                 {
-                    if (a.sectorIndex == i)
+                    if (firstWait)
                     {
-                        a.Combat();
+                        camAnim.SetInteger("sweep", -1);
+                        yield return new WaitForSeconds(1f);
+                        firstWait = false;
+                    }
+                    foreach (Ally a in allies)
+                    {
+                        if (a.sectorIndex == i)
+                        {
+                            a.Combat();
+                        }
                     }
                 }
-                yield return new WaitForSeconds(1.5f);
+                else
+                {
+                    camAnim.SetInteger("sweep", i);
+                    yield return new WaitForSeconds(1f);
+                    foreach (Ally a in allies)
+                    {
+                        if (a.sectorIndex == i)
+                        {
+                            a.Combat();
+                        }
+                    }
+                    yield return new WaitForSeconds(1.5f);
+                }
             }
         }
         camAnim.SetInteger("sweep", -1);

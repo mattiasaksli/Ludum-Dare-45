@@ -66,6 +66,7 @@ public class CombatMaster : MonoBehaviour
         timeBar.AnimationDuration = 2f;
         timeBar.SetValue(0);
         inputDisable = true;
+        skip = false;
         AC.Combat();
     }
     IEnumerator Rotating()
@@ -78,15 +79,16 @@ public class CombatMaster : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            skip = true;
+        }
+
         if (!turningLeft && !turningRight)
         {
             if (!inputDisable)
             {
 
-                if (Input.GetKeyDown(KeyCode.LeftShift))
-                {
-                    skip = true;
-                }
 
                 if (Input.GetKeyDown(KeyCode.A))
                 {

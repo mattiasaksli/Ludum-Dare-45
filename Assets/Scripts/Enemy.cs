@@ -11,7 +11,6 @@ public class Enemy : MonoBehaviour
     public CombatMaster CM;
     public Progressor healthbar;
     public int debuffActive;
-    public bool isDead = false;
 
     private bool isPoisoned;
     private bool isDebuffed;
@@ -33,7 +32,6 @@ public class Enemy : MonoBehaviour
         healthbar.SetValue(health);
         isPoisoned = false;
         isDebuffed = false;
-        isDead = false;
     }
     public void RoundStart()
     {
@@ -67,71 +65,63 @@ public class Enemy : MonoBehaviour
     }
     public void Combat()
     {
-        if (!isDead)
+        if (isPoisoned)
         {
+            Damage(10f);
+        }
 
-            if (isPoisoned)
-            {
-                Damage(10f);
-            }
+        if (isDebuffed && debuffActive == CM.roundCount)
+        {
+            isDebuffed = false;
+        }
 
-            if (isDebuffed && debuffActive == CM.roundCount)
-            {
-                isDebuffed = false;
-            }
+        if (this.health <= 0)
+        {
+            Death();
+        }
 
-            if (this.health <= 0)
-            {
-                Death();
-            }
+        bool hasOpponent = false;
 
-            bool hasOpponent = false;
-
-            switch (unitType)
-            {
-                case enemyClass.Basic:
-                    foreach (Ally a in AC.allies)
+        switch (unitType)
+        {
+            case enemyClass.Basic:
+                foreach (Ally a in AC.allies)
+                {
+                    if (a.sectorIndex == sectorIndex)
                     {
-                        if (a.sectorIndex == sectorIndex)
-                        {
-                            a.Damage(15f);
-                            hasOpponent = true;
-                            break;
-                        }
+                        a.Damage(15f);
+                        hasOpponent = true;
+                        break;
                     }
+                }
 
-                    if (!hasOpponent)
-                    {
-                        AC.DamageMaster(15f);
-                    }
-                    break;
+                if (!hasOpponent)
+                {
+                    AC.DamageMaster(15f);
+                }
+                break;
 
-                case enemyClass.Thicc:
-                    foreach (Ally a in AC.allies)
+            case enemyClass.Thicc:
+                foreach (Ally a in AC.allies)
+                {
+                    if (a.sectorIndex == sectorIndex)
                     {
-                        if (a.sectorIndex == sectorIndex)
-                        {
-                            if (!a.isDead)
-                            {
-                                a.Damage(30f);
-                            }
-                            hasOpponent = true;
-                            break;
-                        }
+                        a.Damage(30f);
+                        hasOpponent = true;
+                        break;
                     }
+                }
 
-                    if (!hasOpponent)
-                    {
-                        AC.DamageMaster(30f);
-                    }
-                    break;
-            }
+                if (!hasOpponent)
+                {
+                    AC.DamageMaster(30f);
+                }
+                break;
         }
     }
 
     void Death()
     {
-        isDead = true;
         // TODO: Death animation here
         isDebuffed = false;
         isPoisoned = false;
