@@ -19,6 +19,7 @@ public class AllyController : MonoBehaviour
     public Animator camAnim;
     private float angle = Mathf.PI / 3;
     public Progressor masterHealthBar;
+    public Animator elder;
     void Start()
     {
         PositionAllies();
@@ -41,11 +42,11 @@ public class AllyController : MonoBehaviour
 
     public void PositionAllies()
     {
-        Dictionary<int, Ally.allyClass> allyAndIndex = loadAllyPosition();
-        foreach (KeyValuePair<int, Ally.allyClass> pair in allyAndIndex)
+        allies = loadAllyPosition();
+        foreach (Ally a in allies)
         {
-            int allyIndex = pair.Key;
-            int allyClass = (int)pair.Value;
+            int allyIndex = a.sectorIndex;
+            int allyClass = (int)a.unitType;
 
             float allyAngle = angle * allyIndex;
             float x = Mathf.Sin(allyAngle) * allyRadius;
@@ -58,25 +59,21 @@ public class AllyController : MonoBehaviour
 
             ally.transform.localPosition = new Vector3(x, 0, z);
             ally.transform.localRotation = Quaternion.Euler(0, allyAngle * (180f / Mathf.PI), 0);
-            ally.sectorIndex = allyIndex;
-            ally.unitType = (Ally.allyClass)allyClass;
             allies.Add(ally);
         }
     }
 
-    public Dictionary<int, Ally.allyClass> loadAllyPosition()
+    public List<Ally> loadAllyPosition()
     {
-        Dictionary<int, Ally.allyClass> allyAndIndex = new Dictionary<int, Ally.allyClass>
-        {
-            { 0, Ally.allyClass.Knight },
-            { 1, Ally.allyClass.Mage},
-            { 2, Ally.allyClass.Priest },
-            { 3, Ally.allyClass.Knight },
-            { 4, Ally.allyClass.Mage },
-            { 5, Ally.allyClass.Priest },
-        };
+        List<Ally> allyList = new List<Ally>(6);
+        Ally a3 = allyPrefabs[2];
+        Ally a1 = allyPrefabs[0];
+        a3.sectorIndex = 3;
+        a1.sectorIndex = 1;
+        allyList.Add(a1);
+        allyList.Add(a3);
 
-        return allyAndIndex;
+        return allyList;
     }
     public void Combat()
     {
@@ -91,7 +88,7 @@ public class AllyController : MonoBehaviour
         {
             indexes.Add(a.sectorIndex);
         }
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(1.5f);
         camAnim.SetInteger("sweep", 0);
 
         bool firstWait = true;
@@ -118,20 +115,31 @@ public class AllyController : MonoBehaviour
                 else
                 {
                     camAnim.SetInteger("sweep", i);
-                    yield return new WaitForSeconds(1f);
                     foreach (Ally a in allies)
                     {
                         if (a.sectorIndex == i)
                         {
+                            yield return new WaitForSeconds(0.5f);
                             a.Combat();
                         }
                     }
-                    yield return new WaitForSeconds(1.5f);
+                    yield return new WaitForSeconds(2f);
                 }
             }
         }
+        if (CM.skip)
+        {
+            yield return new WaitForSeconds(1.5f);
+        }
         camAnim.SetInteger("sweep", -1);
+        yield return new WaitForSeconds(1f);
+        EC.Combat();
         yield return new WaitForSeconds(2f);
+        if (masterHealth <= 0 || EC.enemies.Count == 0)
+        {
+            CM.EndEncounter();
+            StopCoroutine("StartCombat");
+        }
         EC.Combat();
         yield return new WaitForSeconds(1f);
         camAnim.SetBool("roundEnd", false);
@@ -142,11 +150,13 @@ public class AllyController : MonoBehaviour
     {
         masterHealth -= dmg;
         masterHealthBar.SetValue(masterHealth);
+        elder.Play("Damage");
     }
     public void RoundStart()
     {
         if (masterHealth <= 0)
         {
+            elder.Play("Death");
             Application.Quit();
         }
         foreach (Ally a in allies)

@@ -18,7 +18,9 @@ MonoBehaviour:
   - Example
   - General
   - TownButtons
+  - TownViewButtons
   Categories:
   - {fileID: 11400000, guid: 40f9e81ff80114a47a3721228ba749ed, type: 2}
   - {fileID: 11400000, guid: 9b4fa844633340b4699e7f23f0c2f0d1, type: 2}
   - {fileID: 11400000, guid: 0c93165d1a4bbde48af8306314a6f612, type: 2}
+  - {fileID: 11400000, guid: 22155f4684cff57418a9b99e7557c41f, type: 2}

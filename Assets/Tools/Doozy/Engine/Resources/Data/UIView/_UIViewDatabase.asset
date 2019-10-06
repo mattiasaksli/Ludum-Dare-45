@@ -18,7 +18,11 @@ MonoBehaviour:
   - Example
   - General
   - Town
+  - Combat
+  - TownViewCategory
   Categories:
   - {fileID: 11400000, guid: b01e98f4801f7124ba39e1dac4debf90, type: 2}
   - {fileID: 11400000, guid: caed2506cea7d5042b834a52d9f91642, type: 2}
   - {fileID: 11400000, guid: 23dd21b52b88e0541b8a980bf7fb1347, type: 2}
+  - {fileID: 11400000, guid: e21e794b9661f7743a323ee1dcd85a6f, type: 2}
+  - {fileID: 11400000, guid: 6aeef299f82eaf342ae682f8786c6286, type: 2}
