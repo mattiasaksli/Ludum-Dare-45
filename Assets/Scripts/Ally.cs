@@ -1,4 +1,5 @@
 ﻿using Doozy.Engine.Progress;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -20,6 +21,7 @@ public class Ally : MonoBehaviour
     public int spell1Cd;
     public int spell2Cd;
     public bool isShielded;
+    public Animator anim;
     public enum allyClass
     {
         Knight = 0,
@@ -35,6 +37,7 @@ public class Ally : MonoBehaviour
     void Start()
     {
         AC = this.GetComponentInParent<AllyController>();
+        anim = GetComponentInChildren<Animator>();
         spell1.color = Color.black;
         spell2.color = Color.black;
         EC = GameObject.FindGameObjectWithTag("EnemyController").GetComponentInChildren<EnemyController>();
@@ -64,7 +67,11 @@ public class Ally : MonoBehaviour
             spell2Background.color = Color.gray;
             spell2Background.fillAmount = (spell2Cd - CM.roundCount) / 3f;
         }
-        isShielded = false;
+        if (isShielded)
+        {
+            anim.SetBool("isShielded", false);
+            isShielded = false;
+        }
         attackType = allyAttack.Basic;
     }
     public void Combat()
@@ -75,18 +82,25 @@ public class Ally : MonoBehaviour
     {
         if (isShielded)
         {
+            anim.Play("ShieldIdle");
             return;
         }
         else
         {
+            anim.Play("Damage");
             this.health -= hp;
-            healthbar.SetValue(health);
+            StartCoroutine(DoDamage());
 
             if (health <= 0)
             {
                 Death();
             }
         }
+    }
+    IEnumerator DoDamage()
+    {
+        yield return new WaitForSeconds(0.7f);
+        healthbar.SetValue(health);
     }
     public void Select(int spell)
     {
@@ -122,6 +136,7 @@ public class Ally : MonoBehaviour
     }
     void BasicAttack(float dmg)
     {
+        anim.Play("Attack");
         foreach (Enemy e in EC.enemies)
         {
             if (e.sectorIndex == sectorIndex)
@@ -133,6 +148,7 @@ public class Ally : MonoBehaviour
 
     void Poison(float dmg)
     {
+        anim.Play("Cast");
         foreach (Enemy e in EC.enemies)
         {
             if (e.sectorIndex == sectorIndex)
@@ -144,6 +160,7 @@ public class Ally : MonoBehaviour
 
     void Debuff()
     {
+        anim.Play("Cast");
         foreach (Enemy e in EC.enemies)
         {
             if (e.sectorIndex == sectorIndex)
@@ -155,6 +172,7 @@ public class Ally : MonoBehaviour
 
     void FireBall()
     {
+        anim.Play("Cast");
         foreach (Enemy e in EC.enemies)
         {
             for (int i = -1; i < 2; i++)
@@ -174,6 +192,7 @@ public class Ally : MonoBehaviour
 
     void Heal()
     {
+        anim.Play("Cast");
         foreach (Ally a in AC.allies)
         {
             a.health += a.maxHealth * 0.25f;
@@ -195,7 +214,9 @@ public class Ally : MonoBehaviour
                         BasicAttack(20f);
                         break;
                     case allyAttack.Spell1:
+                        anim.Play("Shield");
                         isShielded = true;
+                        anim.SetBool("isShielded", true);
                         spell1Cd = CM.roundCount + 2;
                         break;
                     case allyAttack.Spell2:
@@ -242,6 +263,11 @@ public class Ally : MonoBehaviour
     void Death()
     {
         AC.alliesToRemove.Push(this);
+        anim.Play("Death");
+        spell1.enabled = false;
+        spell1Background.enabled = false;
+        spell2.enabled = false;
+        spell2Background.enabled = false;
         this.enabled = false;
         // TODO: Death animation here
         //Destroy(gameObject);
