@@ -66,8 +66,14 @@ public class AllyController : MonoBehaviour
     public List<Ally> loadAllyPosition()
     {
         List<Ally> allyList = new List<Ally>(6);
+        Ally a3 = allyPrefabs[2];
+        Ally a1 = allyPrefabs[0];
+        a3.sectorIndex = 3;
+        a1.sectorIndex = 1;
+        allyList.Add(a1);
+        allyList.Add(a3);
 
-        return JsonUtility.FromJson<List<Ally>>(PlayerPrefs.GetString("EncounterAllies"));
+        return allyList;
     }
     public void Combat()
     {
