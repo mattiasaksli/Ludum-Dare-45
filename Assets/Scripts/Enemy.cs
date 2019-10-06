@@ -1,4 +1,5 @@
 ﻿using Doozy.Engine.Progress;
+using System.Collections;
 using UnityEngine;
 public class Enemy : MonoBehaviour
 {
@@ -44,12 +45,17 @@ public class Enemy : MonoBehaviour
         {
             this.health -= hp;
         }
-        healthbar.SetValue(health);
+        StartCoroutine(DoDamage());
 
         if (health <= 0)
         {
             Death();
         }
+    }
+    IEnumerator DoDamage()
+    {
+        yield return new WaitForSeconds(0.7f);
+        healthbar.SetValue(health);
     }
 
     public void Poisoned(float hp)

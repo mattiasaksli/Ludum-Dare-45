@@ -1,4 +1,5 @@
 ﻿using Doozy.Engine.UI;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class MoveImage : MonoBehaviour
@@ -18,11 +19,13 @@ public class MoveImage : MonoBehaviour
     public UIPopup settingspopup;
     public UIPopup formationpopup;
     public UIView townview;
+    public RadialMenu RM;
 
     void Start()
     {
         canvas = GameObject.Find("View - MainTownView");
         w = canvas.GetComponent<RectTransform>().rect.width;
+        RM = GameObject.FindGameObjectWithTag("RadialMenu").GetComponent<RadialMenu>();
     }
 
     void Update()
@@ -112,5 +115,16 @@ public class MoveImage : MonoBehaviour
     public void ExitFormation()
     {
         FormationChosen = true;
+        Ally[] allyCircle = RM.allyCircle;
+        List<Ally> allyCircleList = new List<Ally>(6);
+        for (int i = 0; i < 6; i++)
+        {
+            if (allyCircle[i] != null)
+            {
+                allyCircle[i].sectorIndex = i;
+                allyCircleList.Add(allyCircle[i]);
+            }
+        }
+        PlayerPrefs.SetString("EncounterAllies", JsonUtility.ToJson(allyCircleList));
     }
 }

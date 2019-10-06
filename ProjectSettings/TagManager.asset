@@ -9,6 +9,7 @@ TagManager:
   - EnemyController
   - CamRig
   - FreeLook
+  - RadialMenu
   layers:
   - Default
   - TransparentFX

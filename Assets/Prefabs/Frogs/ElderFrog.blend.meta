@@ -1,29 +1,23 @@
 fileFormatVersion: 2
-guid: 17c2be4d26151af4688af3c8bd3b2617
+guid: e9ac7ae63c28aa24d98666b9e315714b
 ModelImporter:
   serializedVersion: 26
   internalIDToNameTable:
   - first:
+      74: 518534998944487535
+    second: ElderHead|Death
+  - first:
       74: -8109278098537011748
     second: Frog|_Tpose
-  - first:
-      74: 6868414477925337743
-    second: Frog|BouncyIdle
   - first:
       74: 4684147208476351277
     second: Frog|Death
   - first:
-      74: -6058132221294929217
-    second: Frog|HoldShield
+      74: -4366479084403595586
+    second: Frog|ElderIdle
   - first:
-      74: -5278697528823521824
-    second: Frog|UseShield
-  - first:
-      74: -1703617556523914549
-    second: ShieldHead|BouncyIdle
-  - first:
-      74: -2827860322314775199
-    second: Torso|Death
+      74: 3114318165886756947
+    second: Frog|ElderLookaroud
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -53,11 +47,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Frog|_Tpose
-      takeName: Frog|_Tpose
+      name: ElderHead|Death
+      takeName: ElderHead|Death
       internalID: 0
       firstFrame: 0
-      lastFrame: 41
+      lastFrame: 24
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -82,11 +76,11 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Frog|BouncyIdle
-      takeName: Frog|BouncyIdle
+      name: Frog|_Tpose
+      takeName: Frog|_Tpose
       internalID: 0
       firstFrame: 0
-      lastFrame: 38
+      lastFrame: 41
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -140,18 +134,18 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Frog|HoldShield
-      takeName: Frog|HoldShield
+      name: Frog|ElderIdle
+      takeName: Frog|ElderIdle
       internalID: 0
       firstFrame: 0
-      lastFrame: 28
+      lastFrame: 38
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
+      loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
@@ -169,11 +163,11 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Frog|UseShield
-      takeName: Frog|UseShield
+      name: Frog|ElderLookaroud
+      takeName: Frog|ElderLookaroud
       internalID: 0
       firstFrame: 0
-      lastFrame: 30
+      lastFrame: 76
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
