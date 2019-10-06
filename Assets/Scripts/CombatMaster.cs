@@ -31,7 +31,6 @@ public class CombatMaster : MonoBehaviour
         EC = GameObject.FindGameObjectWithTag("EnemyController").GetComponent<EnemyController>();
         AC = GameObject.FindGameObjectWithTag("AllyController").GetComponent<AllyController>();
         freeLook = GameObject.FindGameObjectWithTag("FreeLook").GetComponent<CinemachineFreeLook>();
-        freeLook.enabled = false;
         StartCoroutine(Timer());
     }
     public void RoundStart()
@@ -103,11 +102,15 @@ public class CombatMaster : MonoBehaviour
             {
                 if (Input.GetMouseButton(1))
                 {
-                    freeLook.enabled = true;
+                    freeLook.m_YAxis.m_InputAxisName = "Mouse Y";
+                    freeLook.m_XAxis.m_InputAxisName = "Mouse X";
                 }
                 else
                 {
-                    freeLook.enabled = false;
+                    freeLook.m_YAxis.m_InputAxisName = "";
+                    freeLook.m_XAxis.m_InputAxisName = "";
+                    freeLook.m_YAxis.m_InputAxisValue = 0;
+                    freeLook.m_XAxis.m_InputAxisValue = 0;
                 }
 
                 if (Input.GetKeyDown(KeyCode.A))

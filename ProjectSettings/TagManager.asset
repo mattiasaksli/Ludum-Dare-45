@@ -8,6 +8,7 @@ TagManager:
   - AllyController
   - EnemyController
   - CamRig
+  - FreeLook
   layers:
   - Default
   - TransparentFX
