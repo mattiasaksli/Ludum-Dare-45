@@ -1,4 +1,5 @@
-﻿using Doozy.Engine.Progress;
+﻿using Cinemachine;
+using Doozy.Engine.Progress;
 using System.Collections;
 using UnityEngine;
 
@@ -15,17 +16,22 @@ public class CombatMaster : MonoBehaviour
     public bool skip;
     public bool inputDisable;
     public Progressor timeBar;
+    public CinemachineFreeLook freeLook;
+    public bool inCombat = false;
     void Start()
     {
         inputDisable = false;
         turningLeft = false;
         turningRight = false;
+        inCombat = false;
         roundCount = 1;
         timeBar = GetComponent<Progressor>();
         timeBar.SetMax(roundTime);
         timeBar.SetValue(0);
         EC = GameObject.FindGameObjectWithTag("EnemyController").GetComponent<EnemyController>();
         AC = GameObject.FindGameObjectWithTag("AllyController").GetComponent<AllyController>();
+        freeLook = GameObject.FindGameObjectWithTag("FreeLook").GetComponent<CinemachineFreeLook>();
+        freeLook.enabled = false;
         StartCoroutine(Timer());
     }
     public void RoundStart()
@@ -34,6 +40,7 @@ public class CombatMaster : MonoBehaviour
         timeBar.AnimationDuration = 0.5f;
         skip = false;
         inputDisable = false;
+        inCombat = false;
         roundCount += 1;
 
         AC.RoundStart();
@@ -62,6 +69,7 @@ public class CombatMaster : MonoBehaviour
             }
             yield return new WaitForSeconds(1f);
         }
+        inCombat = true;
         currentTime = 20;
         timeBar.AnimationDuration = 2f;
         timeBar.SetValue(0);
@@ -71,10 +79,14 @@ public class CombatMaster : MonoBehaviour
     }
     IEnumerator Rotating()
     {
-        yield return new WaitForSeconds(.4f);
-        inputDisable = false;
+        yield return new WaitForSeconds(.5f);
         turningLeft = false;
         turningRight = false;
+
+        if (!inCombat)
+        {
+            inputDisable = false;
+        }
     }
     // Update is called once per frame
     void Update()
@@ -82,13 +94,21 @@ public class CombatMaster : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
             skip = true;
+            inCombat = true;
         }
 
         if (!turningLeft && !turningRight)
         {
             if (!inputDisable)
             {
-
+                if (Input.GetMouseButton(1))
+                {
+                    freeLook.enabled = true;
+                }
+                else
+                {
+                    freeLook.enabled = false;
+                }
 
                 if (Input.GetKeyDown(KeyCode.A))
                 {
@@ -121,12 +141,12 @@ public class CombatMaster : MonoBehaviour
         }
         else if (turningLeft)
         {
-            AC.transform.rotation = Quaternion.Lerp
+            AC.transform.rotation = Quaternion.Slerp
                 (AC.transform.rotation, Quaternion.Euler(0, yEulerAngle - 60f, 0), 0.25f);
         }
         else if (turningRight)
         {
-            AC.transform.rotation = Quaternion.Lerp
+            AC.transform.rotation = Quaternion.Slerp
                 (AC.transform.rotation, Quaternion.Euler(0, yEulerAngle + 60f, 0), 0.25f);
         }
     }

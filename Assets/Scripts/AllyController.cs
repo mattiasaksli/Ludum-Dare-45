@@ -53,7 +53,7 @@ public class AllyController : MonoBehaviour
 
             Ally ally = Instantiate(allyPrefabs[allyClass], transform, this);
             UICanvas canvas = ally.GetComponentInChildren<UICanvas>();
-            canvas.CanvasName = "Ally" + allyIndex * 100;
+            canvas.CanvasName = "Ally--" + allyIndex * 100;
             canvas.name = canvas.CanvasName;
 
             ally.transform.localPosition = new Vector3(x, 0, z);
@@ -84,6 +84,7 @@ public class AllyController : MonoBehaviour
     }
     IEnumerator StartCombat()
     {
+
         camAnim.SetBool("roundEnd", true);
         List<int> indexes = new List<int>();
         foreach (Ally a in allies)
