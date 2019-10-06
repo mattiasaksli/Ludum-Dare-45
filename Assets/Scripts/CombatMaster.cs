@@ -18,6 +18,7 @@ public class CombatMaster : MonoBehaviour
     public Progressor timeBar;
     public CinemachineFreeLook freeLook;
     public bool inCombat = false;
+    public bool endCombat = false;
     void Start()
     {
         inputDisable = false;
@@ -55,6 +56,11 @@ public class CombatMaster : MonoBehaviour
         }
 
         StartCoroutine(Timer());
+    }
+
+    public void EndEncounter()
+    {
+
     }
     IEnumerator Timer()
     {

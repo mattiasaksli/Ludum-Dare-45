@@ -335,9 +335,10 @@ GameObject:
   - component: {fileID: 155512359}
   - component: {fileID: 155512358}
   - component: {fileID: 155512357}
+  - component: {fileID: 155512362}
   m_Layer: 0
   m_Name: MasterCanvas
-  m_TagString: Untagged
+  m_TagString: RadialMenu
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -418,7 +419,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
@@ -446,6 +447,38 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &155512362
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 155512356}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bdbc714460d309645bc1fe2ca5a2165b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  allyPrefabs:
+  - {fileID: 4914385688523200082, guid: d95f7d555f705654e83d74710c5e1acb, type: 3}
+  - {fileID: 4914385688523200082, guid: 6cd9151acb8a30440808297a6c2e92f7, type: 3}
+  - {fileID: 4914385688523200082, guid: 41fef577a9a5aea43a3bf5c4a1a0fce6, type: 3}
+  allyCircle:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  newAlly1: {fileID: 0}
+  newAlly2: {fileID: 0}
+  chosenAlly: {fileID: 0}
+  selectedAlly: {fileID: 0}
+  newAllyPlaced: 0
+  indexOfSelectedAlly: -1
+  ChooseNewUnitButton1: {fileID: 1148227916}
+  ChooseNewUnitButton2: {fileID: 1122946255}
+  NewUnitImage: {fileID: 1553829254}
 --- !u!1 &163470866
 GameObject:
   m_ObjectHideFlags: 0
@@ -2549,7 +2582,7 @@ GameObject:
   - component: {fileID: 416873113}
   - component: {fileID: 416873112}
   m_Layer: 0
-  m_Name: UIButton (7)
+  m_Name: Sector2Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2568,7 +2601,7 @@ RectTransform:
   m_Children:
   - {fileID: 1583003071}
   m_Father: {fileID: 1720694336}
-  m_RootOrder: 2
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -2588,7 +2621,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DebugMode: 0
-  StartPosition: {x: -160.50002, y: 277.99414, z: 0}
+  StartPosition: {x: 277.99414, y: -160.50006, z: 0}
   StartRotation: {x: -0, y: 0, z: 0}
   StartScale: {x: 1, y: 1, z: 1}
   StartAlpha: 1
@@ -4910,7 +4943,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 416873114}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 155512362}
+        m_MethodName: Sector2ButtonClicked
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &416873114
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5398,7 +5442,7 @@ GameObject:
   - component: {fileID: 689217799}
   - component: {fileID: 689217798}
   m_Layer: 0
-  m_Name: UIButton (8)
+  m_Name: Sector3Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5437,7 +5481,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DebugMode: 0
-  StartPosition: {x: -321, y: -0.000028062712, z: 0}
+  StartPosition: {x: 0.0000038278868, y: -321, z: 0}
   StartRotation: {x: -0, y: 0, z: 0}
   StartScale: {x: 1, y: 1, z: 1}
   StartAlpha: 1
@@ -7759,7 +7803,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 689217800}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 155512362}
+        m_MethodName: Sector3ButtonClicked
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &689217800
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8671,7 +8726,7 @@ MonoBehaviour:
   m_RadiusWidthFactor: 1
   m_RotateChildren: 0
   m_Spacing: 0
-  m_StartAngle: 0
+  m_StartAngle: 180
 --- !u!1 &953707683
 GameObject:
   m_ObjectHideFlags: 0
@@ -11359,8 +11414,9 @@ GameObject:
   - component: {fileID: 1074579314}
   - component: {fileID: 1074579313}
   - component: {fileID: 1074579312}
+  - component: {fileID: 1074579316}
   m_Layer: 0
-  m_Name: UIButton (5)
+  m_Name: Sector0Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11399,7 +11455,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DebugMode: 0
-  StartPosition: {x: 321, y: 0, z: 0}
+  StartPosition: {x: -0.000014031356, y: 321, z: 0}
   StartRotation: {x: -0, y: 0, z: 0}
   StartScale: {x: 1, y: 1, z: 1}
   StartAlpha: 1
@@ -13721,7 +13777,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1074579314}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 155512362}
+        m_MethodName: Sector0ButtonClicked
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1074579314
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13758,6 +13825,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1074579310}
   m_CullTransparentMesh: 0
+--- !u!225 &1074579316
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1074579310}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &1117424948
 GameObject:
   m_ObjectHideFlags: 0
@@ -13966,7 +14045,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DebugMode: 0
-  StartPosition: {x: -525, y: -0.00004589696, z: 0}
+  StartPosition: {x: 525, y: 0.00009179392, z: 0}
   StartRotation: {x: -0, y: 0, z: 0}
   StartScale: {x: 3, y: 3, z: 3}
   StartAlpha: 1
@@ -16300,6 +16379,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 155512362}
+        m_MethodName: Ally2ButtonClicked
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1122946256
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16349,6 +16439,7 @@ GameObject:
   - component: {fileID: 1148227917}
   - component: {fileID: 1148227916}
   - component: {fileID: 1148227915}
+  - component: {fileID: 1148227919}
   m_Layer: 0
   m_Name: Button - SelectHero1
   m_TagString: Untagged
@@ -16389,7 +16480,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DebugMode: 0
-  StartPosition: {x: 525, y: 0, z: 0}
+  StartPosition: {x: -525, y: -0.00004589696, z: 0}
   StartRotation: {x: -0, y: 0, z: 0}
   StartScale: {x: 3, y: 3, z: 3}
   StartAlpha: 1
@@ -18723,6 +18814,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 155512362}
+        m_MethodName: Ally1ButtonClicked
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1148227917
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18759,6 +18861,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1148227913}
   m_CullTransparentMesh: 0
+--- !u!225 &1148227919
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1148227913}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &1172024981
 GameObject:
   m_ObjectHideFlags: 0
@@ -21563,7 +21677,7 @@ GameObject:
   - component: {fileID: 1341553574}
   - component: {fileID: 1341553573}
   m_Layer: 0
-  m_Name: UIButton (9)
+  m_Name: Sector4Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -21582,7 +21696,7 @@ RectTransform:
   m_Children:
   - {fileID: 139500649}
   m_Father: {fileID: 1720694336}
-  m_RootOrder: 4
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -21602,7 +21716,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DebugMode: 0
-  StartPosition: {x: -160.49997, y: -277.99417, z: 0}
+  StartPosition: {x: -277.99414, y: -160.49998, z: 0}
   StartRotation: {x: -0, y: 0, z: 0}
   StartScale: {x: 1, y: 1, z: 1}
   StartAlpha: 1
@@ -23924,7 +24038,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1341553575}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 155512362}
+        m_MethodName: Sector4ButtonClicked
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1341553575
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24285,7 +24410,7 @@ GameObject:
   - component: {fileID: 1418006455}
   - component: {fileID: 1418006454}
   m_Layer: 0
-  m_Name: UIButton (10)
+  m_Name: Sector5Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -24304,7 +24429,7 @@ RectTransform:
   m_Children:
   - {fileID: 1117424949}
   m_Father: {fileID: 1720694336}
-  m_RootOrder: 5
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -24324,7 +24449,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DebugMode: 0
-  StartPosition: {x: 160.49997, y: -277.99417, z: 0}
+  StartPosition: {x: -277.99414, y: 160.50002, z: 0}
   StartRotation: {x: -0, y: 0, z: 0}
   StartScale: {x: 1, y: 1, z: 1}
   StartAlpha: 1
@@ -26646,7 +26771,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1418006456}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 155512362}
+        m_MethodName: Sector5ButtonClicked
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1418006456
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29133,7 +29269,7 @@ GameObject:
   - component: {fileID: 1538580712}
   - component: {fileID: 1538580711}
   m_Layer: 0
-  m_Name: UIButton (6)
+  m_Name: Sector1Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -29152,7 +29288,7 @@ RectTransform:
   m_Children:
   - {fileID: 1398078945}
   m_Father: {fileID: 1720694336}
-  m_RootOrder: 1
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -29172,7 +29308,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DebugMode: 0
-  StartPosition: {x: 160.49998, y: 277.99417, z: 0}
+  StartPosition: {x: 277.99414, y: 160.50002, z: 0}
   StartRotation: {x: -0, y: 0, z: 0}
   StartScale: {x: 1, y: 1, z: 1}
   StartAlpha: 1
@@ -31494,7 +31630,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1538580713}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 155512362}
+        m_MethodName: Sector1ButtonClicked
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1538580713
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -31531,6 +31678,79 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1538580709}
   m_CullTransparentMesh: 0
+--- !u!1 &1553829253
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1553829256}
+  - component: {fileID: 1553829255}
+  - component: {fileID: 1553829254}
+  m_Layer: 0
+  m_Name: NewUnitImage
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1553829254
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1553829253}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1553829255
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1553829253}
+  m_CullTransparentMesh: 0
+--- !u!224 &1553829256
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1553829253}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1591764186}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -214, y: -160}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1583003070
 GameObject:
   m_ObjectHideFlags: 0
@@ -31717,7 +31937,8 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 1553829256}
   m_Father: {fileID: 175802587}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -31808,7 +32029,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
@@ -31907,11 +32128,11 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1074579311}
-  - {fileID: 1538580710}
-  - {fileID: 416873111}
-  - {fileID: 689217797}
-  - {fileID: 1341553572}
   - {fileID: 1418006453}
+  - {fileID: 1341553572}
+  - {fileID: 689217797}
+  - {fileID: 416873111}
+  - {fileID: 1538580710}
   m_Father: {fileID: 163470867}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -31955,7 +32176,7 @@ MonoBehaviour:
   m_RadiusWidthFactor: 1
   m_RotateChildren: 0
   m_Spacing: 0
-  m_StartAngle: 0
+  m_StartAngle: 90
 --- !u!1 &1838441119
 GameObject:
   m_ObjectHideFlags: 0
@@ -35360,6 +35581,7 @@ MonoBehaviour:
   settingspopup: {fileID: 2038154979}
   formationpopup: {fileID: 175802588}
   townview: {fileID: 300665975}
+  RM: {fileID: 155512362}
 --- !u!95 &2125880128
 Animator:
   serializedVersion: 3
