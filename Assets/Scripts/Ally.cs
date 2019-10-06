@@ -20,7 +20,6 @@ public class Ally : MonoBehaviour
     public int spell1Cd;
     public int spell2Cd;
     public bool isShielded;
-    public bool isDead = false;
     public enum allyClass
     {
         Knight = 0,
@@ -45,7 +44,6 @@ public class Ally : MonoBehaviour
         healthbar.SetMax(maxHealth);
         health = maxHealth;
         healthbar.SetValue(health);
-        isDead = false;
     }
     public void RoundStart()
     {
@@ -71,28 +69,22 @@ public class Ally : MonoBehaviour
     }
     public void Combat()
     {
-        if (!isDead)
-        {
-            Attack();
-        }
+        Attack();
     }
     public void Damage(float hp)
     {
-        if (!isDead)
+        if (isShielded)
         {
-            if (isShielded)
-            {
-                return;
-            }
-            else
-            {
-                this.health -= hp;
-                healthbar.SetValue(health);
+            return;
+        }
+        else
+        {
+            this.health -= hp;
+            healthbar.SetValue(health);
 
-                if (health <= 0)
-                {
-                    Death();
-                }
+            if (health <= 0)
+            {
+                Death();
             }
         }
     }
@@ -132,12 +124,9 @@ public class Ally : MonoBehaviour
     {
         foreach (Enemy e in EC.enemies)
         {
-            if (!e.isDead)
+            if (e.sectorIndex == sectorIndex)
             {
-                if (e.sectorIndex == sectorIndex)
-                {
-                    e.Damage(dmg);
-                }
+                e.Damage(dmg);
             }
         }
     }
@@ -146,12 +135,9 @@ public class Ally : MonoBehaviour
     {
         foreach (Enemy e in EC.enemies)
         {
-            if (e.isDead)
+            if (e.sectorIndex == sectorIndex)
             {
-                if (e.sectorIndex == sectorIndex)
-                {
-                    e.Poisoned(dmg);
-                }
+                e.Poisoned(dmg);
             }
         }
     }
@@ -160,12 +146,9 @@ public class Ally : MonoBehaviour
     {
         foreach (Enemy e in EC.enemies)
         {
-            if (!e.isDead)
+            if (e.sectorIndex == sectorIndex)
             {
-                if (e.sectorIndex == sectorIndex)
-                {
-                    e.Debuffed();
-                }
+                e.Debuffed();
             }
         }
     }
@@ -174,19 +157,16 @@ public class Ally : MonoBehaviour
     {
         foreach (Enemy e in EC.enemies)
         {
-            if (!e.isDead)
+            for (int i = -1; i < 2; i++)
             {
-                for (int i = -1; i < 2; i++)
+                int index = (sectorIndex + i) % 6;
+                if (index == -1)
                 {
-                    int index = (sectorIndex + i) % 6;
-                    if (index == -1)
-                    {
-                        index = 5;
-                    }
-                    if (index == e.sectorIndex)
-                    {
-                        e.Damage(15f);
-                    }
+                    index = 5;
+                }
+                if (index == e.sectorIndex)
+                {
+                    e.Damage(15f);
                 }
             }
         }
@@ -196,13 +176,10 @@ public class Ally : MonoBehaviour
     {
         foreach (Ally a in AC.allies)
         {
-            if (!a.isDead)
+            a.health += a.maxHealth * 0.25f;
+            if (a.health > a.maxHealth)
             {
-                a.health += a.maxHealth * 0.25f;
-                if (a.health > a.maxHealth)
-                {
-                    a.health = a.maxHealth;
-                }
+                a.health = a.maxHealth;
             }
         }
     }
@@ -264,7 +241,6 @@ public class Ally : MonoBehaviour
 
     void Death()
     {
-        isDead = true;
         AC.alliesToRemove.Push(this);
         this.enabled = false;
         // TODO: Death animation here
