@@ -32,6 +32,10 @@ public class MoveImage : MonoBehaviour
     void Update()
     {
         animator.SetBool("InCenter", isCenter);
+        if (gameObject.transform.localPosition.x > w * 0.4)
+        {
+            SceneManager.LoadScene(1);
+        }
 
         if (gameObject.transform.localPosition.x < 0)
         {
@@ -55,6 +59,7 @@ public class MoveImage : MonoBehaviour
         if (HeroChosen == true && FormationChosen == false)
         {
             formationpopup.Show();
+            RM.SetButtonImages();
         }
 
         if (HeroChosen == true)
@@ -101,7 +106,6 @@ public class MoveImage : MonoBehaviour
     public void ToBattle()
     {
         GoToBattleButtonPressed = true;
-        SceneManager.LoadScene(1);
     }
 
     public void OpenSettings()
