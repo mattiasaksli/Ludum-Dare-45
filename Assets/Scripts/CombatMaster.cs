@@ -23,8 +23,10 @@ public class CombatMaster : MonoBehaviour
     public UIView winView;
     public UIView loseView;
     public Animator transition;
+    public Canvas mainCanvas;
     void Start()
     {
+        StartCoroutine(CanvasDisable());
         inputDisable = false;
         turningLeft = false;
         turningRight = false;
@@ -37,6 +39,13 @@ public class CombatMaster : MonoBehaviour
         AC = GameObject.FindGameObjectWithTag("AllyController").GetComponent<AllyController>();
         freeLook = GameObject.FindGameObjectWithTag("FreeLook").GetComponent<CinemachineFreeLook>();
         StartCoroutine(Timer());
+    }
+    IEnumerator CanvasDisable()
+    {
+        transition.Play("FadeIn");
+        yield return new WaitForSeconds(1f);
+        mainCanvas.sortingOrder = -3;
+        mainCanvas.gameObject.SetActive(false);
     }
     public void RoundStart()
     {
@@ -64,6 +73,8 @@ public class CombatMaster : MonoBehaviour
 
     public void EndEncounter()
     {
+        mainCanvas.sortingOrder = 101;
+        mainCanvas.gameObject.SetActive(true);
         if (AC.masterHealth <= 0)   // If encounter lost.
         {
             loseView.Show();
@@ -77,6 +88,8 @@ public class CombatMaster : MonoBehaviour
     public void winButtonClicked()
     {
         int num = AC.allies.Count;
+        int done = PlayerPrefs.GetInt("DoneEncounters");
+        PlayerPrefs.SetInt("DoneEncounters", done + 1);
         PlayerPrefs.SetInt("PostEncounterPositionsNr", num);
         for (int i = 0; i < num; i++)
         {
@@ -99,7 +112,7 @@ public class CombatMaster : MonoBehaviour
     {
         transition.Play("FadeOut");
         yield return new WaitForSeconds(2f);
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene(0);
     }
     IEnumerator Timer()
     {

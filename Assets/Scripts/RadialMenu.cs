@@ -122,4 +122,8 @@ public class RadialMenu : MonoBehaviour
         }
         SetButtonImages();
     }
+    public void ResetEncounter()
+    {
+        PlayerPrefs.SetInt("DoneEncounters", 0);
+    }
 }

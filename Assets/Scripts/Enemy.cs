@@ -48,16 +48,19 @@ public class Enemy : MonoBehaviour
             this.health -= hp;
         }
         StartCoroutine(DoDamage());
-
+    }
+    IEnumerator DoDamage()
+    {
+        yield return new WaitForSeconds(1f);
         if (health <= 0)
         {
             Death();
         }
-    }
-    IEnumerator DoDamage()
-    {
-        yield return new WaitForSeconds(0.7f);
-        anim.Play("Damage");
+        else
+        {
+            anim.Play("Damage");
+        }
+        yield return new WaitForSeconds(0.5f);
         healthbar.SetValue(health);
     }
 
@@ -74,6 +77,11 @@ public class Enemy : MonoBehaviour
     }
     public void Combat()
     {
+        if (this.health <= 0)
+        {
+            Death();
+            return;
+        }
         if (isPoisoned)
         {
             Damage(10f);
@@ -84,10 +92,6 @@ public class Enemy : MonoBehaviour
             isDebuffed = false;
         }
 
-        if (this.health <= 0)
-        {
-            Death();
-        }
 
         bool hasOpponent = false;
 
@@ -155,12 +159,10 @@ public class Enemy : MonoBehaviour
 
     void Death()
     {
-        // TODO: Death animation here
         isDebuffed = false;
         isPoisoned = false;
         anim.Play("Death");
         EC.enemiesToRemove.Push(this);
         this.enabled = false;
-        //Destroy(gameObject);
     }
 }

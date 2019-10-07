@@ -144,21 +144,36 @@ public class AllyController : MonoBehaviour
         }
         camAnim.SetInteger("sweep", -1);
         yield return new WaitForSeconds(1f);
-        EC.Combat();
-        yield return new WaitForSeconds(2f);
-        if (masterHealth <= 0 || EC.enemies.Count == 0)
+        bool areEnemies = false;
+        foreach (Enemy e in EC.enemies)
         {
-            elder.Play("Death");
+            if (e.health > 0)
+            {
+                areEnemies = true;
+            }
+        }
+        if (!areEnemies)
+        {
             yield return new WaitForSeconds(1f);
             CM.EndEncounter();
-            StopCoroutine("StartCombat");
         }
         else
         {
-            yield return new WaitForSeconds(1f);
-            camAnim.SetBool("roundEnd", false);
-            yield return new WaitForSeconds(1f);
-            CM.RoundStart();
+            EC.Combat();
+            yield return new WaitForSeconds(2f);
+            if (masterHealth <= 0)
+            {
+                elder.Play("Death");
+                yield return new WaitForSeconds(1f);
+                CM.EndEncounter();
+            }
+            else
+            {
+                yield return new WaitForSeconds(1f);
+                camAnim.SetBool("roundEnd", false);
+                yield return new WaitForSeconds(1f);
+                CM.RoundStart();
+            }
         }
     }
     public void DamageMaster(float dmg)

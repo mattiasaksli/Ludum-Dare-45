@@ -63,16 +63,51 @@ public class EnemyController : MonoBehaviour
 
     public Dictionary<int, Enemy.enemyClass> loadEnemyPosition()
     {
-        Dictionary<int, Enemy.enemyClass> enemyAndIndex = new Dictionary<int, Enemy.enemyClass>
+        Dictionary<int, Enemy.enemyClass> enemyAndIndex = new Dictionary<int, Enemy.enemyClass>();
+        int num = PlayerPrefs.GetInt("DoneEncounters");
+        if (num < 5)
         {
-            { 0, Enemy.enemyClass.Basic },
-            { 1, Enemy.enemyClass.Assassin },
-            { 2, Enemy.enemyClass.Thicc },
-            { 3, Enemy.enemyClass.Assassin },
-            { 4, Enemy.enemyClass.Basic },
-            { 5, Enemy.enemyClass.Thicc },
-        };
-
+            switch (num)
+            {
+                case 0:
+                    enemyAndIndex.Add(0, Enemy.enemyClass.Basic);
+                    break;
+                case 1:
+                    enemyAndIndex.Add(0, Enemy.enemyClass.Thicc);
+                    break;
+                case 2:
+                    enemyAndIndex.Add(1, Enemy.enemyClass.Basic);
+                    enemyAndIndex.Add(3, Enemy.enemyClass.Assassin);
+                    break;
+                case 3:
+                    enemyAndIndex.Add(0, Enemy.enemyClass.Thicc);
+                    enemyAndIndex.Add(2, Enemy.enemyClass.Thicc);
+                    enemyAndIndex.Add(4, Enemy.enemyClass.Thicc);
+                    break;
+                case 4:
+                    enemyAndIndex.Add(0, Enemy.enemyClass.Basic);
+                    enemyAndIndex.Add(1, Enemy.enemyClass.Basic);
+                    enemyAndIndex.Add(2, Enemy.enemyClass.Assassin);
+                    enemyAndIndex.Add(3, Enemy.enemyClass.Basic);
+                    enemyAndIndex.Add(5, Enemy.enemyClass.Thicc);
+                    break;
+                case 5:
+                    enemyAndIndex.Add(0, Enemy.enemyClass.Assassin);
+                    enemyAndIndex.Add(1, Enemy.enemyClass.Basic);
+                    enemyAndIndex.Add(2, Enemy.enemyClass.Basic);
+                    enemyAndIndex.Add(3, Enemy.enemyClass.Assassin);
+                    enemyAndIndex.Add(4, Enemy.enemyClass.Basic);
+                    enemyAndIndex.Add(5, Enemy.enemyClass.Basic);
+                    break;
+            }
+        }
+        else
+        {
+            for (int i = 0; i < 6; i++)
+            {
+                enemyAndIndex.Add(i, (Enemy.enemyClass)Random.Range(0, 3));
+            }
+        }
         return enemyAndIndex;
     }
 }

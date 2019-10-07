@@ -101,6 +101,8 @@ public class Ally : MonoBehaviour
     IEnumerator DoDamage()
     {
         yield return new WaitForSeconds(0.7f);
+        anim.Play("Damage");
+        yield return new WaitForSeconds(0.5f);
         healthbar.SetValue(health);
     }
     public void Select(int spell)
@@ -270,7 +272,5 @@ public class Ally : MonoBehaviour
         spell2.enabled = false;
         spell2Background.enabled = false;
         this.enabled = false;
-        // TODO: Death animation here
-        //Destroy(gameObject);
     }
 }
