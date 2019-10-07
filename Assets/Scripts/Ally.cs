@@ -5,11 +5,11 @@ using UnityEngine.UI;
 
 public class Ally : MonoBehaviour
 {
-    public float maxHealth = 50f;
-    public float health = 50f;
+    public float maxHealth;
+    public float health;
     public int sectorIndex;
-    public allyClass unitType = 0;
-    public allyAttack attackType = 0;
+    public allyClass unitType;
+    public allyAttack attackType;
     public AllyController AC;
     public EnemyController EC;
     public Progressor healthbar;
@@ -88,7 +88,6 @@ public class Ally : MonoBehaviour
         }
         else
         {
-            anim.Play("Damage");
             this.health -= hp;
             StartCoroutine(DoDamage());
 
@@ -239,7 +238,7 @@ public class Ally : MonoBehaviour
                         spell1Cd = CM.roundCount + 2;
                         break;
                     case allyAttack.Spell2:
-                        spell1Cd = CM.roundCount + 3;
+                        spell2Cd = CM.roundCount + 3;
                         Poison(10f);
                         break;
                 }

@@ -24,6 +24,7 @@ public class CombatMaster : MonoBehaviour
     public UIView loseView;
     public Animator transition;
     public Canvas mainCanvas;
+    private bool first = true;
     void Start()
     {
         StartCoroutine(CanvasDisable());
@@ -39,6 +40,7 @@ public class CombatMaster : MonoBehaviour
         AC = GameObject.FindGameObjectWithTag("AllyController").GetComponent<AllyController>();
         freeLook = GameObject.FindGameObjectWithTag("FreeLook").GetComponent<CinemachineFreeLook>();
         StartCoroutine(Timer());
+
     }
     IEnumerator CanvasDisable()
     {
@@ -46,6 +48,44 @@ public class CombatMaster : MonoBehaviour
         yield return new WaitForSeconds(1f);
         mainCanvas.sortingOrder = -3;
         mainCanvas.gameObject.SetActive(false);
+    }
+    public void SaveAllies()
+    {
+
+        int num = AC.allies.Count;
+        for (int i = 0; i < num; i++)
+        {
+            Debug.Log("Saving combat end sector " + AC.allies[i].sectorIndex + " With value " + (int)AC.allies[i].unitType);
+        }
+        bool IsInScene = false;
+        for (int i = 0; i < num; i++)
+        {
+            foreach (Ally a in AC.allies)
+            {
+                if (a.sectorIndex == i)
+                {
+                    IsInScene = true;
+                }
+            }
+            if (IsInScene)
+            {
+                PlayerPrefs.SetInt("PostEncounterIndex" + i, i);
+                PlayerPrefs.SetInt("PostEncounterType" + i, (int)AC.allies[i].unitType);
+            }
+            else
+            {
+                PlayerPrefs.SetInt("PostEncounterIndex" + i, i);
+                PlayerPrefs.SetInt("PostEncounterType" + i, 7);
+            }
+
+
+
+        }
+        for (int i = 0; i < 6; i++)
+        {
+            Debug.Log("Checking combat end sector " + PlayerPrefs.GetInt("PostEncounterIndex" + i) + " With value " + PlayerPrefs.GetInt("PostEncounterType" + i));
+        }
+        PlayerPrefs.Save();
     }
     public void RoundStart()
     {
@@ -87,25 +127,17 @@ public class CombatMaster : MonoBehaviour
 
     public void winButtonClicked()
     {
-        int num = AC.allies.Count;
         int done = PlayerPrefs.GetInt("DoneEncounters");
         PlayerPrefs.SetInt("DoneEncounters", done + 1);
-        PlayerPrefs.SetInt("PostEncounterPositionsNr", num);
-        for (int i = 0; i < num; i++)
-        {
-            int sector = AC.allies[i].sectorIndex;
-            PlayerPrefs.SetInt("PostEncounterIndex" + i, sector);
-
-            int type = (int)AC.allies[i].unitType;
-            PlayerPrefs.SetInt("PostEncounterType" + i, type);
-        }
         winView.Hide();
+        SaveAllies();
         StartCoroutine(ChangeLevel());
     }
 
     public void loseButtonClicked()
     {
         loseView.Hide();
+        SaveAllies();
         StartCoroutine(ChangeLevel());
     }
     IEnumerator ChangeLevel()
@@ -148,6 +180,13 @@ public class CombatMaster : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.RightShift))
+        {
+            foreach (Enemy e in EC.enemies)
+            {
+                e.health = 0;
+            }
+        }
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
             skip = true;
