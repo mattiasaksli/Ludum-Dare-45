@@ -1,5 +1,4 @@
-﻿using TMPro;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class RadialMenu : MonoBehaviour
@@ -36,8 +35,8 @@ public class RadialMenu : MonoBehaviour
         newAlly1 = allyPrefabs[r1];
         newAlly2 = allyPrefabs[r2];
 
-        ChooseNewUnitButton1.GetComponentInChildren<TextMeshProUGUI>().text = ((int)newAlly1.unitType).ToString();
-        ChooseNewUnitButton2.GetComponentInChildren<TextMeshProUGUI>().text = ((int)newAlly2.unitType).ToString();
+        /*        ChooseNewUnitButton1.GetComponentInChildren<TextMeshProUGUI>().text = ((int)newAlly1.unitType).ToString();
+                ChooseNewUnitButton2.GetComponentInChildren<TextMeshProUGUI>().text = ((int)newAlly2.unitType).ToString();*/
 
         indexOfSelectedAlly = -1;
         newAllyPlaced = false;
