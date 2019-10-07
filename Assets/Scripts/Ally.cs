@@ -38,6 +38,7 @@ public class Ally : MonoBehaviour
     {
         AC = this.GetComponentInParent<AllyController>();
         anim = GetComponentInChildren<Animator>();
+        anim.Play("Idle");
         spell1.color = Color.black;
         spell2.color = Color.black;
         EC = GameObject.FindGameObjectWithTag("EnemyController").GetComponentInChildren<EnemyController>();

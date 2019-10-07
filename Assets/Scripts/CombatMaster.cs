@@ -1,7 +1,9 @@
 ﻿using Cinemachine;
 using Doozy.Engine.Progress;
+using Doozy.Engine.UI;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CombatMaster : MonoBehaviour
 {
@@ -18,7 +20,8 @@ public class CombatMaster : MonoBehaviour
     public Progressor timeBar;
     public CinemachineFreeLook freeLook;
     public bool inCombat = false;
-    public bool endCombat = false;
+    public UIView winView;
+    public UIView loseView;
     void Start()
     {
         inputDisable = false;
@@ -60,8 +63,37 @@ public class CombatMaster : MonoBehaviour
 
     public void EndEncounter()
     {
-
+        if (AC.masterHealth <= 0)   // If encounter lost.
+        {
+            loseView.Show();
+        }
+        else                        // If encounter won.
+        {
+            winView.Show();
+        }
     }
+
+    public void winButtonClicked()
+    {
+        int num = AC.allies.Count;
+        PlayerPrefs.SetInt("PostEncounterPositionsNr", num);
+        for (int i = 0; i < num; i++)
+        {
+            int sector = AC.allies[i].sectorIndex;
+            PlayerPrefs.SetInt("PostEncounterIndex" + i, sector);
+
+            int type = (int)AC.allies[i].unitType;
+            PlayerPrefs.SetInt("PostEncounterType" + i, type);
+        }
+        SceneManager.LoadScene(2);
+    }
+
+    public void loseButtonClicked()
+    {
+        loseView.Hide();
+        SceneManager.LoadScene(2);
+    }
+
     IEnumerator Timer()
     {
         for (int i = 0; i < roundTime; i++)
@@ -93,7 +125,7 @@ public class CombatMaster : MonoBehaviour
             inputDisable = false;
         }
     }
-    // Update is called once per frame
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.LeftShift))

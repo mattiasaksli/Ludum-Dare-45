@@ -1,6 +1,7 @@
 ﻿using Doozy.Engine.UI;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MoveImage : MonoBehaviour
 {
@@ -100,6 +101,7 @@ public class MoveImage : MonoBehaviour
     public void ToBattle()
     {
         GoToBattleButtonPressed = true;
+        SceneManager.LoadScene(1);
     }
 
     public void OpenSettings()
@@ -125,6 +127,16 @@ public class MoveImage : MonoBehaviour
                 allyCircleList.Add(allyCircle[i]);
             }
         }
-        PlayerPrefs.SetString("EncounterAllies", JsonUtility.ToJson(allyCircleList));
+
+        int num = allyCircleList.Count;
+        PlayerPrefs.SetInt("PreEncounterPositionsNr", num);
+        for (int i = 0; i < num; i++)
+        {
+            int sector = allyCircleList[i].sectorIndex;
+            PlayerPrefs.SetInt("PreEncounterIndex" + i, sector);
+
+            int type = (int)allyCircleList[i].unitType;
+            PlayerPrefs.SetInt("PreEncounterType" + i, type);
+        }
     }
 }
