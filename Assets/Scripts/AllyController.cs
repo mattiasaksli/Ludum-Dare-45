@@ -22,7 +22,6 @@ public class AllyController : MonoBehaviour
     public Animator elder;
     void Start()
     {
-        PositionAllies();
         masterHealthBar = GetComponent<Progressor>();
         masterHealthBar.SetMax(maxMasterHealth);
         masterHealthBar.SetValue(masterHealth);
@@ -32,21 +31,16 @@ public class AllyController : MonoBehaviour
         camAnim.SetBool("roundEnd", false);
         EC = GameObject.FindGameObjectWithTag("EnemyController").GetComponent<EnemyController>();
         camRig = GameObject.FindGameObjectWithTag("CamRig").GetComponent<CinemachineStateDrivenCamera>();
-    }
-
-
-    void Update()
-    {
-
+        PositionAllies();
     }
 
     public void PositionAllies()
     {
-        allies = loadAllyPosition();
-        foreach (Ally a in allies)
+        Dictionary<int, Ally.allyClass> allyAndIndex = loadAllyPosition();
+        foreach (KeyValuePair<int, Ally.allyClass> pair in allyAndIndex)
         {
-            int allyIndex = a.sectorIndex;
-            int allyClass = (int)a.unitType;
+            int allyIndex = pair.Key;
+            int allyClass = (int)pair.Value;
 
             float allyAngle = angle * allyIndex;
             float x = Mathf.Sin(allyAngle) * allyRadius;
@@ -54,20 +48,43 @@ public class AllyController : MonoBehaviour
 
             Ally ally = Instantiate(allyPrefabs[allyClass], transform, this);
             UICanvas canvas = ally.GetComponentInChildren<UICanvas>();
-            canvas.CanvasName = "Ally--" + allyIndex * 100;
+            canvas.CanvasName = "Ally--" + allyIndex * 1000;
             canvas.name = canvas.CanvasName;
 
             ally.transform.localPosition = new Vector3(x, 0, z);
             ally.transform.localRotation = Quaternion.Euler(0, allyAngle * (180f / Mathf.PI), 0);
+            ally.sectorIndex = allyIndex;
+            ally.unitType = (Ally.allyClass)allyClass;
             allies.Add(ally);
         }
     }
 
-    public List<Ally> loadAllyPosition()
+    public Dictionary<int, Ally.allyClass> loadAllyPosition()
     {
-        List<Ally> allyList = new List<Ally>(6);
 
-        return JsonUtility.FromJson<List<Ally>>(PlayerPrefs.GetString("EncounterAllies"));
+        /*Ally a0 = allyPrefabs[0];
+        a0.sectorIndex = 0;
+
+        Ally a2 = allyPrefabs[1];
+        a2.sectorIndex = 2;
+
+        Debug.Log(a2.unitType + ", sector " + a2.sectorIndex);
+
+        allyCircleList.Add(a0);
+        allyCircleList.Add(a2);
+*/
+        Dictionary<int, Ally.allyClass> allyAndIndex = new Dictionary<int, Ally.allyClass>();
+
+        int num = PlayerPrefs.GetInt("PreEncounterPositionsNr");
+        for (int i = 0; i < num; i++)
+        {
+            int index = PlayerPrefs.GetInt("PreEncounterIndex" + i);
+            int type = PlayerPrefs.GetInt("PreEncounterType" + i);
+
+            allyAndIndex.Add(index, (Ally.allyClass)type);
+        }
+
+        return allyAndIndex;
     }
     public void Combat()
     {
@@ -151,7 +168,7 @@ public class AllyController : MonoBehaviour
         if (masterHealth <= 0)
         {
             elder.Play("Death");
-            Application.Quit();
+            CM.EndEncounter();
         }
         foreach (Ally a in allies)
         {

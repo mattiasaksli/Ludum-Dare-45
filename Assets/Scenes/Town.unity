@@ -337,7 +337,7 @@ GameObject:
   - component: {fileID: 155512357}
   - component: {fileID: 155512362}
   m_Layer: 0
-  m_Name: MasterCanvas
+  m_Name: Canvas - Town
   m_TagString: RadialMenu
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -360,8 +360,8 @@ MonoBehaviour:
   StartRotation: {x: 0, y: 0, z: 0}
   StartScale: {x: 1, y: 1, z: 1}
   StartAlpha: 1
-  CanvasName: MasterCanvas
-  CustomCanvasName: 0
+  CanvasName: Town
+  CustomCanvasName: 1
   DontDestroyCanvasOnLoad: 1
 --- !u!114 &155512358
 MonoBehaviour:
@@ -461,8 +461,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   allyPrefabs:
   - {fileID: 4914385688523200082, guid: d95f7d555f705654e83d74710c5e1acb, type: 3}
-  - {fileID: 4914385688523200082, guid: 6cd9151acb8a30440808297a6c2e92f7, type: 3}
-  - {fileID: 4914385688523200082, guid: 41fef577a9a5aea43a3bf5c4a1a0fce6, type: 3}
+  - {fileID: 4914385688523200082, guid: cdf6462ac99dbb44bab8be67cc5b05e9, type: 3}
+  - {fileID: 4914385688523200082, guid: 5bb96b667d37a594cb04151e47d999a0, type: 3}
   allyCircle:
   - {fileID: 0}
   - {fileID: 0}

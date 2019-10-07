@@ -312,7 +312,7 @@ MonoBehaviour:
   spell1Cd: 0
   spell2Cd: 0
   isShielded: 0
-  anim: {fileID: 0}
+  anim: {fileID: 2103323533601505470}
 --- !u!82 &469238484469405904
 AudioSource:
   m_ObjectHideFlags: 0
@@ -3031,7 +3031,7 @@ MonoBehaviour:
   StartScale: {x: 1, y: 1, z: 1}
   StartAlpha: 1
   CanvasName: Ally1
-  CustomCanvasName: 0
+  CustomCanvasName: 1
   DontDestroyCanvasOnLoad: 1
 --- !u!1 &4914385689722902493
 GameObject:
@@ -5979,6 +5979,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: ShieldFrog
       objectReference: {fileID: 0}
+    - target: {fileID: -6057140222963153312, guid: 17c2be4d26151af4688af3c8bd3b2617,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: de392f50607ba864cb6967743486b1e7, type: 2}
     - target: {fileID: -4216859302048453862, guid: 17c2be4d26151af4688af3c8bd3b2617,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -6049,13 +6054,14 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: -6057140222963153312, guid: 17c2be4d26151af4688af3c8bd3b2617,
-        type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: de392f50607ba864cb6967743486b1e7, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 17c2be4d26151af4688af3c8bd3b2617, type: 3}
+--- !u!95 &2103323533601505470 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: -6057140222963153312, guid: 17c2be4d26151af4688af3c8bd3b2617,
+    type: 3}
+  m_PrefabInstance: {fileID: 3945213278757881566}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8339120998290632132 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -4216859302048453862, guid: 17c2be4d26151af4688af3c8bd3b2617,
