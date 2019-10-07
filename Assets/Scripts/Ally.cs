@@ -22,6 +22,7 @@ public class Ally : MonoBehaviour
     public int spell2Cd;
     public bool isShielded;
     public Animator anim;
+    public AudioSource audio;
     public enum allyClass
     {
         Knight = 0,
@@ -48,6 +49,9 @@ public class Ally : MonoBehaviour
         healthbar.SetMax(maxHealth);
         health = maxHealth;
         healthbar.SetValue(health);
+        audio = GetComponent<AudioSource>();
+        audio.clip = CM.audioClips[0];
+        audio.Play();
     }
     public void RoundStart()
     {
@@ -84,6 +88,8 @@ public class Ally : MonoBehaviour
         if (isShielded)
         {
             anim.Play("ShieldIdle");
+            audio.clip = CM.audioClips[11];
+            audio.Play();
             return;
         }
         else
@@ -101,6 +107,10 @@ public class Ally : MonoBehaviour
     {
         yield return new WaitForSeconds(0.7f);
         anim.Play("Damage");
+
+        audio.clip = CM.audioClips[12];
+        audio.Play();
+
         yield return new WaitForSeconds(0.5f);
         healthbar.SetValue(health);
     }
@@ -136,9 +146,12 @@ public class Ally : MonoBehaviour
             }
         }
     }
-    void BasicAttack(float dmg)
+    void BasicAttack(float dmg, AudioClip clip)
     {
         anim.Play("Attack");
+        audio.clip = clip;
+        audio.Play();
+
         foreach (Enemy e in EC.enemies)
         {
             if (e.sectorIndex == sectorIndex)
@@ -151,6 +164,10 @@ public class Ally : MonoBehaviour
     void Poison(float dmg)
     {
         anim.Play("Cast");
+
+        audio.clip = CM.audioClips[1];
+        audio.Play();
+
         foreach (Enemy e in EC.enemies)
         {
             if (e.sectorIndex == sectorIndex)
@@ -163,6 +180,10 @@ public class Ally : MonoBehaviour
     void Debuff()
     {
         anim.Play("Cast");
+
+        audio.clip = CM.audioClips[3];
+        audio.Play();
+
         foreach (Enemy e in EC.enemies)
         {
             if (e.sectorIndex == sectorIndex)
@@ -175,6 +196,10 @@ public class Ally : MonoBehaviour
     void FireBall()
     {
         anim.Play("Cast");
+
+        audio.clip = CM.audioClips[4];
+        audio.Play();
+
         foreach (Enemy e in EC.enemies)
         {
             for (int i = -1; i < 2; i++)
@@ -195,6 +220,10 @@ public class Ally : MonoBehaviour
     void Heal()
     {
         anim.Play("Cast");
+
+        audio.clip = CM.audioClips[2];
+        audio.Play();
+
         foreach (Ally a in AC.allies)
         {
             a.health += a.maxHealth * 0.25f;
@@ -213,16 +242,20 @@ public class Ally : MonoBehaviour
                 switch (attackType)
                 {
                     case allyAttack.Basic:
-                        BasicAttack(20f);
+                        BasicAttack(20f, CM.audioClips[10]);
                         break;
                     case allyAttack.Spell1:
                         anim.Play("Shield");
+
+                        audio.clip = CM.audioClips[7];
+                        audio.Play();
+
                         isShielded = true;
                         anim.SetBool("isShielded", true);
                         spell1Cd = CM.roundCount + 2;
                         break;
                     case allyAttack.Spell2:
-                        BasicAttack(30f);
+                        BasicAttack(30f, CM.audioClips[6]);
                         spell2Cd = CM.roundCount + 3;
                         break;
                 }
@@ -231,7 +264,7 @@ public class Ally : MonoBehaviour
                 switch (attackType)
                 {
                     case allyAttack.Basic:
-                        BasicAttack(10f);
+                        BasicAttack(10f, CM.audioClips[9]);
                         break;
                     case allyAttack.Spell1:
                         FireBall();
@@ -247,7 +280,7 @@ public class Ally : MonoBehaviour
                 switch (attackType)
                 {
                     case allyAttack.Basic:
-                        BasicAttack(15f);
+                        BasicAttack(15f, CM.audioClips[11]);
                         break;
                     case allyAttack.Spell1:
                         Heal();
