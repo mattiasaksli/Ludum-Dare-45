@@ -8,7 +8,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Attack
-  m_Speed: 1
+  m_Speed: 2
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 2165958626865678880}
@@ -21,7 +21,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: -8103258715890529092, guid: 55c2da221cfc5dc48a0205cb41c7b2b9,
+  m_Motion: {fileID: -7111666709044579178, guid: 437de53bb4cac2f4ab752a93b206055f,
     type: 3}
   m_Tag: 
   m_SpeedParameter: 
@@ -34,7 +34,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Basic
+  m_Name: Thicc
   serializedVersion: 5
   m_AnimatorParameters: []
   m_AnimatorLayers:
@@ -58,7 +58,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Idle
-  m_Speed: 1
+  m_Speed: 0.8
   m_CycleOffset: 0
   m_Transitions: []
   m_StateMachineBehaviours: []
@@ -70,7 +70,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 3840334483403123207, guid: 55c2da221cfc5dc48a0205cb41c7b2b9,
+  m_Motion: {fileID: 3829791807774812836, guid: 437de53bb4cac2f4ab752a93b206055f,
     type: 3}
   m_Tag: 
   m_SpeedParameter: 
@@ -151,7 +151,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: -601709987669469885, guid: 55c2da221cfc5dc48a0205cb41c7b2b9,
+  m_Motion: {fileID: 2055040355924052804, guid: 437de53bb4cac2f4ab752a93b206055f,
     type: 3}
   m_Tag: 
   m_SpeedParameter: 
@@ -200,7 +200,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7456785141944843094, guid: 55c2da221cfc5dc48a0205cb41c7b2b9,
+  m_Motion: {fileID: -770125631134924946, guid: 437de53bb4cac2f4ab752a93b206055f,
     type: 3}
   m_Tag: 
   m_SpeedParameter: 

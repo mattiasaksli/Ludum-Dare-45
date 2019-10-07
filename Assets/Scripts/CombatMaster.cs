@@ -22,6 +22,7 @@ public class CombatMaster : MonoBehaviour
     public bool inCombat = false;
     public UIView winView;
     public UIView loseView;
+    public Animator transition;
     void Start()
     {
         inputDisable = false;
@@ -85,15 +86,21 @@ public class CombatMaster : MonoBehaviour
             int type = (int)AC.allies[i].unitType;
             PlayerPrefs.SetInt("PostEncounterType" + i, type);
         }
-        SceneManager.LoadScene(2);
+        winView.Hide();
+        StartCoroutine(ChangeLevel());
     }
 
     public void loseButtonClicked()
     {
         loseView.Hide();
+        StartCoroutine(ChangeLevel());
+    }
+    IEnumerator ChangeLevel()
+    {
+        transition.Play("FadeOut");
+        yield return new WaitForSeconds(2f);
         SceneManager.LoadScene(2);
     }
-
     IEnumerator Timer()
     {
         for (int i = 0; i < roundTime; i++)

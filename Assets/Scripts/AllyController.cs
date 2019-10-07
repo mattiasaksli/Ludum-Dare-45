@@ -92,7 +92,7 @@ public class AllyController : MonoBehaviour
     }
     IEnumerator StartCombat()
     {
-
+        CM.skip = false;
         camAnim.SetBool("roundEnd", true);
         List<int> indexes = new List<int>();
         foreach (Ally a in allies)
@@ -148,28 +148,32 @@ public class AllyController : MonoBehaviour
         yield return new WaitForSeconds(2f);
         if (masterHealth <= 0 || EC.enemies.Count == 0)
         {
+            elder.Play("Death");
+            yield return new WaitForSeconds(1f);
             CM.EndEncounter();
             StopCoroutine("StartCombat");
         }
-        EC.Combat();
-        yield return new WaitForSeconds(1f);
-        camAnim.SetBool("roundEnd", false);
-        yield return new WaitForSeconds(1f);
-        CM.RoundStart();
+        else
+        {
+            yield return new WaitForSeconds(1f);
+            camAnim.SetBool("roundEnd", false);
+            yield return new WaitForSeconds(1f);
+            CM.RoundStart();
+        }
     }
     public void DamageMaster(float dmg)
     {
+        StartCoroutine(DamageMasterCo(dmg));
+    }
+    IEnumerator DamageMasterCo(float dmg)
+    {
+        elder.Play("Damage");
+        yield return new WaitForSeconds(1f);
         masterHealth -= dmg;
         masterHealthBar.SetValue(masterHealth);
-        elder.Play("Damage");
     }
     public void RoundStart()
     {
-        if (masterHealth <= 0)
-        {
-            elder.Play("Death");
-            CM.EndEncounter();
-        }
         foreach (Ally a in allies)
         {
             a.RoundStart();

@@ -324,7 +324,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -369,7 +369,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -2831,7 +2831,6 @@ MonoBehaviour:
     PresetName: 
   TargetLabel: 1
   TextLabel: {fileID: 4914385689290823172}
-  TextMeshProLabel: {fileID: 0}
 --- !u!1 &4914385689290823174
 GameObject:
   m_ObjectHideFlags: 0
@@ -5819,7 +5818,6 @@ MonoBehaviour:
     PresetName: 
   TargetLabel: 1
   TextLabel: {fileID: 4914385689722902483}
-  TextMeshProLabel: {fileID: 0}
 --- !u!1 &5466522138422285521
 GameObject:
   m_ObjectHideFlags: 0
