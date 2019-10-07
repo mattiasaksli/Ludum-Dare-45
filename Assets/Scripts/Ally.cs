@@ -38,7 +38,6 @@ public class Ally : MonoBehaviour
     {
         AC = this.GetComponentInParent<AllyController>();
         anim = GetComponentInChildren<Animator>();
-        anim.Play("Idle");
         spell1.color = Color.black;
         spell2.color = Color.black;
         EC = GameObject.FindGameObjectWithTag("EnemyController").GetComponentInChildren<EnemyController>();
@@ -90,17 +89,19 @@ public class Ally : MonoBehaviour
         {
             this.health -= hp;
             StartCoroutine(DoDamage());
-
-            if (health <= 0)
-            {
-                Death();
-            }
         }
     }
     IEnumerator DoDamage()
     {
         yield return new WaitForSeconds(0.7f);
-        anim.Play("Damage");
+        if (health <= 0)
+        {
+            Death();
+        }
+        else
+        {
+            anim.Play("Damage");
+        }
         yield return new WaitForSeconds(0.5f);
         healthbar.SetValue(health);
     }
