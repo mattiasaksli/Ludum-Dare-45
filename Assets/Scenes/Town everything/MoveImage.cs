@@ -21,7 +21,7 @@ public class MoveImage : MonoBehaviour
     public UIPopup formationpopup;
     public UIView townview;
     public RadialMenu RM;
-
+    int allyNumber = 0;
     void Start()
     {
         canvas = GameObject.Find("View - MainTownView");
@@ -31,7 +31,7 @@ public class MoveImage : MonoBehaviour
 
     void Update()
     {
-        animator.SetBool("InCenter", isCenter);
+
         if (gameObject.transform.localPosition.x > w * 0.4)
         {
             SceneManager.LoadScene(1);
@@ -44,10 +44,31 @@ public class MoveImage : MonoBehaviour
 
         if (HeroChosen == false)
         {
-            if (gameObject.transform.localPosition.x >= 0)
+            bool radialFull = true;
+            int allyNumber = 0;
+            for (int i = 0; i < 6; i++)
             {
-                isCenter = true;
-                popup.Show();
+                if (RM.allyCircle[i] == 7)
+                {
+                    radialFull = false;
+                    allyNumber += 1;
+                }
+            }
+            if (radialFull)
+            {
+                Debug.Log("########################################################    " + radialFull);
+                GoToBattleButtonPressed = true;
+                HeroChosen = true;
+                FormationChosen = true;
+                animator.SetBool("InCenter", isCenter);
+            }
+            else
+            {
+                if (gameObject.transform.localPosition.x >= 0)
+                {
+                    isCenter = true;
+                    popup.Show();
+                }
             }
         }
 
@@ -80,10 +101,12 @@ public class MoveImage : MonoBehaviour
         if (GoToBattleButtonPressed == true && HeroChosen == true)
         {
             isCenter = false;
-            townview.Hide();
-
-            if (gameObject.transform.localPosition.x < w + 50)
+            if (gameObject.transform.localPosition.x > 0)
             {
+                if (gameObject.transform.localPosition.x > w * 0.1f)
+                {
+                    townview.Hide();
+                }
                 gameObject.transform.localPosition += new Vector3(speed, 0f, 0f);
             }
         }
@@ -117,7 +140,10 @@ public class MoveImage : MonoBehaviour
     {
         SettingsOpen = false;
     }
-
+    public void Reset()
+    {
+        SceneManager.LoadScene(0);
+    }
     public void ExitFormation()
     {
         FormationChosen = true;
@@ -134,7 +160,7 @@ public class MoveImage : MonoBehaviour
             }
             else
             {
-                PlayerPrefs.SetInt("PreEncounterIndex" + i, 1);
+                PlayerPrefs.SetInt("PreEncounterIndex" + i, i);
 
                 PlayerPrefs.SetInt("PreEncounterType" + i, 7);
                 Debug.Log("Saved at sector " + i + " With value " + 7);
@@ -144,5 +170,15 @@ public class MoveImage : MonoBehaviour
         {
             Debug.Log("Finally save in sector " + PlayerPrefs.GetInt("PreEncounterIndex" + i) + " With value " + PlayerPrefs.GetInt("PreEncounterType" + i));
         }
+        int allyNumberCommit = 0;
+        for (int i = 0; i < 6; i++)
+        {
+            if (RM.allyCircle[i] != 7)
+            {
+                allyNumberCommit += 1;
+            }
+        }
+        PlayerPrefs.SetInt("AllyNumber", allyNumberCommit);
+        PlayerPrefs.Save();
     }
 }

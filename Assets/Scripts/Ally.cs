@@ -88,7 +88,6 @@ public class Ally : MonoBehaviour
         }
         else
         {
-            anim.Play("Damage");
             this.health -= hp;
             StartCoroutine(DoDamage());
 
@@ -239,7 +238,7 @@ public class Ally : MonoBehaviour
                         spell1Cd = CM.roundCount + 2;
                         break;
                     case allyAttack.Spell2:
-                        spell1Cd = CM.roundCount + 3;
+                        spell2Cd = CM.roundCount + 3;
                         Poison(10f);
                         break;
                 }

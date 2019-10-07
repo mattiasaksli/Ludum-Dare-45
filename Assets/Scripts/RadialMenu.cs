@@ -23,6 +23,9 @@ public class RadialMenu : MonoBehaviour
     {
         if (PlayerPrefs.GetInt("DoneEncounters") == 0)
         {
+            Debug.Log("##############RESET##############");
+            PlayerPrefs.DeleteAll();
+            PlayerPrefs.SetInt("DoneEncounters", 0);
             for (int i = 0; i < 6; i++)
             {
                 PlayerPrefs.SetInt("PostEncounterIndex" + i, i);
@@ -34,7 +37,6 @@ public class RadialMenu : MonoBehaviour
             Debug.Log("Loading town start sector " + PlayerPrefs.GetInt("PostEncounterIndex" + i) + " With value " + PlayerPrefs.GetInt("PostEncounterType" + i));
         }
         LoadCircleState();
-
         for (int i = 0; i < 6; i++)
         {
             Debug.Log("Got town start sector " + i + " With value " + allyCircle[i]);
@@ -82,7 +84,6 @@ public class RadialMenu : MonoBehaviour
             allyCircle[index] = type;
         }
     }
-
     public void Ally1ButtonClicked()
     {
         chosenAlly = (int)newAlly1.unitType;
@@ -90,7 +91,7 @@ public class RadialMenu : MonoBehaviour
 
     public void Ally2ButtonClicked()
     {
-        chosenAlly = (int)newAlly1.unitType;
+        chosenAlly = (int)newAlly2.unitType;
     }
     public void SectorButtonClicked(int n)
     {

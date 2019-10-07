@@ -55,18 +55,37 @@ public class CombatMaster : MonoBehaviour
         int num = AC.allies.Count;
         for (int i = 0; i < num; i++)
         {
-            Debug.Log("Saving combat end sector " + i + " With value " + AC.allies[i].sectorIndex);
+            Debug.Log("Saving combat end sector " + AC.allies[i].sectorIndex + " With value " + (int)AC.allies[i].unitType);
         }
+        bool IsInScene = false;
         for (int i = 0; i < num; i++)
         {
-            PlayerPrefs.SetInt("PostEncounterIndex" + i, AC.allies[i].sectorIndex);
+            foreach (Ally a in AC.allies)
+            {
+                if (a.sectorIndex == i)
+                {
+                    IsInScene = true;
+                }
+            }
+            if (IsInScene)
+            {
+                PlayerPrefs.SetInt("PostEncounterIndex" + i, i);
+                PlayerPrefs.SetInt("PostEncounterType" + i, (int)AC.allies[i].unitType);
+            }
+            else
+            {
+                PlayerPrefs.SetInt("PostEncounterIndex" + i, i);
+                PlayerPrefs.SetInt("PostEncounterType" + i, 7);
+            }
 
-            PlayerPrefs.SetInt("PostEncounterType" + i, (int)AC.allies[i].unitType);
+
+
         }
         for (int i = 0; i < 6; i++)
         {
             Debug.Log("Checking combat end sector " + PlayerPrefs.GetInt("PostEncounterIndex" + i) + " With value " + PlayerPrefs.GetInt("PostEncounterType" + i));
         }
+        PlayerPrefs.Save();
     }
     public void RoundStart()
     {
@@ -111,12 +130,14 @@ public class CombatMaster : MonoBehaviour
         int done = PlayerPrefs.GetInt("DoneEncounters");
         PlayerPrefs.SetInt("DoneEncounters", done + 1);
         winView.Hide();
+        SaveAllies();
         StartCoroutine(ChangeLevel());
     }
 
     public void loseButtonClicked()
     {
         loseView.Hide();
+        SaveAllies();
         StartCoroutine(ChangeLevel());
     }
     IEnumerator ChangeLevel()
@@ -159,10 +180,12 @@ public class CombatMaster : MonoBehaviour
 
     void Update()
     {
-        if (first)
+        if (Input.GetKeyDown(KeyCode.RightShift))
         {
-            SaveAllies();
-            first = false;
+            foreach (Enemy e in EC.enemies)
+            {
+                e.health = 0;
+            }
         }
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
