@@ -36,17 +36,17 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  CurrentGraph: {fileID: 11400000, guid: 4b32bafe6a517364dbfa34fecb547998, type: 2}
+  CurrentGraph: {fileID: 0}
   RecentlyOpenedGraphs:
-  - {fileID: 11400000, guid: 4b32bafe6a517364dbfa34fecb547998, type: 2}
+  - {fileID: 0}
   - {fileID: 11400000, guid: e6110bcb756b3fe449865ebb403f8b5f, type: 2}
   CopiedNodes:
-  - {fileID: 4686599848753212681, guid: 4b32bafe6a517364dbfa34fecb547998, type: 2}
+  - {fileID: 0}
   DeletedNodes: []
   SelectedNodes: []
   GraphTabs:
   - IsRootTab: 1
-    Graph: {fileID: 11400000, guid: 4b32bafe6a517364dbfa34fecb547998, type: 2}
+    Graph: {fileID: 0}
     SubGraphNode: {fileID: 0}
     Zoom: 0.6
     PanOffset: {x: 186.9, y: 261}

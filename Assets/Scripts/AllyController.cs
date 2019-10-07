@@ -20,6 +20,7 @@ public class AllyController : MonoBehaviour
     private float angle = Mathf.PI / 3;
     public Progressor masterHealthBar;
     public Animator elder;
+
     void Start()
     {
         masterHealthBar = GetComponent<Progressor>();

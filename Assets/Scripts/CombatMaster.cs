@@ -25,6 +25,10 @@ public class CombatMaster : MonoBehaviour
     public Animator transition;
     public Canvas mainCanvas;
     private bool first = true;
+    public AudioSource audio;
+
+    public AudioClip[] audioClips;
+
     void Start()
     {
         StartCoroutine(CanvasDisable());
@@ -39,6 +43,7 @@ public class CombatMaster : MonoBehaviour
         EC = GameObject.FindGameObjectWithTag("EnemyController").GetComponent<EnemyController>();
         AC = GameObject.FindGameObjectWithTag("AllyController").GetComponent<AllyController>();
         freeLook = GameObject.FindGameObjectWithTag("FreeLook").GetComponent<CinemachineFreeLook>();
+        audio = GetComponent<AudioSource>();
         StartCoroutine(Timer());
 
     }
@@ -98,6 +103,9 @@ public class CombatMaster : MonoBehaviour
 
         AC.RoundStart();
         EC.RoundStart();
+
+        audio.clip = audioClips[0];
+        audio.Play();
 
         while (AC.alliesToRemove.Count > 0)
         {
