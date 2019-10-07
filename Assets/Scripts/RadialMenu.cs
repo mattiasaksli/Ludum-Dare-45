@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class RadialMenu : MonoBehaviour
@@ -6,12 +7,12 @@ public class RadialMenu : MonoBehaviour
     public Sprite[] allySprites;
     public Image[] buttons;
     public Ally[] allyPrefabs = new Ally[3];
-    public Ally[] allyCircle = new Ally[6];
     public Ally newAlly1;
     public Ally newAlly2;
-    public Ally chosenAlly;
-    public Ally selectedAlly;
+    public int chosenAlly;
+    public (int index, int type) selectedAlly;
     public bool newAllyPlaced = false;
+    public Dictionary<int, int> allyCircle = new Dictionary<int, int>();
 
     public int indexOfSelectedAlly = -1;
 
@@ -20,12 +21,25 @@ public class RadialMenu : MonoBehaviour
     public Image NewUnitImage;
     void Start()
     {
-        for (int i = 0; i < allyCircle.Length; i++)
+        if (PlayerPrefs.GetInt("DoneEncounters") == 0)
         {
-            allyCircle[i] = null;
+            for (int i = 0; i < 6; i++)
+            {
+                PlayerPrefs.SetInt("PostEncounterIndex" + i, i);
+                PlayerPrefs.SetInt("PostEncounterType" + i, 7);
+            }
+        }
+        for (int i = 0; i < 6; i++)
+        {
+            Debug.Log("Loading town start sector " + PlayerPrefs.GetInt("PostEncounterIndex" + i) + " With value " + PlayerPrefs.GetInt("PostEncounterType" + i));
+        }
+        LoadCircleState();
+
+        for (int i = 0; i < 6; i++)
+        {
+            Debug.Log("Got town start sector " + i + " With value " + allyCircle[i]);
         }
 
-        LoadCircleState();
 
         int r1 = Random.Range(0, 3);
         int r2 = r1;
@@ -47,41 +61,40 @@ public class RadialMenu : MonoBehaviour
     {
         for (int i = 0; i < 6; i++)
         {
-            if (allyCircle[i] == null)
+            if (allyCircle[i] == 7)
             {
                 buttons[i].sprite = allySprites[3];
             }
             else
             {
-                buttons[i].sprite = allySprites[(int)allyCircle[i].unitType];
+                //Debug.Log(i);
+                buttons[i].sprite = allySprites[allyCircle[i]];
             }
         }
     }
     public void LoadCircleState()
     {
 
-        int num = PlayerPrefs.GetInt("PostEncounterPositionsNr");
-        for (int i = 0; i < num; i++)
+        for (int i = 0; i < 6; i++)
         {
             int index = PlayerPrefs.GetInt("PostEncounterIndex" + i);
             int type = PlayerPrefs.GetInt("PostEncounterType" + i);
-            Ally a = new Ally { unitType = (Ally.allyClass)type };
-            allyCircle[index] = a;
+            allyCircle[index] = type;
         }
     }
 
     public void Ally1ButtonClicked()
     {
-        chosenAlly = newAlly1;
+        chosenAlly = (int)newAlly1.unitType;
     }
 
     public void Ally2ButtonClicked()
     {
-        chosenAlly = newAlly2;
+        chosenAlly = (int)newAlly1.unitType;
     }
     public void SectorButtonClicked(int n)
     {
-        if (allyCircle[n] == null)  // If there is no ally in the clicked sector.
+        if (allyCircle[n] == 7)  // If there is no ally in the clicked sector.
         {
             if (indexOfSelectedAlly == -2)  // If a reset selection clicks on an empty sector.
             {
@@ -91,16 +104,19 @@ public class RadialMenu : MonoBehaviour
             if (indexOfSelectedAlly == -1)  // If the new unit was selected previously (default).
             {
                 allyCircle[n] = chosenAlly; // The new unit will be in the empty sector.
-                chosenAlly = null;
                 newAllyPlaced = true;
                 indexOfSelectedAlly = -2;   // Reset selection.
                 NewUnitImage.enabled = false;
             }
             else    // If another unit was selected previously.
             {
-                allyCircle[n] = allyCircle[indexOfSelectedAlly];    // The previously selected unit will be in the empty sector;
-                allyCircle[indexOfSelectedAlly] = null;
+                int prevSelected = allyCircle[indexOfSelectedAlly];
+                int target = allyCircle[n];
+                allyCircle[n] = prevSelected;
+                allyCircle[indexOfSelectedAlly] = target;// The previously selected unit will be in the empty sector;
                 indexOfSelectedAlly = -2;   // Reset selection.
+                SetButtonImages();
+                return;
             }
         }
         else    // If an ally is in the clicked sector.
@@ -113,7 +129,7 @@ public class RadialMenu : MonoBehaviour
                 }
                 else    // If a previous ally was selected.
                 {
-                    Ally temp = allyCircle[n];  // Switch the previously selected unit and the one in the current sector.
+                    int temp = allyCircle[n];  // Switch the previously selected unit and the one in the current sector.
                     allyCircle[n] = allyCircle[indexOfSelectedAlly];
                     allyCircle[indexOfSelectedAlly] = temp;
                     indexOfSelectedAlly = -2;   // Reset selection.

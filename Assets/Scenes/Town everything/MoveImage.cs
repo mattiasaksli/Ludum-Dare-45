@@ -121,26 +121,28 @@ public class MoveImage : MonoBehaviour
     public void ExitFormation()
     {
         FormationChosen = true;
-        Ally[] allyCircle = RM.allyCircle;
-        List<Ally> allyCircleList = new List<Ally>(6);
+        Dictionary<int, int> allyCircle = RM.allyCircle;
+
         for (int i = 0; i < 6; i++)
         {
-            if (allyCircle[i] != null)
+            if (allyCircle[i] != 7)
             {
-                allyCircle[i].sectorIndex = i;
-                allyCircleList.Add(allyCircle[i]);
+                PlayerPrefs.SetInt("PreEncounterIndex" + i, i);
+
+                PlayerPrefs.SetInt("PreEncounterType" + i, allyCircle[i]);
+                Debug.Log("Saved at sector " + i + " With value " + allyCircle[i]);
+            }
+            else
+            {
+                PlayerPrefs.SetInt("PreEncounterIndex" + i, 1);
+
+                PlayerPrefs.SetInt("PreEncounterType" + i, 7);
+                Debug.Log("Saved at sector " + i + " With value " + 7);
             }
         }
-
-        int num = allyCircleList.Count;
-        PlayerPrefs.SetInt("PreEncounterPositionsNr", num);
-        for (int i = 0; i < num; i++)
+        for (int i = 0; i < 6; i++)
         {
-            int sector = allyCircleList[i].sectorIndex;
-            PlayerPrefs.SetInt("PreEncounterIndex" + i, sector);
-
-            int type = (int)allyCircleList[i].unitType;
-            PlayerPrefs.SetInt("PreEncounterType" + i, type);
+            Debug.Log("Finally save in sector " + PlayerPrefs.GetInt("PreEncounterIndex" + i) + " With value " + PlayerPrefs.GetInt("PreEncounterType" + i));
         }
     }
 }

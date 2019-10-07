@@ -5,11 +5,11 @@ using UnityEngine.UI;
 
 public class Ally : MonoBehaviour
 {
-    public float maxHealth = 50f;
-    public float health = 50f;
+    public float maxHealth;
+    public float health;
     public int sectorIndex;
-    public allyClass unitType = 0;
-    public allyAttack attackType = 0;
+    public allyClass unitType;
+    public allyAttack attackType;
     public AllyController AC;
     public EnemyController EC;
     public Progressor healthbar;

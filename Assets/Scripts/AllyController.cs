@@ -36,54 +36,41 @@ public class AllyController : MonoBehaviour
 
     public void PositionAllies()
     {
-        Dictionary<int, Ally.allyClass> allyAndIndex = loadAllyPosition();
-        foreach (KeyValuePair<int, Ally.allyClass> pair in allyAndIndex)
+        Dictionary<int, int> allyAndIndex = loadAllyPosition();
+        foreach (KeyValuePair<int, int> pair in allyAndIndex)
         {
             int allyIndex = pair.Key;
-            int allyClass = (int)pair.Value;
+            int allyClass = pair.Value;
+            if (allyClass < 7)
+            {
+                Debug.Log("Creating ally at sector " + allyIndex + " With type " + allyClass);
+                float allyAngle = angle * allyIndex;
+                float x = Mathf.Sin(allyAngle) * allyRadius;
+                float z = Mathf.Cos(allyAngle) * allyRadius;
 
-            float allyAngle = angle * allyIndex;
-            float x = Mathf.Sin(allyAngle) * allyRadius;
-            float z = Mathf.Cos(allyAngle) * allyRadius;
+                Ally ally = Instantiate(allyPrefabs[allyClass], transform, this);
+                UICanvas canvas = ally.GetComponentInChildren<UICanvas>();
+                canvas.CanvasName = "Ally--" + allyIndex * 1000;
+                canvas.name = canvas.CanvasName;
 
-            Ally ally = Instantiate(allyPrefabs[allyClass], transform, this);
-            UICanvas canvas = ally.GetComponentInChildren<UICanvas>();
-            canvas.CanvasName = "Ally--" + allyIndex * 1000;
-            canvas.name = canvas.CanvasName;
-
-            ally.transform.localPosition = new Vector3(x, 0, z);
-            ally.transform.localRotation = Quaternion.Euler(0, allyAngle * (180f / Mathf.PI), 0);
-            ally.sectorIndex = allyIndex;
-            ally.unitType = (Ally.allyClass)allyClass;
-            allies.Add(ally);
+                ally.transform.localPosition = new Vector3(x, 0, z);
+                ally.transform.localRotation = Quaternion.Euler(0, allyAngle * (180f / Mathf.PI), 0);
+                ally.sectorIndex = allyIndex;
+                ally.unitType = (Ally.allyClass)allyClass;
+                allies.Add(ally);
+            }
         }
     }
 
-    public Dictionary<int, Ally.allyClass> loadAllyPosition()
+    public Dictionary<int, int> loadAllyPosition()
     {
+        Dictionary<int, int> allyAndIndex = new Dictionary<int, int>();
 
-        /*Ally a0 = allyPrefabs[0];
-        a0.sectorIndex = 0;
-
-        Ally a2 = allyPrefabs[1];
-        a2.sectorIndex = 2;
-
-        Debug.Log(a2.unitType + ", sector " + a2.sectorIndex);
-
-        allyCircleList.Add(a0);
-        allyCircleList.Add(a2);
-*/
-        Dictionary<int, Ally.allyClass> allyAndIndex = new Dictionary<int, Ally.allyClass>();
-
-        int num = PlayerPrefs.GetInt("PreEncounterPositionsNr");
-        for (int i = 0; i < num; i++)
+        for (int i = 0; i < 6; i++)
         {
-            int index = PlayerPrefs.GetInt("PreEncounterIndex" + i);
-            int type = PlayerPrefs.GetInt("PreEncounterType" + i);
-
-            allyAndIndex.Add(index, (Ally.allyClass)type);
+            Debug.Log("Loaded sector " + PlayerPrefs.GetInt("PreEncounterIndex" + i) + " With type " + PlayerPrefs.GetInt("PreEncounterType" + i));
+            allyAndIndex[PlayerPrefs.GetInt("PreEncounterIndex" + i)] = PlayerPrefs.GetInt("PreEncounterType" + i);
         }
-
         return allyAndIndex;
     }
     public void Combat()

@@ -3786,10 +3786,10 @@ MonoBehaviour:
     PresetCategory: Uncategorized
     PresetName: Default
   HideOnAnyButton: 0
-  HideOnBackButton: 1
+  HideOnBackButton: 0
   HideOnClickAnywhere: 0
-  HideOnClickContainer: 1
-  HideOnClickOverlay: 1
+  HideOnClickContainer: 0
+  HideOnClickOverlay: 0
   HideProgressor: {fileID: 0}
   OnInverseVisibilityChanged:
     m_PersistentCalls:
@@ -41502,7 +41502,7 @@ MonoBehaviour:
   AutoHideAfterShow: 0
   AutoHideAfterShowDelay: 3
   AutoSelectButtonAfterShow: 0
-  BlockBackButton: 1
+  BlockBackButton: 0
   CanvasName: MasterCanvas
   Container:
     Canvas: {fileID: 633549899}
@@ -41661,7 +41661,7 @@ MonoBehaviour:
     PresetCategory: Uncategorized
     PresetName: Default
   HideOnAnyButton: 0
-  HideOnBackButton: 0
+  HideOnBackButton: 1
   HideOnClickAnywhere: 0
   HideOnClickContainer: 0
   HideOnClickOverlay: 0
