@@ -313,6 +313,7 @@ MonoBehaviour:
   spell2Cd: 0
   isShielded: 0
   anim: {fileID: 0}
+  audio: {fileID: 0}
 --- !u!82 &469238484469405904
 AudioSource:
   m_ObjectHideFlags: 0
@@ -369,7 +370,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 1
+      value: 0
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -5903,6 +5904,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: HealFrog
       objectReference: {fileID: 0}
+    - target: {fileID: -6057140222963153312, guid: f4504c41acee6674c99d12ff91bb2e08,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: cdb2fa7be6667434c8e163130c4673b5, type: 2}
     - target: {fileID: -4216859302048453862, guid: f4504c41acee6674c99d12ff91bb2e08,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -5973,11 +5979,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: -6057140222963153312, guid: f4504c41acee6674c99d12ff91bb2e08,
-        type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: cdb2fa7be6667434c8e163130c4673b5, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f4504c41acee6674c99d12ff91bb2e08, type: 3}
 --- !u!4 &8467009593280835260 stripped

@@ -313,6 +313,7 @@ MonoBehaviour:
   spell2Cd: 0
   isShielded: 0
   anim: {fileID: 2103323533601505470}
+  audio: {fileID: 0}
 --- !u!82 &469238484469405904
 AudioSource:
   m_ObjectHideFlags: 0
@@ -369,7 +370,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 1
+      value: 0
       inSlope: 0
       outSlope: 0
       tangentMode: 0
