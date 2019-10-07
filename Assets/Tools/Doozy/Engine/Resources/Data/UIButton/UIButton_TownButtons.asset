@@ -23,3 +23,6 @@ MonoBehaviour:
   - SelectHero3
   - OpenSettings
   - ExitFormation
+  - Quit
+  - Help
+  - ChangeReso
