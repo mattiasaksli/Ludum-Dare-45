@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using TMPro;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class RadialMenu : MonoBehaviour
@@ -37,8 +35,8 @@ public class RadialMenu : MonoBehaviour
         newAlly1 = allyPrefabs[r1];
         newAlly2 = allyPrefabs[r2];
 
-        ChooseNewUnitButton1.GetComponentInChildren<TextMeshProUGUI>().text = ((int)newAlly1.unitType).ToString();
-        ChooseNewUnitButton2.GetComponentInChildren<TextMeshProUGUI>().text = ((int)newAlly2.unitType).ToString();
+        /*        ChooseNewUnitButton1.GetComponentInChildren<TextMeshProUGUI>().text = ((int)newAlly1.unitType).ToString();
+                ChooseNewUnitButton2.GetComponentInChildren<TextMeshProUGUI>().text = ((int)newAlly2.unitType).ToString();*/
 
         indexOfSelectedAlly = -1;
         newAllyPlaced = false;
@@ -46,17 +44,14 @@ public class RadialMenu : MonoBehaviour
 
     public void LoadCircleState()
     {
-        List<Ally> allyCircleList = new List<Ally>();
-        //allyCircleList = JsonUtility.FromJson<List<Ally>>(PlayerPrefs.GetString("AllyCircleList")
-        Ally a3 = allyPrefabs[2];
-        Ally a1 = allyPrefabs[0];
-        a3.sectorIndex = 3;
-        a1.sectorIndex = 1;
-        allyCircleList.Add(a1);
-        allyCircleList.Add(a3);
-        foreach (Ally a in allyCircleList)
+
+        int num = PlayerPrefs.GetInt("PostEncounterPositionsNr");
+        for (int i = 0; i < num; i++)
         {
-            allyCircle[a.sectorIndex] = a;
+            int index = PlayerPrefs.GetInt("PostEncounterIndex" + i);
+            int type = PlayerPrefs.GetInt("PostEncounterType" + i);
+            Ally a = new Ally { unitType = (Ally.allyClass)type };
+            allyCircle[index] = a;
         }
     }
 
