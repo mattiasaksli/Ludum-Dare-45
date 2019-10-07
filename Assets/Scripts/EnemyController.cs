@@ -64,7 +64,7 @@ public class EnemyController : MonoBehaviour
     public Dictionary<int, Enemy.enemyClass> loadEnemyPosition()
     {
         Dictionary<int, Enemy.enemyClass> enemyAndIndex = new Dictionary<int, Enemy.enemyClass>();
-        int num = PlayerPrefs.GetInt("AllyNumber");
+        int num = PlayerPrefs.GetInt("AllyNumber") - 1;
         Debug.Log(num);
         if (num < 5)
         {

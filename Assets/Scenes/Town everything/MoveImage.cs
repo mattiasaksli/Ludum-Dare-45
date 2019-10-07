@@ -34,7 +34,7 @@ public class MoveImage : MonoBehaviour
 
         if (gameObject.transform.localPosition.x > w * 0.4)
         {
-            SceneManager.LoadScene(1);
+            SceneManager.LoadScene(2);
         }
 
         if (gameObject.transform.localPosition.x < 0)

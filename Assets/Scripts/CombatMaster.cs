@@ -152,7 +152,7 @@ public class CombatMaster : MonoBehaviour
     {
         transition.Play("FadeOut");
         yield return new WaitForSeconds(2f);
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1);
     }
     IEnumerator Timer()
     {
