@@ -49,8 +49,6 @@ public class Ally : MonoBehaviour
         health = maxHealth;
         healthbar.SetValue(health);
         audio = GetComponent<AudioSource>();
-        audio.clip = CM.audioClips[0];
-        audio.Play();
     }
     public void RoundStart()
     {
@@ -69,7 +67,7 @@ public class Ally : MonoBehaviour
         if (spell2Cd > CM.roundCount)
         {
             spell2Background.color = Color.gray;
-            spell2Background.fillAmount = (spell2Cd - CM.roundCount) / 3f;
+            spell2Background.fillAmount = 1 - ((spell2Cd - CM.roundCount) / 3f);
         }
         if (isShielded)
         {
@@ -84,21 +82,21 @@ public class Ally : MonoBehaviour
     }
     public void Damage(float hp)
     {
-        if (isShielded)
-        {
-            anim.Play("ShieldIdle");
-            audio.clip = CM.audioClips[11];
-            audio.Play();
-            return;
-        }
-        else
+        if (!isShielded)
         {
             this.health -= hp;
-            StartCoroutine(DoDamage());
         }
+        StartCoroutine(DoDamage());
     }
     IEnumerator DoDamage()
     {
+        if (isShielded)
+        {
+            anim.Play("ShieldIdle");
+            yield return new WaitForSeconds(0.7f);
+            audio.clip = CM.audioClips[11];
+            audio.Play();
+        }
         yield return new WaitForSeconds(0.7f);
         if (health <= 0)
         {
@@ -106,6 +104,8 @@ public class Ally : MonoBehaviour
         }
         else
         {
+            audio.clip = CM.audioClips[12];
+            audio.Play();
             anim.Play("Damage");
         }
         yield return new WaitForSeconds(0.5f);
@@ -125,7 +125,7 @@ public class Ally : MonoBehaviour
 
             if (spell == 1)
             {
-                if (spell1Cd < CM.roundCount)
+                if (spell1Cd <= CM.roundCount)
                 {
                     this.attackType = allyAttack.Spell1;
                     spell1.color = Color.white;
@@ -134,7 +134,7 @@ public class Ally : MonoBehaviour
             }
             else if (spell == 2)
             {
-                if (spell2Cd < CM.roundCount)
+                if (spell2Cd <= CM.roundCount)
                 {
                     this.attackType = allyAttack.Spell2;
                     spell2.color = Color.white;
@@ -228,7 +228,16 @@ public class Ally : MonoBehaviour
             {
                 a.health = a.maxHealth;
             }
+            a.healthbar.SetValue(a.health);
+            a.anim.Play("Damage");
         }
+        AC.masterHealth += AC.maxMasterHealth * 0.25f;
+        if (AC.masterHealth > AC.maxMasterHealth)
+        {
+            AC.masterHealth = AC.maxMasterHealth;
+        }
+        AC.masterHealthBar.SetValue(AC.masterHealth);
+        AC.elder.Play("Damage");
     }
 
     void Attack()
@@ -294,12 +303,14 @@ public class Ally : MonoBehaviour
 
     void Death()
     {
+        audio.clip = CM.audioClips[13];
+        audio.Play();
         AC.alliesToRemove.Push(this);
         anim.Play("Death");
         spell1.enabled = false;
         spell1Background.enabled = false;
         spell2.enabled = false;
         spell2Background.enabled = false;
-        this.enabled = false;
+        //this.enabled = false;
     }
 }

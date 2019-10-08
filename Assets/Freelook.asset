@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8e6292b2c06870d4495f009f912b9600, type: 3}
-  m_Name: New Post-processing Profile
+  m_Name: Freelook
   m_EditorClassIdentifier: 
   settings:
   - {fileID: 85276617318144648}
@@ -173,13 +173,13 @@ MonoBehaviour:
     value: 100
   lift:
     overrideState: 1
-    value: {x: 0.9215722, y: 1, z: 0.9147539, w: 0}
+    value: {x: 0.69023013, y: 1, z: 0.8359376, w: 0}
   gamma:
     overrideState: 1
-    value: {x: 0.91632247, y: 0.78051865, z: 1, w: 0}
+    value: {x: 1, y: 0.94935155, z: 0.8087802, w: 0}
   gain:
     overrideState: 1
-    value: {x: 0.7430154, y: 0.7950013, z: 1, w: 0}
+    value: {x: 0.9494715, y: 0.7257837, z: 1, w: 0}
   masterCurve:
     overrideState: 0
     value:
@@ -1407,7 +1407,7 @@ MonoBehaviour:
     value: 158
   kernelSize:
     overrideState: 1
-    value: 1
+    value: 0
 --- !u!114 &4746876133971147465
 MonoBehaviour:
   m_ObjectHideFlags: 3

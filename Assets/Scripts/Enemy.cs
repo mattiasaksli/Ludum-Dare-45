@@ -16,6 +16,7 @@ public class Enemy : MonoBehaviour
 
     private bool isPoisoned;
     private bool isDebuffed;
+    public AudioSource audio;
 
     public enum enemyClass
     {
@@ -25,6 +26,7 @@ public class Enemy : MonoBehaviour
     }
     void Start()
     {
+        audio = GetComponent<AudioSource>();
         anim = GetComponentInChildren<Animator>();
         AC = GameObject.FindGameObjectWithTag("AllyController").GetComponentInChildren<AllyController>();
         EC = this.GetComponentInParent<EnemyController>();
@@ -58,9 +60,10 @@ public class Enemy : MonoBehaviour
         }
         else
         {
+            audio.clip = CM.audioClips[17];
+            audio.Play();
             anim.Play("Damage");
         }
-        yield return new WaitForSeconds(0.5f);
         healthbar.SetValue(health);
     }
 
@@ -103,6 +106,8 @@ public class Enemy : MonoBehaviour
                 {
                     if (a.sectorIndex == sectorIndex)
                     {
+                        audio.clip = CM.audioClips[14];
+                        audio.Play();
                         a.Damage(15f);
                         hasOpponent = true;
                         break;
@@ -111,6 +116,8 @@ public class Enemy : MonoBehaviour
 
                 if (!hasOpponent)
                 {
+                    audio.clip = CM.audioClips[14];
+                    audio.Play();
                     AC.DamageMaster(15f);
                 }
                 break;
@@ -121,6 +128,8 @@ public class Enemy : MonoBehaviour
                 {
                     if (a.sectorIndex == sectorIndex)
                     {
+                        audio.clip = CM.audioClips[15];
+                        audio.Play();
                         a.Damage(30f);
                         hasOpponent = true;
                         break;
@@ -128,11 +137,15 @@ public class Enemy : MonoBehaviour
                 }
                 if (!hasOpponent)
                 {
+                    audio.clip = CM.audioClips[15];
+                    audio.Play();
                     AC.DamageMaster(30f);
                 }
                 break;
             case enemyClass.Assassin:
                 anim.Play("Attack");
+                audio.clip = CM.audioClips[16];
+                audio.Play();
                 foreach (Ally a in AC.allies)
                 {
                     if (a.sectorIndex == sectorIndex)
@@ -162,6 +175,8 @@ public class Enemy : MonoBehaviour
         isDebuffed = false;
         isPoisoned = false;
         anim.Play("Death");
+        audio.clip = CM.audioClips[18];
+        audio.Play();
         EC.enemiesToRemove.Push(this);
         this.enabled = false;
     }

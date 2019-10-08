@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class RadialMenu : MonoBehaviour
@@ -141,6 +142,63 @@ public class RadialMenu : MonoBehaviour
     }
     public void ResetEncounter()
     {
+        Debug.Log("##############RESET##############");
+        PlayerPrefs.DeleteAll();
         PlayerPrefs.SetInt("DoneEncounters", 0);
+        for (int i = 0; i < 6; i++)
+        {
+            PlayerPrefs.SetInt("PostEncounterIndex" + i, i);
+            PlayerPrefs.SetInt("PostEncounterType" + i, 7);
+        }
+
+        for (int i = 0; i < 6; i++)
+        {
+            Debug.Log("Loading town start sector " + PlayerPrefs.GetInt("PostEncounterIndex" + i) + " With value " + PlayerPrefs.GetInt("PostEncounterType" + i));
+        }
+        LoadCircleState();
+        for (int i = 0; i < 6; i++)
+        {
+            Debug.Log("Got town start sector " + i + " With value " + allyCircle[i]);
+        }
+        SceneManager.LoadScene("Town");
+    }
+    public void Quit()
+    {
+        Save();
+        Application.Quit();
+    }
+    public void Save()
+    {
+        for (int i = 0; i < 6; i++)
+        {
+            if (allyCircle[i] != 7)
+            {
+                PlayerPrefs.SetInt("PreEncounterIndex" + i, i);
+
+                PlayerPrefs.SetInt("PreEncounterType" + i, allyCircle[i]);
+                Debug.Log("Saved at sector " + i + " With value " + allyCircle[i]);
+            }
+            else
+            {
+                PlayerPrefs.SetInt("PreEncounterIndex" + i, i);
+
+                PlayerPrefs.SetInt("PreEncounterType" + i, 7);
+                Debug.Log("Saved at sector " + i + " With value " + 7);
+            }
+        }
+        for (int i = 0; i < 6; i++)
+        {
+            Debug.Log("Finally save in sector " + PlayerPrefs.GetInt("PreEncounterIndex" + i) + " With value " + PlayerPrefs.GetInt("PreEncounterType" + i));
+        }
+        int allyNumberCommit = 0;
+        for (int i = 0; i < 6; i++)
+        {
+            if (allyCircle[i] != 7)
+            {
+                allyNumberCommit += 1;
+            }
+        }
+        PlayerPrefs.SetInt("AllyNumber", allyNumberCommit);
+        PlayerPrefs.Save();
     }
 }

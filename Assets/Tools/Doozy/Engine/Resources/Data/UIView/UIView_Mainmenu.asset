@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f42f06ff6cc543ea942180e019f0fc8d, type: 3}
   m_Name: UIView_Mainmenu
   m_EditorClassIdentifier: 
-  CategoryName: Main Menu
+  CategoryName: MainMenu
   DatabaseType: 2
   Names:
-  - MainMenu
+  - 1
+  - 2
+  - 3

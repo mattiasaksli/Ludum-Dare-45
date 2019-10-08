@@ -44,8 +44,9 @@ public class CombatMaster : MonoBehaviour
         AC = GameObject.FindGameObjectWithTag("AllyController").GetComponent<AllyController>();
         freeLook = GameObject.FindGameObjectWithTag("FreeLook").GetComponent<CinemachineFreeLook>();
         audio = GetComponent<AudioSource>();
+        audio.clip = audioClips[0];
+        audio.Play();
         StartCoroutine(Timer());
-
     }
     IEnumerator CanvasDisable()
     {
@@ -67,7 +68,7 @@ public class CombatMaster : MonoBehaviour
         {
             foreach (Ally a in AC.allies)
             {
-                if (a.sectorIndex == i)
+                if (a.sectorIndex == i && a.health > 0)
                 {
                     IsInScene = true;
                 }
@@ -119,15 +120,15 @@ public class CombatMaster : MonoBehaviour
         StartCoroutine(Timer());
     }
 
-    public void EndEncounter()
+    public void EndEncounter(bool win)
     {
         mainCanvas.sortingOrder = 101;
         mainCanvas.gameObject.SetActive(true);
-        if (AC.masterHealth <= 0)   // If encounter lost.
+        if (!win)
         {
             loseView.Show();
         }
-        else                        // If encounter won.
+        else
         {
             winView.Show();
         }
@@ -144,15 +145,15 @@ public class CombatMaster : MonoBehaviour
 
     public void loseButtonClicked()
     {
-        loseView.Hide();
         SaveAllies();
+        loseView.Hide();
         StartCoroutine(ChangeLevel());
     }
     IEnumerator ChangeLevel()
     {
         transition.Play("FadeOut");
         yield return new WaitForSeconds(2f);
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene("Town");
     }
     IEnumerator Timer()
     {
@@ -172,6 +173,8 @@ public class CombatMaster : MonoBehaviour
         timeBar.SetValue(0);
         inputDisable = true;
         skip = false;
+        audio.clip = audioClips[0];
+        audio.Play();
         AC.Combat();
     }
     IEnumerator Rotating()
@@ -192,7 +195,7 @@ public class CombatMaster : MonoBehaviour
         {
             foreach (Enemy e in EC.enemies)
             {
-                e.health = 0;
+                e.Damage(e.health);
             }
         }
         if (Input.GetKeyDown(KeyCode.LeftShift))

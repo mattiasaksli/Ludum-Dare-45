@@ -1,5 +1,4 @@
 ﻿using Doozy.Engine.UI;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -34,7 +33,7 @@ public class MoveImage : MonoBehaviour
 
         if (gameObject.transform.localPosition.x > w * 0.4)
         {
-            SceneManager.LoadScene(2);
+            SceneManager.LoadScene("Combat");
         }
 
         if (gameObject.transform.localPosition.x < 0)
@@ -142,43 +141,11 @@ public class MoveImage : MonoBehaviour
     }
     public void Reset()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene("Town");
     }
     public void ExitFormation()
     {
         FormationChosen = true;
-        Dictionary<int, int> allyCircle = RM.allyCircle;
-
-        for (int i = 0; i < 6; i++)
-        {
-            if (allyCircle[i] != 7)
-            {
-                PlayerPrefs.SetInt("PreEncounterIndex" + i, i);
-
-                PlayerPrefs.SetInt("PreEncounterType" + i, allyCircle[i]);
-                Debug.Log("Saved at sector " + i + " With value " + allyCircle[i]);
-            }
-            else
-            {
-                PlayerPrefs.SetInt("PreEncounterIndex" + i, i);
-
-                PlayerPrefs.SetInt("PreEncounterType" + i, 7);
-                Debug.Log("Saved at sector " + i + " With value " + 7);
-            }
-        }
-        for (int i = 0; i < 6; i++)
-        {
-            Debug.Log("Finally save in sector " + PlayerPrefs.GetInt("PreEncounterIndex" + i) + " With value " + PlayerPrefs.GetInt("PreEncounterType" + i));
-        }
-        int allyNumberCommit = 0;
-        for (int i = 0; i < 6; i++)
-        {
-            if (RM.allyCircle[i] != 7)
-            {
-                allyNumberCommit += 1;
-            }
-        }
-        PlayerPrefs.SetInt("AllyNumber", allyNumberCommit);
-        PlayerPrefs.Save();
+        RM.Save();
     }
 }

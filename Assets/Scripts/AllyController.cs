@@ -113,11 +113,13 @@ public class AllyController : MonoBehaviour
                 }
                 else
                 {
+                    int lastPos = camAnim.GetInteger("sweep");
                     camAnim.SetInteger("sweep", i);
                     foreach (Ally a in allies)
                     {
                         if (a.sectorIndex == i)
                         {
+                            yield return new WaitForSeconds(0.2f * i - lastPos);
                             yield return new WaitForSeconds(0.5f);
                             a.Combat();
                         }
@@ -133,6 +135,7 @@ public class AllyController : MonoBehaviour
         camAnim.SetInteger("sweep", -1);
         yield return new WaitForSeconds(1f);
         bool areEnemies = false;
+        bool areAllies = false;
         foreach (Enemy e in EC.enemies)
         {
             if (e.health > 0)
@@ -140,20 +143,51 @@ public class AllyController : MonoBehaviour
                 areEnemies = true;
             }
         }
+
+        foreach (Ally a in allies)
+        {
+            if (a.health > 0)
+            {
+                areAllies = true;
+            }
+        }
         if (!areEnemies)
         {
             yield return new WaitForSeconds(1f);
-            CM.EndEncounter();
+            CM.EndEncounter(true);
+            StopCoroutine("StartCombat");
+        }
+        else if (!areAllies)
+        {
+            yield return new WaitForSeconds(1f);
+            CM.EndEncounter(false);
+            StopCoroutine("StartCombat");
         }
         else
         {
             EC.Combat();
             yield return new WaitForSeconds(2f);
+
+            areAllies = false;
+            foreach (Ally a in allies)
+            {
+                if (a.health > 0)
+                {
+                    areAllies = true;
+                }
+            }
             if (masterHealth <= 0)
             {
                 elder.Play("Death");
                 yield return new WaitForSeconds(1f);
-                CM.EndEncounter();
+                CM.EndEncounter(false);
+                StopCoroutine("StartCombat");
+            }
+            else if (!areAllies)
+            {
+                yield return new WaitForSeconds(1f);
+                CM.EndEncounter(false);
+                StopCoroutine("StartCombat");
             }
             else
             {
@@ -170,8 +204,10 @@ public class AllyController : MonoBehaviour
     }
     IEnumerator DamageMasterCo(float dmg)
     {
-        elder.Play("Damage");
         yield return new WaitForSeconds(1f);
+        elder.Play("Damage");
+        CM.audio.clip = CM.audioClips[19];
+        CM.audio.Play();
         masterHealth -= dmg;
         masterHealthBar.SetValue(masterHealth);
     }
