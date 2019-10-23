@@ -28,7 +28,8 @@ public class CombatMaster : MonoBehaviour
     public AudioSource audio;
 
     public AudioClip[] audioClips;
-
+    public ParticleSystem plasma;
+    public ParticleSystem explosion;
     void Start()
     {
         StartCoroutine(CanvasDisable());
@@ -63,29 +64,22 @@ public class CombatMaster : MonoBehaviour
         {
             Debug.Log("Saving combat end sector " + AC.allies[i].sectorIndex + " With value " + (int)AC.allies[i].unitType);
         }
-        bool IsInScene = false;
-        for (int i = 0; i < num; i++)
+        for (int i = 0; i < 6; i++)
         {
             foreach (Ally a in AC.allies)
             {
                 if (a.sectorIndex == i && a.health > 0)
                 {
-                    IsInScene = true;
+                    PlayerPrefs.SetInt("PostEncounterIndex" + i, i);
+                    PlayerPrefs.SetInt("PostEncounterType" + i, (int)a.unitType);
+                    break;
+                }
+                else
+                {
+                    PlayerPrefs.SetInt("PostEncounterIndex" + i, i);
+                    PlayerPrefs.SetInt("PostEncounterType" + i, 7);
                 }
             }
-            if (IsInScene)
-            {
-                PlayerPrefs.SetInt("PostEncounterIndex" + i, i);
-                PlayerPrefs.SetInt("PostEncounterType" + i, (int)AC.allies[i].unitType);
-            }
-            else
-            {
-                PlayerPrefs.SetInt("PostEncounterIndex" + i, i);
-                PlayerPrefs.SetInt("PostEncounterType" + i, 7);
-            }
-
-
-
         }
         for (int i = 0; i < 6; i++)
         {
@@ -103,7 +97,6 @@ public class CombatMaster : MonoBehaviour
         roundCount += 1;
 
         AC.RoundStart();
-        EC.RoundStart();
 
         audio.clip = audioClips[0];
         audio.Play();
@@ -179,7 +172,7 @@ public class CombatMaster : MonoBehaviour
     }
     IEnumerator Rotating()
     {
-        yield return new WaitForSeconds(.5f);
+        yield return new WaitForSeconds(.7f);
         turningLeft = false;
         turningRight = false;
 
@@ -195,10 +188,15 @@ public class CombatMaster : MonoBehaviour
         {
             foreach (Enemy e in EC.enemies)
             {
-                e.Damage(e.health);
+                e.Damage(e.health, 0);
             }
+            plasma.Play();
+            explosion.Play();
+            audio.clip = audioClips[20];
+            audio.Play();
+            //StartCoroutine(Rotating());
         }
-        if (Input.GetKeyDown(KeyCode.LeftShift))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             skip = true;
             inCombat = true;
@@ -253,12 +251,12 @@ public class CombatMaster : MonoBehaviour
         else if (turningLeft)
         {
             AC.transform.rotation = Quaternion.Slerp
-                (AC.transform.rotation, Quaternion.Euler(0, yEulerAngle - 60f, 0), 0.25f);
+                (AC.transform.rotation, Quaternion.Euler(0, yEulerAngle - 60f, 0), 0.2f);
         }
         else if (turningRight)
         {
             AC.transform.rotation = Quaternion.Slerp
-                (AC.transform.rotation, Quaternion.Euler(0, yEulerAngle + 60f, 0), 0.25f);
+                (AC.transform.rotation, Quaternion.Euler(0, yEulerAngle + 60f, 0), 0.2f);
         }
     }
 }

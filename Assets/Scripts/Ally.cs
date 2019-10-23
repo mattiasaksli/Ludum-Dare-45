@@ -23,6 +23,8 @@ public class Ally : MonoBehaviour
     public bool isShielded;
     public Animator anim;
     public AudioSource audio;
+
+    public ParticleSystem[] particles;
     public enum allyClass
     {
         Knight = 0,
@@ -72,6 +74,7 @@ public class Ally : MonoBehaviour
         if (isShielded)
         {
             anim.SetBool("isShielded", false);
+            particles[1].Stop();
             isShielded = false;
         }
         attackType = allyAttack.Basic;
@@ -92,7 +95,7 @@ public class Ally : MonoBehaviour
     {
         if (isShielded)
         {
-            anim.Play("ShieldIdle");
+            particles[1].Stop();
             yield return new WaitForSeconds(0.7f);
             audio.clip = CM.audioClips[11];
             audio.Play();
@@ -100,12 +103,14 @@ public class Ally : MonoBehaviour
         yield return new WaitForSeconds(0.7f);
         if (health <= 0)
         {
+            particles[0].Play();
             Death();
         }
         else
         {
             audio.clip = CM.audioClips[12];
             audio.Play();
+            particles[0].Play();
             anim.Play("Damage");
         }
         yield return new WaitForSeconds(0.5f);
@@ -153,7 +158,7 @@ public class Ally : MonoBehaviour
         {
             if (e.sectorIndex == sectorIndex)
             {
-                e.Damage(dmg);
+                e.Damage(dmg, 0);
             }
         }
     }
@@ -208,7 +213,7 @@ public class Ally : MonoBehaviour
                 }
                 if (index == e.sectorIndex)
                 {
-                    e.Damage(15f);
+                    e.Damage(20f, 7);
                 }
             }
         }
@@ -223,13 +228,16 @@ public class Ally : MonoBehaviour
 
         foreach (Ally a in AC.allies)
         {
-            a.health += a.maxHealth * 0.25f;
-            if (a.health > a.maxHealth)
+            if (a.health > 0)
             {
-                a.health = a.maxHealth;
+                a.health += a.maxHealth * 0.25f;
+                if (a.health > a.maxHealth)
+                {
+                    a.health = a.maxHealth;
+                }
+                a.healthbar.SetValue(a.health);
+                a.anim.Play("Damage");
             }
-            a.healthbar.SetValue(a.health);
-            a.anim.Play("Damage");
         }
         AC.masterHealth += AC.maxMasterHealth * 0.25f;
         if (AC.masterHealth > AC.maxMasterHealth)
@@ -258,10 +266,12 @@ public class Ally : MonoBehaviour
 
                         isShielded = true;
                         anim.SetBool("isShielded", true);
+                        particles[1].Play();
                         spell1Cd = CM.roundCount + 2;
                         break;
                     case allyAttack.Spell2:
                         BasicAttack(30f, CM.audioClips[6]);
+                        particles[2].Play();
                         spell2Cd = CM.roundCount + 3;
                         break;
                 }
@@ -274,11 +284,15 @@ public class Ally : MonoBehaviour
                         break;
                     case allyAttack.Spell1:
                         FireBall();
+                        particles[1].Play();
+                        particles[2].Play();
                         spell1Cd = CM.roundCount + 2;
                         break;
                     case allyAttack.Spell2:
                         spell2Cd = CM.roundCount + 3;
                         Poison(10f);
+                        particles[3].Play();
+                        particles[4].Play();
                         break;
                 }
                 break;
@@ -291,10 +305,13 @@ public class Ally : MonoBehaviour
                     case allyAttack.Spell1:
                         Heal();
                         spell1Cd = CM.roundCount + 2;
+                        particles[1].Play();
                         break;
                     case allyAttack.Spell2:
                         Debuff();
                         spell2Cd = CM.roundCount + 3;
+                        particles[2].Play();
+                        particles[3].Play();
                         break;
                 }
                 break;

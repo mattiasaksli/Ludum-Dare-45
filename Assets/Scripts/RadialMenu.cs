@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -6,6 +7,7 @@ using UnityEngine.UI;
 public class RadialMenu : MonoBehaviour
 {
     public Sprite[] allySprites;
+    public string[] allyText;
     public Image[] buttons;
     public Ally[] allyPrefabs = new Ally[3];
     public Ally newAlly1;
@@ -55,7 +57,9 @@ public class RadialMenu : MonoBehaviour
         newAlly2 = allyPrefabs[r2];
 
         ChooseNewUnitButton1.GetComponentInChildren<Image>().sprite = allySprites[(int)newAlly1.unitType];
+        ChooseNewUnitButton1.GetComponentInChildren<TextMeshProUGUI>().SetText(allyText[(int)newAlly1.unitType]);
         ChooseNewUnitButton2.GetComponentInChildren<Image>().sprite = allySprites[(int)newAlly2.unitType];
+        ChooseNewUnitButton2.GetComponentInChildren<TextMeshProUGUI>().SetText(allyText[(int)newAlly2.unitType]);
 
         indexOfSelectedAlly = -1;
         newAllyPlaced = false;

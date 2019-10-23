@@ -88,8 +88,6 @@ public class AllyController : MonoBehaviour
             indexes.Add(a.sectorIndex);
         }
         yield return new WaitForSeconds(1.5f);
-        camAnim.SetInteger("sweep", 0);
-
         bool firstWait = true;
         for (int i = 0; i < 6; i++)
         {
@@ -100,31 +98,62 @@ public class AllyController : MonoBehaviour
                     if (firstWait)
                     {
                         camAnim.SetInteger("sweep", -1);
-                        yield return new WaitForSeconds(1f);
+                        //yield return new WaitForSeconds(1f);
                         firstWait = false;
                     }
                     foreach (Ally a in allies)
                     {
                         if (a.sectorIndex == i)
                         {
-                            a.Combat();
+                            if ((int)a.attackType != 1 && (int)a.attackType != 2)
+                            {
+                                foreach (Enemy e in EC.enemies)
+                                {
+                                    if (e.sectorIndex == i)
+                                    {
+                                        a.Combat();
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                a.Combat();
+                            }
                         }
                     }
                 }
                 else
                 {
-                    int lastPos = camAnim.GetInteger("sweep");
-                    camAnim.SetInteger("sweep", i);
+                    //int lastPos = camAnim.GetInteger("sweep");
                     foreach (Ally a in allies)
                     {
                         if (a.sectorIndex == i)
                         {
-                            yield return new WaitForSeconds(0.2f * i - lastPos);
-                            yield return new WaitForSeconds(0.5f);
-                            a.Combat();
+                            if ((int)a.attackType != 1 && (int)a.attackType != 2)
+                            {
+                                foreach (Enemy e in EC.enemies)
+                                {
+                                    if (e.sectorIndex == i)
+                                    {
+                                        camAnim.SetInteger("sweep", i);
+                                        //yield return new WaitForSeconds(0.2f * i - lastPos);
+                                        yield return new WaitForSeconds(0.7f);
+                                        a.Combat();
+                                        yield return new WaitForSeconds(2f);
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                camAnim.SetInteger("sweep", i);
+                                //yield return new WaitForSeconds(0.2f * i - lastPos);
+                                yield return new WaitForSeconds(0.7f);
+                                a.Combat();
+                                yield return new WaitForSeconds(2f);
+                            }
                         }
                     }
-                    yield return new WaitForSeconds(2f);
+                    //yield return new WaitForSeconds(2f);
                 }
             }
         }
@@ -176,6 +205,14 @@ public class AllyController : MonoBehaviour
                     areAllies = true;
                 }
             }
+
+            foreach (Enemy e in EC.enemies)
+            {
+                if (e.health > 0)
+                {
+                    areEnemies = true;
+                }
+            }
             if (masterHealth <= 0)
             {
                 elder.Play("Death");
@@ -187,6 +224,12 @@ public class AllyController : MonoBehaviour
             {
                 yield return new WaitForSeconds(1f);
                 CM.EndEncounter(false);
+                StopCoroutine("StartCombat");
+            }
+            else if (!areEnemies)
+            {
+                yield return new WaitForSeconds(1f);
+                CM.EndEncounter(true);
                 StopCoroutine("StartCombat");
             }
             else

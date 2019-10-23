@@ -14,9 +14,11 @@ public class Enemy : MonoBehaviour
     public int debuffActive;
     public Animator anim;
 
-    private bool isPoisoned;
-    private bool isDebuffed;
+    public bool isPoisoned;
+    public bool isDebuffed;
     public AudioSource audio;
+
+    public ParticleSystem[] particles;
 
     public enum enemyClass
     {
@@ -40,61 +42,64 @@ public class Enemy : MonoBehaviour
     }
     public void RoundStart()
     {
-
+        if (isPoisoned)
+        {
+            Damage(10f, 4);
+        }
     }
-    public void Damage(float hp)    //TODO: Pass in damage type for particle effects.
+    public void Damage(float hp, int animType)    //TODO: Pass in damage type for particle effects.
+    {
+        if (health > 0)
+        {
+            StartCoroutine(DoDamage(hp, animType));
+        }
+    }
+    IEnumerator DoDamage(float hp, int animType)
     {
         this.health -= hp;
-        if (isDebuffed)
-        {
-            this.health -= hp;
-        }
-        StartCoroutine(DoDamage());
-    }
-    IEnumerator DoDamage()
-    {
         yield return new WaitForSeconds(1f);
         if (health <= 0)
         {
+            particles[1].Play();
             Death();
         }
         else
         {
+            if (isDebuffed)
+            {
+                this.health -= hp;
+                particles[5].Stop();
+                particles[6].Play();
+                isDebuffed = false;
+            }
             audio.clip = CM.audioClips[17];
             audio.Play();
             anim.Play("Damage");
+            particles[animType].Play();
         }
         healthbar.SetValue(health);
     }
 
     public void Poisoned(float hp)
     {
-        Damage(hp);
+        Damage(hp, 2);
+        Damage(0, 3);
         isPoisoned = true;
     }
 
     public void Debuffed()
     {
+        particles[5].Play();
         isDebuffed = true;
-        debuffActive = CM.roundCount + 1;
     }
     public void Combat()
     {
         if (this.health <= 0)
         {
             Death();
+            particles[1].Play();
             return;
         }
-        if (isPoisoned)
-        {
-            Damage(10f);
-        }
-
-        if (isDebuffed && debuffActive == CM.roundCount)
-        {
-            isDebuffed = false;
-        }
-
 
         bool hasOpponent = false;
 
@@ -174,6 +179,8 @@ public class Enemy : MonoBehaviour
     {
         isDebuffed = false;
         isPoisoned = false;
+        particles[5].Stop();
+        particles[3].Stop();
         anim.Play("Death");
         audio.clip = CM.audioClips[18];
         audio.Play();
