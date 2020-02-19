@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: e9ac7ae63c28aa24d98666b9e315714b
+guid: 6e0f3c5db59a46b4cbb0604db95a18c1
 ModelImporter:
   serializedVersion: 26
   internalIDToNameTable:
@@ -27,9 +27,6 @@ ModelImporter:
   - first:
       74: 3114318165886756947
     second: Frog|ElderLookaroud
-  - first:
-      74: -623603649343465320
-    second: Scene
   externalObjects: {}
   materials:
     importMaterials: 1

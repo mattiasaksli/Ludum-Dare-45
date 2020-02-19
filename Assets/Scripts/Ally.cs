@@ -122,7 +122,7 @@ public class Ally : MonoBehaviour
         {
             if ((this.attackType == allyAttack.Spell1 && spell == 1) || (this.attackType == allyAttack.Spell2 && spell == 2))
             {
-                this.attackType = allyAttack.Basic;
+                this.attackType = allyAttack.Basic; //this does stuff
                 spell1.color = Color.black;
                 spell2.color = Color.black;
                 return;
